@@ -28,7 +28,7 @@
 
 import AppKit
 
-extension DSFToolbar {
+public extension DSFToolbar {
 
 	static let ShowColors: Core = { Core(.showColors) }()
 	static let FixedSpace: Core = { Core(.space) }()

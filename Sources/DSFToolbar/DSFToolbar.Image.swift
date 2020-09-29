@@ -28,11 +28,7 @@
 import AppKit
 
 public extension DSFToolbar {
-	class Image: Core, NSToolbarItemValidation {
-
-		public override func close() {
-			self._action = nil
-		}
+	class Image: Core {
 
 		lazy var imageToolbarItem: NSToolbarItem = {
 			return NSToolbarItem(itemIdentifier: self.identifier)
@@ -42,13 +38,38 @@ public extension DSFToolbar {
 			return self.imageToolbarItem
 		}
 
-		deinit {
-			Swift.print("DSFToolbar.Item deinit")
+		override public init(_ identifier: NSToolbarItem.Identifier) {
+			super.init(identifier)
 		}
 
-		//// ACTION
+		/// Called when the item is being closed
+		public override func close() {
+			self._action = nil
+			self._enabled = nil
+		}
+
+		deinit {
+			debugPrint("DSFToolbar.Item deinit")
+		}
+
+		// MARK: - Image
+
+		/// Set the image to display in the item
+		/// - Parameter image: the image
+		/// - Returns: self
+		@discardableResult
+		public func image(_ image: NSImage) -> Self {
+			self.toolbarItem?.image = image
+			return self
+		}
+
+		// MARK: - Action
 
 		private var _action: ((Image) -> Void)?
+
+		/// Supply a callback block to be called when the item is activated (eg. clicked by the user)
+		/// - Parameter action: The action block to call
+		/// - Returns: self
 		public func action(_ action: @escaping (Image) -> Void) -> Self {
 			self._action = action
 
@@ -58,78 +79,53 @@ public extension DSFToolbar {
 			return self
 		}
 
-		@objc func itemPressed(_: Any) {
+		@objc private func itemPressed(_: Any) {
 			self._action?(self)
 		}
 
-		/// IMAGE
-
-		public func image(_ image: NSImage) -> Self {
-			self.toolbarItem?.image = image
-			return self
-		}
-
-		//// ENABLED
+		// MARK: - Enabled state
 
 		private var _enabled: (() -> Bool)?
+
+		/// Supply a callback block to be called to determine the enabled state of the item
+		/// - Parameter block: The block to call
+		/// - Returns: self
+		@discardableResult
 		public func enabled(_ block: @escaping () -> Bool) -> Image {
 			_enabled = block
 			return self
 		}
 
+		/// Called when the enabled binding state changes
 		override func enabledDidChange(to state: Bool) {
-
+			// Called when the enabled binding state changes
 		}
+	}
+}
 
-		//// Selected
+// MARK: - Validation
 
-		var _bindingSelectedObject: AnyObject?
-		var _bindingSelectedKeyPath: String?
-		public func bindSelected(_ object: AnyObject, keyPath: String) -> Image {
-			_bindingSelectedObject = object
-			_bindingSelectedKeyPath = keyPath
-			object.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-			if let v = object.value(forKeyPath: keyPath) as? Bool {
-				self.toolbarItem?.isEnabled = v
+extension DSFToolbar.Image: NSToolbarItemValidation {
+	public func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+		let newState: Bool = {
+			// If there's no action, then the item is always disabled
+			if self._action == nil {
+				return false
 			}
 
-			return self
-		}
-
-
-		//////
-
-		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-			if _bindingLabelKeyPath == keyPath,
-			  let newVal = change?[.newKey] as? String {
-				_ = self.label(newVal)
+			// If there's a binding, just return the current state
+			if self._bindingEnabledObject != nil {
+				return item.isEnabled
 			}
-			else {
-				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+
+			if let block = self._enabled {
+				return block()
 			}
-		}
 
-		public func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-			let newState: Bool = {
-				// If there's no action, then the item is always disabled
-				if self._action == nil {
-					return false
-				}
-
-				// If there's a binding, just return the current state
-				if self._bindingEnabledObject != nil {
-					return item.isEnabled
-				}
-
-				if let block = self._enabled {
-					return block()
-				}
-
-				// If there's enabled block or enabled binding then just always make enabled
-				return true
-			}()
-			self.toolbarItem?.isEnabled = newState
-			return newState
-		}
+			// If there's enabled block or enabled binding then just always make enabled
+			return true
+		}()
+		self.toolbarItem?.isEnabled = newState
+		return newState
 	}
 }

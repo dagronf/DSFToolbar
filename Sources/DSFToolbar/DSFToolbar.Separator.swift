@@ -37,7 +37,7 @@ public extension DSFToolbar {
 
 		let separatorToolbarItem: NSToolbarItem? // NSTrackingSeparatorToolbarItem
 
-		init(identifier: NSToolbarItem.Identifier,
+		public init(_ identifier: NSToolbarItem.Identifier,
 			 splitView: NSSplitView,
 			 dividerIndex: Int) {
 

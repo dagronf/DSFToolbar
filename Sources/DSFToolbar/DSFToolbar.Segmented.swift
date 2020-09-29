@@ -29,34 +29,30 @@ import AppKit
 
 public extension DSFToolbar {
 	class Segmented: Core {
-
 		public class Segment: NSObject {
-
-
 			var index: Int = -1
-			weak var parent: Segmented? = nil
+			weak var parent: Segmented?
 
 			var _title: String = ""
-			func title(_ string: String) -> Segment {
+			public func title(_ string: String) -> Segment {
 				self._title = string
 				return self
 			}
 
 			private var _image: NSImage?
 			private var _imageScaling: NSImageScaling = .scaleProportionallyUpOrDown
-			func image(_ image: NSImage, scaling: NSImageScaling = .scaleProportionallyUpOrDown) -> Segment {
+			public func image(_ image: NSImage, scaling: NSImageScaling = .scaleProportionallyUpOrDown) -> Segment {
 				self._image = image
 				self._imageScaling = scaling
 				return self
 			}
 
-
 			//// Enabled
 
-			var _bindingEnabledObject: AnyObject? = nil
-			var _bindingEnabledKeyPath: String? = nil
+			var _bindingEnabledObject: AnyObject?
+			var _bindingEnabledKeyPath: String?
 
-			func bindEnabled(_ object: AnyObject, keyPath: String) -> Self {
+			public func bindEnabled(_ object: AnyObject, keyPath: String) -> Self {
 				_bindingEnabledObject = object
 				_bindingEnabledKeyPath = keyPath
 				return self
@@ -88,7 +84,8 @@ public extension DSFToolbar {
 				segmented.setImageScaling(self._imageScaling, forSegment: index)
 
 				if let o = self._bindingEnabledObject,
-				   let k = self._bindingEnabledKeyPath {
+				   let k = self._bindingEnabledKeyPath
+				{
 					o.addObserver(self, forKeyPath: k, options: [.new], context: nil)
 
 					/// Set an initial value
@@ -99,22 +96,24 @@ public extension DSFToolbar {
 			}
 
 			func close() {
+				self.parent = nil
 				if let o = self._bindingEnabledObject,
-				   let k = self._bindingEnabledKeyPath {
+				   let k = self._bindingEnabledKeyPath
+				{
 					o.removeObserver(self, forKeyPath: k)
 				}
 			}
 
 			override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 				if _bindingEnabledKeyPath == keyPath,
-				  let newVal = change?[.newKey] as? Bool {
+				   let newVal = change?[.newKey] as? Bool
+				{
 					parent?.segmented?.setEnabled(newVal, forSegment: self.index)
 				}
 				else {
 					super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 				}
 			}
-
 		}
 
 		public enum SegmentedType {
@@ -129,24 +128,27 @@ public extension DSFToolbar {
 			return self.segmentedItem
 		}
 
-		let segments: [Segment]
+		var segments: [Segment]
 
-		init(_ identifier: NSToolbarItem.Identifier,
-			 type: SegmentedType,
-			 switching: NSSegmentedControl.SwitchTracking = .selectAny,
-			 _ segments: Segment...) {
-
+		public init(_ identifier: NSToolbarItem.Identifier,
+					type: SegmentedType,
+					switching: NSSegmentedControl.SwitchTracking = .selectAny,
+					segmentWidths: CGFloat? = nil,
+					_ segments: Segment...)
+		{
 			self.segments = segments.map { $0 }
 
 			super.init(identifier)
 
 			let s = NSSegmentedControl(frame: .zero)
 			s.translatesAutoresizingMaskIntoConstraints = false
+			s.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 			s.trackingMode = switching
 
 			if #available(OSX 10.13, *) {
 				s.segmentDistribution = .fillEqually
-			} else {
+			}
+			else {
 				// Fallback on earlier versions
 			}
 
@@ -162,6 +164,9 @@ public extension DSFToolbar {
 
 			// Initialize each segment
 			segments.enumerated().forEach { seg in
+				if let w = segmentWidths {
+					s.setWidth(w, forSegment: seg.offset)
+				}
 				seg.element.onCreate(parent: self, index: seg.offset)
 			}
 
@@ -173,7 +178,7 @@ public extension DSFToolbar {
 		////// Item action callbacks
 
 		var _action: ((Set<Int>) -> Void)?
-		func action(_ block: @escaping (Set<Int>) -> Void) -> Segmented {
+		public func action(_ block: @escaping (Set<Int>) -> Void) -> Segmented {
 			self._action = block
 			self.segmented?.target = self
 			self.segmented?.action = #selector(itemPressed(_:))
@@ -190,7 +195,8 @@ public extension DSFToolbar {
 			}
 
 			if let o = _bindingSelectionObject,
-			   let k = _bindingSelectionKeyPath {
+			   let k = _bindingSelectionKeyPath
+			{
 				o.setValue(NSSet(array: selected), forKey: k)
 			}
 
@@ -211,9 +217,10 @@ public extension DSFToolbar {
 			return self
 		}
 
-		func setSelection(selectedItems: NSSet) {
+		public func setSelection(selectedItems: NSSet) {
 			guard let s = self.segmented,
-				  let sels = selectedItems as? Set<Int> else {
+				  let sels = selectedItems as? Set<Int> else
+			{
 				fatalError()
 			}
 
@@ -226,7 +233,8 @@ public extension DSFToolbar {
 
 		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 			if _bindingSelectionKeyPath == keyPath,
-			  let newVal = change?[.newKey] as? NSSet {
+			   let newVal = change?[.newKey] as? NSSet
+			{
 				self.setSelection(selectedItems: newVal)
 			}
 			else {
@@ -234,26 +242,27 @@ public extension DSFToolbar {
 			}
 		}
 
-
-
 		///// Cleanup
 
 		override public func close() {
 			self._action = nil
 
+			self.segmentedItem?.view = nil
+			self.segmentedItem = nil
+
 			self.segments.forEach { $0.close() }
+			self.segments = []
 
 			if let o = _bindingSelectionObject,
-			   let k = _bindingSelectionKeyPath{
+			   let k = _bindingSelectionKeyPath
+			{
 				o.removeObserver(self, forKeyPath: k)
 				_bindingSelectionObject = nil
 			}
 
 			self.segmented?.target = nil
+			self.segmented?.action = nil
 			self.segmented = nil
-
-			self.segmentedItem?.view = nil
-			self.segmentedItem = nil
 
 			super.close()
 		}

@@ -32,6 +32,9 @@ public extension DSFToolbar {
 		private var button: NSButton?
 		private var buttonToolbarItem: NSToolbarItem?
 
+		var minWidth: NSLayoutConstraint?
+		var maxWidth: NSLayoutConstraint?
+
 		override var toolbarItem: NSToolbarItem? {
 			return self.buttonToolbarItem
 		}
@@ -57,13 +60,15 @@ public extension DSFToolbar {
 			}
 			else {
 				self.button?.imagePosition = self._imagePosition
+				self.button?.imageScaling = self._imageScaling
 			}
 
 			self.button?.image = self._image
 			self.button?.title = self._title
+			self.button?.bezelStyle = self._bezelStyle
 		}
 
-		init(_ identifier: NSToolbarItem.Identifier,
+		public init(_ identifier: NSToolbarItem.Identifier,
 			 buttonType: NSButton.ButtonType = .momentaryLight) {
 			super.init(identifier)
 
@@ -73,7 +78,7 @@ public extension DSFToolbar {
 			self.buttonToolbarItem = a
 		}
 
-		init(_ identifier: NSToolbarItem.Identifier, button: NSButton) {
+		public init(_ identifier: NSToolbarItem.Identifier, button: NSButton) {
 			super.init(identifier)
 
 			self.button = button
@@ -82,6 +87,7 @@ public extension DSFToolbar {
 			self.buttonToolbarItem = a
 		}
 
+		/// Cleanup
 		override public func close() {
 			self._action = nil
 
@@ -98,12 +104,28 @@ public extension DSFToolbar {
 			Swift.print("DSFToolbar.Button deinit")
 		}
 
+		// MARK: - Button type
+
+
+		/// Set the type of button (on/off, toggle, momentary etc)
+		/// - Parameter type: the type of button
+		/// - Returns: self
 		public func buttonType(_ type: NSButton.ButtonType) -> Button {
 			self.button?.setButtonType(type)
 			return self
 		}
 
+		// MARK: - Title
+
 		private var _title: String = ""
+
+		/// Set the title for the embedded button
+		/// - Parameter title: the title
+		/// - Returns: self
+		///
+		/// The title is different to the item label.  The title is attached to the embedded NSButton
+		/// and not the toolbar item itself
+		@discardableResult
 		public func title(_ title: String) -> Self {
 			self._title = title
 			if self.label.count == 0 {
@@ -113,23 +135,106 @@ public extension DSFToolbar {
 			return self
 		}
 
+		// MARK: - Image
+
 		private var _image: NSImage? = nil
+
+		/// The image to display on the button
+		/// - Parameter image: the image
+		/// - Returns: self
+		@discardableResult
 		public func image(_ image: NSImage) -> Self {
 			self._image = image
 			self.updateDisplay()
 			return self
 		}
 
+		// MARK: - Image position
+
 		private var _imagePosition: NSControl.ImagePosition = .imageLeft
+
+		/// The position of the image on the embedded button (defaults to left)
+		/// - Parameter position: The position for the image
+		/// - Returns: self
+		@discardableResult
 		public func imagePosition(_ position: NSControl.ImagePosition) -> Self {
 			self._imagePosition = position
 			self.updateDisplay()
 			return self
 		}
 
-		//// ACTION
+		private var _imageScaling: NSImageScaling = .scaleNone
+
+		/// The image scaling for the embedded button (defaults to left)
+		/// - Parameter scaling: The type of scaling to use for the image on the embedded button
+		/// - Returns: self
+		@discardableResult
+		public func imageScaling(_ scaling: NSImageScaling) -> Self {
+			self._imageScaling = scaling
+			self.updateDisplay()
+			return self
+		}
+
+		private var _bezelStyle: NSButton.BezelStyle = .texturedRounded
+		
+		/// The position of the image on the embedded button (defaults to left)
+		/// - Parameter position: The position for the image
+		/// - Returns: self
+		@discardableResult
+		public func bezelStyle(_ bezelStyle: NSButton.BezelStyle) -> Self {
+			self._bezelStyle = bezelStyle
+			self.updateDisplay()
+			return self
+		}
+
+
+		/// Set the minimum width for the button.
+		/// - Parameter width: The width to set
+		/// - Returns: self
+		@discardableResult
+		public func width(minVal: CGFloat? = nil, maxVal: CGFloat? = nil) -> Self {
+			guard let b = self.button else { fatalError() }
+
+			if let minVal = minVal, minVal > 0 {
+				if self.minWidth == nil {
+					self.minWidth = NSLayoutConstraint(
+						item: b, attribute: .width,
+						relatedBy: .greaterThanOrEqual,
+						toItem: nil, attribute: .notAnAttribute,
+						multiplier: 1, constant: 0)
+					b.addConstraint(self.minWidth!)
+				}
+				if let w = self.minWidth {
+					w.constant = minVal
+				}
+			}
+
+			if let maxVal = maxVal, maxVal > 0 {
+				if self.maxWidth == nil {
+					self.maxWidth = NSLayoutConstraint(
+						item: b, attribute: .width,
+						relatedBy: .lessThanOrEqual,
+						toItem: nil, attribute: .notAnAttribute,
+						multiplier: 1, constant: 0)
+					b.addConstraint(self.maxWidth!)
+				}
+				if let w = self.maxWidth {
+					w.constant = maxVal
+				}
+			}
+
+			b.needsUpdateConstraints = true
+			return self
+		}
+
+		// MARK: - Action handling
 
 		private var _action: ((NSButton) -> Void)?
+
+		/// Provide a block to be called when the button is activated
+		/// - Parameter action: the action block to be called
+		/// - Returns: self
+		@discardableResult
 		public func action(_ action: @escaping (NSButton) -> Void) -> Self {
 			self._action = action
 			self.button?.target = self
@@ -137,6 +242,11 @@ public extension DSFToolbar {
 			return self
 		}
 
+		/// Provide a target selector to be called when the button is activated
+		/// - Parameters:
+		///   - target: The target for the call
+		///   - selector: The selector to call on the target
+		/// - Returns: self
 		public func action(_ target: AnyObject, selector: Selector) -> Self {
 			self._action = nil
 			self.button?.target = target

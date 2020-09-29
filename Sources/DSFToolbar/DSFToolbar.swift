@@ -27,12 +27,11 @@
 
 import AppKit
 
-internal var DSFToolbarBuilderAssociatedObjectHandle: UInt8 = 0
-
-public class DSFToolbar: NSObject, NSToolbarDelegate {
+public class DSFToolbar: NSObject {
 	private let identifier: NSToolbar.Identifier
 
-	lazy var toolbar: NSToolbar = {
+	/// The created NSToolbar.
+	internal lazy var toolbar: NSToolbar = {
 		let tb: NSToolbar
 		tb = NSToolbar(identifier: self.identifier)
 		tb.delegate = self
@@ -40,7 +39,7 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 	}()
 
 	deinit {
-		Swift.print("Got here!")
+		debugPrint("DSFToolbar: deinit")
 	}
 
 	// The items to be added to the touchbar
@@ -54,8 +53,14 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 		super.init()
 	}
 
-	public static func Get(_ toolbar: NSToolbar) -> DSFToolbar? {
-		return objc_getAssociatedObject(toolbar, &DSFToolbarBuilderAssociatedObjectHandle) as? DSFToolbar
+	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
+	public var attachedWindow: NSWindow? {
+		didSet {
+			if let attachedWindow = self.attachedWindow {
+				// Hook in our toolbar
+				attachedWindow.toolbar = self.toolbar
+			}
+		}
 	}
 
 	public static func Build(
@@ -72,12 +77,13 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 		}
 
 		items.forEach {
+			// Check for duplicates
+			if tb.items.map({ $0.identifier }).contains($0.identifier) {
+				fatalError("Duplicate toolbar identifier \($0.identifier.rawValue)")
+			}
+
 			tb.items.append($0)
 		}
-
-		// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
-		// so that we don't have to manually destroy it
-		objc_setAssociatedObject(tb.toolbar, &DSFToolbarBuilderAssociatedObjectHandle, tb, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
 		if let selChange = selectionDidChange {
 			_ = tb.selectionChanged(selChange)
@@ -86,8 +92,18 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 		return tb.toolbar
 	}
 
+	/// Close the toolbar
+	///
+	/// You must call `close()` on a DSFToolbar object when you are finished to release any internal stores and/or
+	/// binding observers.
 	public func close() {
-		objc_setAssociatedObject(self.toolbar, &DSFToolbarBuilderAssociatedObjectHandle, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+		// Make sure to detach ourselves if we aren't already
+		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
+		if self.toolbar === self.attachedWindow?.toolbar {
+			self.attachedWindow?.toolbar = nil
+		}
+		self.attachedWindow = nil
 
 		if self._selectionChanged != nil {
 			self.toolbar.removeObserver(self, forKeyPath: "selectedItemIdentifier")
@@ -100,7 +116,13 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 		self.items = []
 	}
 
-	var _selectionChanged: ((NSToolbarItem.Identifier?) -> Void)?
+	// MARK: - Selection change block
+
+	private var _selectionChanged: ((NSToolbarItem.Identifier?) -> Void)?
+
+	/// Supply a callback block to be called when the selection state of the toolbar changes
+	/// - Parameter action: The block to call
+	/// - Returns: self
 	public func selectionChanged(_ action: @escaping (NSToolbarItem.Identifier?) -> Void) -> DSFToolbar {
 		self._selectionChanged = action
 
@@ -112,19 +134,11 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 
 		return self
 	}
+}
 
-	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if keyPath == "selectedItemIdentifier" {
-			let oldVal = change?[.oldKey] as? NSToolbarItem.Identifier
-			let newVal = change?[.newKey] as? NSToolbarItem.Identifier
-			if oldVal != newVal {
-				self._selectionChanged?(newVal)
-			}
-		}
-		else {
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-		}
-	}
+// MARK: - Toolbar delegate
+
+extension DSFToolbar: NSToolbarDelegate {
 
 	public func toolbarDefaultItemIdentifiers(_: NSToolbar) -> [NSToolbarItem.Identifier] {
 		return items.filter({ $0.isDefaultItem })
@@ -150,5 +164,22 @@ public class DSFToolbar: NSObject, NSToolbarDelegate {
 			return i.toolbarItem
 		}
 		return nil
+	}
+}
+
+// MARK: - Binding observation
+
+extension DSFToolbar {
+	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == "selectedItemIdentifier" {
+			let oldVal = change?[.oldKey] as? NSToolbarItem.Identifier
+			let newVal = change?[.newKey] as? NSToolbarItem.Identifier
+			if oldVal != newVal {
+				self._selectionChanged?(newVal)
+			}
+		}
+		else {
+			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+		}
 	}
 }

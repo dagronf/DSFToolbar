@@ -28,30 +28,30 @@
 import AppKit
 
 @_functionBuilder
-struct DSFToolbarBuilder {
+public struct DSFToolbarBuilder {
 	static func buildBlock() -> [DSFToolbar.Core] { [] }
 }
 
-extension DSFToolbarBuilder {
+public extension DSFToolbarBuilder {
 	static func buildBlock(_ settings: DSFToolbar.Core...) -> [DSFToolbar.Core] {
 		settings
 	}
 }
 
-extension DSFToolbar.Group {
+public extension DSFToolbar.Group {
 	convenience init(_ identifier: NSToolbarItem.Identifier,
 					 @DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) {
-		self.init(identifier: identifier, children: builder())
+		self.init(identifier, children: builder())
 	}
 }
 
-extension DSFToolbar {
+public extension DSFToolbar {
 
 	static func Make(
 		toolbarIdentifier: NSToolbar.Identifier,
 		allowsUserCustomization: Bool = false,
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
-		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) -> NSToolbar {
+		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) -> DSFToolbar {
 
 		let tb = DSFToolbar(toolbarIdentifier: toolbarIdentifier)
 
@@ -66,13 +66,13 @@ extension DSFToolbar {
 
 		// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
 		// so that we don't have to manually destroy it
-		objc_setAssociatedObject(tb.toolbar, &DSFToolbarBuilderAssociatedObjectHandle, tb, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+		//objc_setAssociatedObject(tb.toolbar, &DSFToolbarBuilderAssociatedObjectHandle, tb, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
 		if let selChange = selectionDidChange {
 			_ = tb.selectionChanged(selChange)
 		}
 
-		return tb.toolbar
+		return tb //.toolbar
 	}
 
 }

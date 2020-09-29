@@ -30,6 +30,13 @@ import AppKit
 public extension DSFToolbar {
 	class Group: Core {
 
+		public enum SelectionMode: Int {
+			public typealias RawValue = Int
+			case selectOne = 0	// NSToolbarItemGroup.SelectionMode.selectOne
+			case selectAny = 1	// NSToolbarItemGroup.SelectionMode.selectAny
+			case momentary = 2	// NSToolbarItemGroup.SelectionMode.momentary
+		}
+
 		private var items: [DSFToolbar.Core] = []
 
 		override var toolbarItem: NSToolbarItem? {
@@ -40,18 +47,36 @@ public extension DSFToolbar {
 			return AppKit.NSToolbarItemGroup(itemIdentifier: self.identifier)
 		}()
 
-		public init(identifier: NSToolbarItem.Identifier, _ items: DSFToolbar.Core...) {
+		public init(_ identifier: NSToolbarItem.Identifier,
+					selectionMode: SelectionMode = .momentary,
+					_ items: DSFToolbar.Core...) {
 			super.init(identifier)
 			self.items = items.map { $0 }
 			let its = items.compactMap { $0.toolbarItem }
 			self.groupToolbarItem.subitems = its
+			self.mapGroupMode(selectionMode: selectionMode)
 		}
 
-		public init(identifier: NSToolbarItem.Identifier, children: [DSFToolbar.Core]) {
+		public init(_ identifier: NSToolbarItem.Identifier,
+					selectionMode: SelectionMode = .momentary,
+					children: [DSFToolbar.Core]) {
 			super.init(identifier)
 			self.items = children
 			let its = items.compactMap { $0.toolbarItem }
 			self.groupToolbarItem.subitems = its
+			self.mapGroupMode(selectionMode: selectionMode)
+		}
+
+		private func mapGroupMode(selectionMode: SelectionMode) {
+			if #available(OSX 10.15, *) {
+				let mode: NSToolbarItemGroup.SelectionMode
+				switch selectionMode {
+				case .selectOne: mode = .selectOne
+				case .selectAny: mode = .selectAny
+				case .momentary: mode = .momentary
+				}
+				self.groupToolbarItem.selectionMode = mode
+			}
 		}
 	}
 }

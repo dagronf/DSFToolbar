@@ -3,13 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF022522A1420098AB2D /* AppDelegate.swift */; };
 		2337AF052522A1430098AB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF042522A1430098AB2D /* Assets.xcassets */; };
 		2337AF082522A1430098AB2D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF062522A1430098AB2D /* MainMenu.xib */; };
+		2337AF452522A50A0098AB2D /* PrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF432522A50A0098AB2D /* PrimaryViewController.swift */; };
+		2337AF462522A50A0098AB2D /* PrimaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF442522A50A0098AB2D /* PrimaryViewController.xib */; };
+		2337AF4B2522A8350098AB2D /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF4A2522A8350098AB2D /* ProjectAssets.swift */; };
+		236A7C532523C95E00255B96 /* CoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C512523C95E00255B96 /* CoreViewController.swift */; };
+		236A7C542523C95E00255B96 /* CoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C522523C95E00255B96 /* CoreViewController.xib */; };
+		236A7C592523F2FE00255B96 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C572523F2FE00255B96 /* ButtonViewController.swift */; };
+		236A7C5A2523F2FE00255B96 /* ButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C582523F2FE00255B96 /* ButtonViewController.xib */; };
+		236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C5C25240A9A00255B96 /* SearchViewController.swift */; };
+		236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C5D25240A9A00255B96 /* SearchViewController.xib */; };
+		236A7C622524107000255B96 /* DSFDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C612524107000255B96 /* DSFDebounce.swift */; };
+		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
+		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
+		23CA2F762522C62200BF4FA2 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23CA2F752522C62200BF4FA2 /* DSFToolbar */; };
+		23CA2F7F2522CBC200BF4FA2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */; };
+		23CA2F822522CC2C00BF4FA2 /* PropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F812522CC2C00BF4FA2 /* PropertiesViewController.swift */; };
+		23CA2F8E2522CD5B00BF4FA2 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */; };
+		23CA2F8F2522CD5B00BF4FA2 /* ImagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */; };
+		23CA2F922522CD8F00BF4FA2 /* DemoContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F912522CD8F00BF4FA2 /* DemoContentContainer.swift */; };
+		23CA2F962522D07600BF4FA2 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */; };
+		23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +39,26 @@
 		2337AF072522A1430098AB2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2337AF092522A1430098AB2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2337AF0A2522A1430098AB2D /* DSFToolbar_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DSFToolbar_Demo.entitlements; sourceTree = "<group>"; };
+		2337AF432522A50A0098AB2D /* PrimaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryViewController.swift; sourceTree = "<group>"; };
+		2337AF442522A50A0098AB2D /* PrimaryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrimaryViewController.xib; sourceTree = "<group>"; };
+		2337AF4A2522A8350098AB2D /* ProjectAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssets.swift; sourceTree = "<group>"; };
+		236A7C512523C95E00255B96 /* CoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewController.swift; sourceTree = "<group>"; };
+		236A7C522523C95E00255B96 /* CoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoreViewController.xib; sourceTree = "<group>"; };
+		236A7C572523F2FE00255B96 /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
+		236A7C582523F2FE00255B96 /* ButtonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonViewController.xib; sourceTree = "<group>"; };
+		236A7C5C25240A9A00255B96 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		236A7C5D25240A9A00255B96 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		236A7C612524107000255B96 /* DSFDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFDebounce.swift; sourceTree = "<group>"; };
+		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
+		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
+		23CA2F722522C5E000BF4FA2 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../../..; sourceTree = "<group>"; };
+		23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		23CA2F812522CC2C00BF4FA2 /* PropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesViewController.swift; sourceTree = "<group>"; };
+		23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
+		23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagesViewController.xib; sourceTree = "<group>"; };
+		23CA2F912522CD8F00BF4FA2 /* DemoContentContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoContentContainer.swift; sourceTree = "<group>"; };
+		23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
+		23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23CA2F762522C62200BF4FA2 /* DSFToolbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +78,7 @@
 			children = (
 				2337AF012522A1420098AB2D /* DSFToolbar Demo */,
 				2337AF002522A1420098AB2D /* Products */,
+				2337AF1F2522A3AE0098AB2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,13 +93,48 @@
 		2337AF012522A1420098AB2D /* DSFToolbar Demo */ = {
 			isa = PBXGroup;
 			children = (
+				23CA2F722522C5E000BF4FA2 /* DSFToolbar */,
+				2337AF4A2522A8350098AB2D /* ProjectAssets.swift */,
 				2337AF022522A1420098AB2D /* AppDelegate.swift */,
+				23CA2F912522CD8F00BF4FA2 /* DemoContentContainer.swift */,
 				2337AF042522A1430098AB2D /* Assets.xcassets */,
 				2337AF062522A1430098AB2D /* MainMenu.xib */,
 				2337AF092522A1430098AB2D /* Info.plist */,
 				2337AF0A2522A1430098AB2D /* DSFToolbar_Demo.entitlements */,
+				2337AF432522A50A0098AB2D /* PrimaryViewController.swift */,
+				2337AF442522A50A0098AB2D /* PrimaryViewController.xib */,
+				23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */,
+				23CA2F812522CC2C00BF4FA2 /* PropertiesViewController.swift */,
+				23CA2F842522CCD100BF4FA2 /* panes */,
+				236A7C612524107000255B96 /* DSFDebounce.swift */,
 			);
 			path = "DSFToolbar Demo";
+			sourceTree = "<group>";
+		};
+		2337AF1F2522A3AE0098AB2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23CA2F842522CCD100BF4FA2 /* panes */ = {
+			isa = PBXGroup;
+			children = (
+				23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */,
+				23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */,
+				23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */,
+				23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */,
+				236A7C512523C95E00255B96 /* CoreViewController.swift */,
+				236A7C522523C95E00255B96 /* CoreViewController.xib */,
+				236A7C572523F2FE00255B96 /* ButtonViewController.swift */,
+				236A7C582523F2FE00255B96 /* ButtonViewController.xib */,
+				236A7C5C25240A9A00255B96 /* SearchViewController.swift */,
+				236A7C5D25240A9A00255B96 /* SearchViewController.xib */,
+				23BD74D925241BD0008BF743 /* SeparatorViewController.swift */,
+				23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */,
+			);
+			path = panes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,6 +144,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2337AF0D2522A1430098AB2D /* Build configuration list for PBXNativeTarget "DSFToolbar Demo" */;
 			buildPhases = (
+				2337AF482522A80D0098AB2D /* Run Squeaker */,
 				2337AEFB2522A1420098AB2D /* Sources */,
 				2337AEFC2522A1420098AB2D /* Frameworks */,
 				2337AEFD2522A1420098AB2D /* Resources */,
@@ -74,8 +152,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				23CA2F792522C63D00BF4FA2 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Demo";
+			packageProductDependencies = (
+				23CA2F752522C62200BF4FA2 /* DSFToolbar */,
+			);
 			productName = "DSFToolbar Demo";
 			productReference = 2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -117,23 +199,70 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2337AF462522A50A0098AB2D /* PrimaryViewController.xib in Resources */,
+				236A7C5A2523F2FE00255B96 /* ButtonViewController.xib in Resources */,
 				2337AF052522A1430098AB2D /* Assets.xcassets in Resources */,
+				23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */,
+				23CA2F8F2522CD5B00BF4FA2 /* ImagesViewController.xib in Resources */,
 				2337AF082522A1430098AB2D /* MainMenu.xib in Resources */,
+				236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */,
+				23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */,
+				236A7C542523C95E00255B96 /* CoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2337AF482522A80D0098AB2D /* Run Squeaker */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Squeaker";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/bin/swift /Users/dford/Projects/Projects/Squeaker/Squeaker/main.swift \"mac\" \"${PROJECT_DIR}\" \"${PROJECT_DIR}/DSFToolbar Demo/ProjectAssets.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2337AEFB2522A1420098AB2D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23CA2F8E2522CD5B00BF4FA2 /* ImagesViewController.swift in Sources */,
+				236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */,
+				23CA2F922522CD8F00BF4FA2 /* DemoContentContainer.swift in Sources */,
+				2337AF4B2522A8350098AB2D /* ProjectAssets.swift in Sources */,
+				23CA2F962522D07600BF4FA2 /* SegmentedViewController.swift in Sources */,
 				2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */,
+				236A7C622524107000255B96 /* DSFDebounce.swift in Sources */,
+				23CA2F7F2522CBC200BF4FA2 /* ListViewController.swift in Sources */,
+				2337AF452522A50A0098AB2D /* PrimaryViewController.swift in Sources */,
+				23CA2F822522CC2C00BF4FA2 /* PropertiesViewController.swift in Sources */,
+				236A7C592523F2FE00255B96 /* ButtonViewController.swift in Sources */,
+				236A7C532523C95E00255B96 /* CoreViewController.swift in Sources */,
+				23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		23CA2F792522C63D00BF4FA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 23CA2F782522C63D00BF4FA2 /* DSFToolbar */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2337AF062522A1430098AB2D /* MainMenu.xib */ = {
@@ -277,6 +406,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -298,6 +428,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -326,6 +457,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23CA2F752522C62200BF4FA2 /* DSFToolbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFToolbar;
+		};
+		23CA2F782522C63D00BF4FA2 /* DSFToolbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFToolbar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2337AEF72522A1420098AB2D /* Project object */;
 }
