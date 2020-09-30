@@ -20,6 +20,18 @@ class SegmentedViewController: NSViewController {
 		self.build()
 	}
 
+	@objc dynamic var segmentEnabled: Bool = false
+
+	@objc dynamic var segmentsEnabled: NSSet = NSSet(array: [2]) {
+		didSet {
+			debugPrint("segmentsEnabled bound variable change: \(self.segmentsEnabled)")
+		}
+	}
+
+	@IBAction func setAll(_ sender: Any) {
+		self.segmentsEnabled = NSSet(array: [0, 1, 2])
+	}
+
 	func build() {
 
 		self.toolbarContainer = DSFToolbar.Make(
@@ -32,7 +44,8 @@ class SegmentedViewController: NSViewController {
 				switching: .selectAny,
 				segmentWidths: 32,
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+					.bindEnabled(to: self, withKeyPath: "segmentEnabled"),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
@@ -49,13 +62,15 @@ class SegmentedViewController: NSViewController {
 				switching: .selectAny,
 				segmentWidths: 32,
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+					.bindEnabled(to: self, withKeyPath: "segmentEnabled"),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Styles Grouped")
+			.bindSelection(self, keyPath: "segmentsEnabled")
 			.action { (selection) in
 				Swift.print("Styles Grouped: New Selection -> \(selection)")
 			}

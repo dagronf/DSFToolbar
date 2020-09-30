@@ -43,13 +43,13 @@ class ImagesViewController: NSViewController {
 				.tooltip("My cat likes watermelon")
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 				.isSelectable(true)
-				.bindEnabled(self, keyPath: "toolbar_watermelon_enabled")
+				.bindEnabled(to: self, withKeyPath: "toolbar_watermelon_enabled")
 				.action { _ in
 					Swift.print("Got watermelon!")
 				}
 
 			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger"))
-				.bindLabel(self, keyPath: "toolbar_burger_label")
+				.bindLabel(to: self, withKeyPath: "toolbar_burger_label")
 				.tooltip("I really really want a burger")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isSelectable(true)
@@ -89,12 +89,12 @@ class ImagesViewController: NSViewController {
 			)
 			.label("Grouped Foods")
 			.isSelectable(true)
-			.bindEnabled(self, keyPath: "toolbar_group_enabled")
+			.bindEnabled(to: self, withKeyPath: "toolbar_group_enabled")
 
 			/// A bordered button (10.15+ only)
 
 			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
-				.bindLabel(self, keyPath: "toolbar_burger_label")
+				.bindLabel(to: self, withKeyPath: "toolbar_burger_label")
 				.tooltip("My burger is in a box!")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isSelectable(true)

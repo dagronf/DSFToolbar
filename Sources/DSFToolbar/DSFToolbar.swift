@@ -105,11 +105,13 @@ public class DSFToolbar: NSObject {
 		}
 		self.attachedWindow = nil
 
+		// If we'd been observing selection changes, make sure we remove the observer
 		if self._selectionChanged != nil {
 			self.toolbar.removeObserver(self, forKeyPath: "selectedItemIdentifier")
 			self._selectionChanged = nil
 		}
 
+		// Close each item
 		self.items.forEach { item in
 			item.close()
 		}

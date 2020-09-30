@@ -45,15 +45,8 @@ public extension DSFToolbar {
 		}
 
 		public func close() {
-			if let o = self._bindingLabelObject, let k = self._bindingLabelKeyPath {
-				o.removeObserver(self, forKeyPath: k)
-			}
-			self._bindingLabelObject = nil
-
-			if let o = self._bindingEnabledObject, let k = self._bindingEnabledKeyPath {
-				o.removeObserver(self, forKeyPath: k)
-			}
-			self._bindingEnabledObject = nil
+			self._label.unbind()
+			self._enabled.unbind()
 		}
 
 		// Is the item selectable?
@@ -142,8 +135,7 @@ public extension DSFToolbar {
 
 		// MARK: - Label binding
 
-		private var _bindingLabelObject: AnyObject?
-		private var _bindingLabelKeyPath: String?
+		let _label = BindableAttribute<String>()
 
 		/// Bind the label of the item to a key path (String)
 		/// - Parameters:
@@ -155,20 +147,17 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindLabel(_ object: AnyObject, keyPath: String) -> Self {
-			_bindingLabelObject = object
-			_bindingLabelKeyPath = keyPath
-			object.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-			if let v = object.value(forKeyPath: keyPath) as? String {
-				_ = self.label(v)
+		public func bindLabel(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+			self._label.setup(observable: object, keyPath: keyPath)
+			self._label.bind { [weak self] newText in
+				self?.label(newText)
 			}
 			return self
 		}
 
 		// MARK: - Enable Binding
 
-		var _bindingEnabledObject: AnyObject?
-		var _bindingEnabledKeyPath: String?
+		let _enabled = BindableAttribute<Bool>()
 
 		/// Bind the enabled status of the item to a key path (Bool)
 		/// - Parameters:
@@ -180,13 +169,11 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindEnabled(_ object: AnyObject, keyPath: String) -> Self {
-			_bindingEnabledObject = object
-			_bindingEnabledKeyPath = keyPath
-			object.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-			if let v = object.value(forKeyPath: keyPath) as? Bool {
-				self.toolbarItem?.isEnabled = v
-				self.enabledDidChange(to: v)
+		public func bindEnabled(to observable: NSObject, withKeyPath keyPath: String) -> Self {
+			self._enabled.setup(observable: observable, keyPath: keyPath)
+			self._enabled.bind { [weak self] newEnabledState in
+				self?.toolbarItem?.isEnabled = newEnabledState
+				self?.enabledDidChange(to: newEnabledState)
 			}
 			return self
 		}
@@ -195,25 +182,6 @@ public extension DSFToolbar {
 		/// logic when your toolbar item changes its enabled state
 		internal func enabledDidChange(to state: Bool) {
 			// Do nothing
-		}
-	}
-}
-
-// MARK: - Binding observation
-
-extension DSFToolbar.Core {
-	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if _bindingLabelKeyPath == keyPath,
-		   let newVal = change?[.newKey] as? String {
-			_ = self.label(newVal)
-		}
-		else if _bindingEnabledKeyPath == keyPath,
-		  let newVal = change?[.newKey] as? Bool {
-			self.toolbarItem?.isEnabled = newVal
-			self.enabledDidChange(to: newVal)
-		}
-		else {
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 		}
 	}
 }

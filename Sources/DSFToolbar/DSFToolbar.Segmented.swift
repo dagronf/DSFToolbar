@@ -39,6 +39,8 @@ public extension DSFToolbar {
 				return self
 			}
 
+			// MARK: - Segment image and positioning
+
 			private var _image: NSImage?
 			private var _imageScaling: NSImageScaling = .scaleProportionallyUpOrDown
 			public func image(_ image: NSImage, scaling: NSImageScaling = .scaleProportionallyUpOrDown) -> Segment {
@@ -47,14 +49,12 @@ public extension DSFToolbar {
 				return self
 			}
 
-			//// Enabled
+			// MARK: - Segment enabled binding
 
-			var _bindingEnabledObject: AnyObject?
-			var _bindingEnabledKeyPath: String?
+			let _segmentEnabled = BindableAttribute<Bool>()
 
-			public func bindEnabled(_ object: AnyObject, keyPath: String) -> Self {
-				_bindingEnabledObject = object
-				_bindingEnabledKeyPath = keyPath
+			public func bindEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+				self._segmentEnabled.setup(observable: object, keyPath: keyPath)
 				return self
 			}
 
@@ -83,36 +83,16 @@ public extension DSFToolbar {
 				segmented.setImage(self._image, forSegment: index)
 				segmented.setImageScaling(self._imageScaling, forSegment: index)
 
-				if let o = self._bindingEnabledObject,
-				   let k = self._bindingEnabledKeyPath
-				{
-					o.addObserver(self, forKeyPath: k, options: [.new], context: nil)
-
-					/// Set an initial value
-					if let v = o.value(forKeyPath: k) as? Bool {
-						segmented.setEnabled(v, forSegment: index)
-					}
+				// Segment enable
+				self._segmentEnabled.bind { [weak self] newState in
+					// When the segment enable changes, make sure our parent segmentedcontrol knows
+					self?.parent?.segmented?.setEnabled(newState, forSegment: index)
 				}
 			}
 
 			func close() {
 				self.parent = nil
-				if let o = self._bindingEnabledObject,
-				   let k = self._bindingEnabledKeyPath
-				{
-					o.removeObserver(self, forKeyPath: k)
-				}
-			}
-
-			override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-				if _bindingEnabledKeyPath == keyPath,
-				   let newVal = change?[.newKey] as? Bool
-				{
-					parent?.segmented?.setEnabled(newVal, forSegment: self.index)
-				}
-				else {
-					super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-				}
+				self._segmentEnabled.unbind()
 			}
 		}
 
@@ -194,33 +174,30 @@ public extension DSFToolbar {
 				return nil
 			}
 
-			if let o = _bindingSelectionObject,
-			   let k = _bindingSelectionKeyPath
-			{
-				o.setValue(NSSet(array: selected), forKey: k)
-			}
+			// Update the value in the binding if one has been set
+			self._selectionBinding.updateValue(NSSet(array: selected))
 
+			// If the action callback block has been set, call it
 			self._action?(Set(selected))
 		}
 
 		///// Selection bindings
 
-		var _bindingSelectionObject: AnyObject?
-		var _bindingSelectionKeyPath: String?
+		// MARK: - Selection bindings
+
+		let _selectionBinding = BindableAttribute<NSSet>()
+
 		public func bindSelection(_ object: AnyObject, keyPath: String) -> Self {
-			_bindingSelectionObject = object
-			_bindingSelectionKeyPath = keyPath
-			object.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-			if let v = object.value(forKeyPath: keyPath) as? NSSet {
-				self.setSelection(selectedItems: v)
+			_selectionBinding.setup(observable: object, keyPath: keyPath)
+			_selectionBinding.bind { [weak self] newValue in
+				self?.setSelection(selectedItems: newValue)
 			}
 			return self
 		}
 
 		public func setSelection(selectedItems: NSSet) {
 			guard let s = self.segmented,
-				  let sels = selectedItems as? Set<Int> else
-			{
+				  let sels = selectedItems as? Set<Int> else {
 				fatalError()
 			}
 
@@ -229,36 +206,17 @@ public extension DSFToolbar {
 			}
 		}
 
-		///// OBSERVER
-
-		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-			if _bindingSelectionKeyPath == keyPath,
-			   let newVal = change?[.newKey] as? NSSet
-			{
-				self.setSelection(selectedItems: newVal)
-			}
-			else {
-				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-			}
-		}
-
 		///// Cleanup
 
 		override public func close() {
 			self._action = nil
+			self._selectionBinding.unbind()
 
 			self.segmentedItem?.view = nil
 			self.segmentedItem = nil
 
 			self.segments.forEach { $0.close() }
 			self.segments = []
-
-			if let o = _bindingSelectionObject,
-			   let k = _bindingSelectionKeyPath
-			{
-				o.removeObserver(self, forKeyPath: k)
-				_bindingSelectionObject = nil
-			}
 
 			self.segmented?.target = nil
 			self.segmented?.action = nil

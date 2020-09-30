@@ -45,7 +45,7 @@ public extension DSFToolbar {
 		/// Called when the item is being closed
 		public override func close() {
 			self._action = nil
-			self._enabled = nil
+			self._isEnabled = nil
 		}
 
 		deinit {
@@ -85,14 +85,14 @@ public extension DSFToolbar {
 
 		// MARK: - Enabled state
 
-		private var _enabled: (() -> Bool)?
+		private var _isEnabled: (() -> Bool)?
 
 		/// Supply a callback block to be called to determine the enabled state of the item
 		/// - Parameter block: The block to call
 		/// - Returns: self
 		@discardableResult
 		public func enabled(_ block: @escaping () -> Bool) -> Image {
-			_enabled = block
+			_isEnabled = block
 			return self
 		}
 
@@ -114,11 +114,11 @@ extension DSFToolbar.Image: NSToolbarItemValidation {
 			}
 
 			// If there's a binding, just return the current state
-			if self._bindingEnabledObject != nil {
+			if self._enabled.hasBinding {
 				return item.isEnabled
 			}
 
-			if let block = self._enabled {
+			if let block = self._isEnabled {
 				return block()
 			}
 

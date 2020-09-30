@@ -41,7 +41,7 @@ class SearchViewController: NSViewController {
 				.bezelStyle(.regularSquare)
 				.image(ProjectAssets.ImageSet.toolbar_search_enable.image)
 				.imageScaling(.scaleProportionallyDown)
-				.bindLabel(self, keyPath: "searchButtonLabel")
+				.bindLabel(to: self, withKeyPath: "searchButtonLabel")
 				.action { [weak self] sender in
 					if sender.state == .on {
 						self?.searchButtonLabel = "Disable Search"
@@ -67,7 +67,7 @@ class SearchViewController: NSViewController {
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search for stuff")
-				.bindEnabled(self, keyPath: "searchEnabled")
+				.bindEnabled(to: self, withKeyPath: "searchEnabled")
 				.bindText(self, keyPath: "searchText")
 				.searchChange { [weak self] _, text in
 					self?.searchDebounce.debounce {

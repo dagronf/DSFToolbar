@@ -31,7 +31,6 @@ extension DSFToolbar {
 	public class Search: Core {
 		let maxWidth: CGFloat
 		weak var _delegate: NSSearchFieldDelegate?
-
 		var _searchField: NSSearchField?
 
 		override var toolbarItem: NSToolbarItem? {
@@ -40,10 +39,7 @@ extension DSFToolbar {
 
 		public override func close() {
 
-			if let o = self._bindingSearchTextObject, let k = self._bindingSearchTextKeyPath {
-				o.removeObserver(self, forKeyPath: k)
-			}
-			self._bindingSearchTextObject = nil
+			self._searchTextBinding.unbind()
 
 			self._searchField = nil
 			self._delegate = nil
@@ -106,6 +102,8 @@ extension DSFToolbar {
 			return self
 		}
 
+		// MARK: - Search Action
+
 		private var _searchChange: ((NSSearchField, String) -> Void)?
 
 		/// Provide a block to be called when the text in the search field changes
@@ -119,9 +117,9 @@ extension DSFToolbar {
 			return self
 		}
 
+		// MARK: - Search text binding
 
-		private var _bindingSearchTextObject: AnyObject?
-		private var _bindingSearchTextKeyPath: String?
+		private let _searchTextBinding = BindableAttribute<String>()
 
 		/// Bind the label of the item to a key path (String)
 		/// - Parameters:
@@ -134,11 +132,9 @@ extension DSFToolbar {
 		/// take effect
 		@discardableResult
 		public func bindText(_ object: AnyObject, keyPath: String) -> Self {
-			_bindingSearchTextObject = object
-			_bindingSearchTextKeyPath = keyPath
-			object.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-			if let v = object.value(forKeyPath: keyPath) as? String {
-				self._searchField?.stringValue = v
+			self._searchTextBinding.setup(observable: object, keyPath: keyPath)
+			self._searchTextBinding.bind { [weak self] (newText) in
+				self?._searchField?.stringValue = newText
 			}
 			return self
 		}
@@ -149,28 +145,13 @@ extension DSFToolbar {
 	}
 }
 
-extension DSFToolbar.Search {
-	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if _bindingSearchTextKeyPath == keyPath,
-		   let newVal = change?[.newKey] as? String {
-			self._searchField?.stringValue = newVal
-		}
-		else {
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-		}
-	}
-}
-
 extension DSFToolbar.Search: NSSearchFieldDelegate {
 	public func controlTextDidChange(_ obj: Notification) {
 		if let s = obj.object as? NSSearchField {
 			let text = s.stringValue
 			self._searchChange?(s, text)
 
-			if let o = self._bindingSearchTextObject,
-			   let k = self._bindingSearchTextKeyPath {
-				o.setValue(text, forKeyPath: k)
-			}
+			self._searchTextBinding.updateValue(text)
 		}
 	}
 }

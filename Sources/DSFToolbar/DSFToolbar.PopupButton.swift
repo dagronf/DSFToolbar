@@ -43,10 +43,6 @@ public extension DSFToolbar {
 			self._popupButton = nil
 			self._popupMenu = nil
 			self._popupButtonItem = nil
-			if let o = self._bindingEnabledObject, let k = self._bindingEnabledKeyPath {
-				o.removeObserver(self, forKeyPath: k)
-			}
-			self._bindingEnabledObject = nil
 		}
 
 		deinit {
