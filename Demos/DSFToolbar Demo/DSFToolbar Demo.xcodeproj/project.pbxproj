@@ -20,6 +20,10 @@
 		236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C5C25240A9A00255B96 /* SearchViewController.swift */; };
 		236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C5D25240A9A00255B96 /* SearchViewController.xib */; };
 		236A7C622524107000255B96 /* DSFDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C612524107000255B96 /* DSFDebounce.swift */; };
+		237CD2BC25244B4500456FB4 /* PopupMenuViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */; };
+		237CD2BD25244B4500456FB4 /* PopupMenuViewcontroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */; };
+		237CD2C125244E6900456FB4 /* PopoverContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2BF25244E6900456FB4 /* PopoverContentController.swift */; };
+		237CD2C225244E6900456FB4 /* PopoverContentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2C025244E6900456FB4 /* PopoverContentController.xib */; };
 		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
 		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
 		23CA2F762522C62200BF4FA2 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23CA2F752522C62200BF4FA2 /* DSFToolbar */; };
@@ -49,6 +53,10 @@
 		236A7C5C25240A9A00255B96 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		236A7C5D25240A9A00255B96 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		236A7C612524107000255B96 /* DSFDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFDebounce.swift; sourceTree = "<group>"; };
+		237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuViewcontroller.swift; sourceTree = "<group>"; };
+		237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupMenuViewcontroller.xib; sourceTree = "<group>"; };
+		237CD2BF25244E6900456FB4 /* PopoverContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentController.swift; sourceTree = "<group>"; };
+		237CD2C025244E6900456FB4 /* PopoverContentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverContentController.xib; sourceTree = "<group>"; };
 		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
 		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
 		23CA2F722522C5E000BF4FA2 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../../..; sourceTree = "<group>"; };
@@ -133,6 +141,10 @@
 				236A7C5D25240A9A00255B96 /* SearchViewController.xib */,
 				23BD74D925241BD0008BF743 /* SeparatorViewController.swift */,
 				23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */,
+				237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */,
+				237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */,
+				237CD2BF25244E6900456FB4 /* PopoverContentController.swift */,
+				237CD2C025244E6900456FB4 /* PopoverContentController.xib */,
 			);
 			path = panes;
 			sourceTree = "<group>";
@@ -199,10 +211,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				237CD2BD25244B4500456FB4 /* PopupMenuViewcontroller.xib in Resources */,
 				2337AF462522A50A0098AB2D /* PrimaryViewController.xib in Resources */,
 				236A7C5A2523F2FE00255B96 /* ButtonViewController.xib in Resources */,
 				2337AF052522A1430098AB2D /* Assets.xcassets in Resources */,
 				23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */,
+				237CD2C225244E6900456FB4 /* PopoverContentController.xib in Resources */,
 				23CA2F8F2522CD5B00BF4FA2 /* ImagesViewController.xib in Resources */,
 				2337AF082522A1430098AB2D /* MainMenu.xib in Resources */,
 				236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */,
@@ -239,12 +253,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				237CD2C125244E6900456FB4 /* PopoverContentController.swift in Sources */,
 				23CA2F8E2522CD5B00BF4FA2 /* ImagesViewController.swift in Sources */,
 				236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */,
 				23CA2F922522CD8F00BF4FA2 /* DemoContentContainer.swift in Sources */,
 				2337AF4B2522A8350098AB2D /* ProjectAssets.swift in Sources */,
 				23CA2F962522D07600BF4FA2 /* SegmentedViewController.swift in Sources */,
 				2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */,
+				237CD2BC25244B4500456FB4 /* PopupMenuViewcontroller.swift in Sources */,
 				236A7C622524107000255B96 /* DSFDebounce.swift in Sources */,
 				23CA2F7F2522CBC200BF4FA2 /* ListViewController.swift in Sources */,
 				2337AF452522A50A0098AB2D /* PrimaryViewController.swift in Sources */,

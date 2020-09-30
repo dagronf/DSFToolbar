@@ -45,7 +45,7 @@ public extension DSFToolbar {
 			return b
 		}
 
-		init(_ identifier: NSToolbarItem.Identifier,
+		public init(_ identifier: NSToolbarItem.Identifier,
 			 popoverContentController: NSViewController) {
 			self._controller = popoverContentController
 			super.init(identifier)

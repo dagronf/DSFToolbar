@@ -14,6 +14,7 @@ class ProjectAssets {
 		case toolbar_underline = "toolbar-underline"
 		case toolbar_justify_left = "toolbar-justify-left"
 		case toolbar_button_direction = "toolbar-button-direction"
+		case toolbar_cog = "toolbar-cog"
 		case addImage = "addImage"
 		case toolbar_button_target = "toolbar-button-target"
 		case toolbar_button_click = "toolbar-button-click"

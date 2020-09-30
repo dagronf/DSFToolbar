@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PopupMenuViewcontroller" customModule="DSFToolbar_Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="popupMenu" destination="379-UW-zIv" id="KY2-Jy-I2j"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zuz-el-pqm">
+                    <rect key="frame" x="18" y="236" width="164" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Popup menu is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a3N-Ne-lsv">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.popupMenuEnabled" id="2mR-kI-PeO"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PW9-Rr-Ncl">
+                    <rect key="frame" x="18" y="216" width="170" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Popover View is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gb3-CY-yOS">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.popoverViewEnabled" id="73N-NT-Yok"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="-193" y="164"/>
+        </customView>
+        <menu id="379-UW-zIv">
+            <items>
+                <menuItem title="New Document…" id="Jpr-cH-wDL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="NewDocument:" target="-2" id="Xrt-81-3DB"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Open Document…" id="6XW-Hv-1AN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="OpenDocument:" target="-2" id="Met-4D-wAp"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="1ci-US-aRM"/>
+                <menuItem title="Close Document" id="me3-6s-KiJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="CloseDocument:" target="-2" id="oG4-dL-6j5"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-134" y="485"/>
+        </menu>
+        <userDefaultsController representsSharedInstance="YES" id="dn9-Su-I7u"/>
+    </objects>
+</document>

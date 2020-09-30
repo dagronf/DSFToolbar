@@ -108,7 +108,7 @@ public extension DSFToolbar {
 			self._popupButton?.isEnabled = state
 		}
 
-		init(_ identifier: NSToolbarItem.Identifier,
+		public init(_ identifier: NSToolbarItem.Identifier,
 			 menu: NSMenu) {
 
 			_popupMenu = menu.copy() as? NSMenu

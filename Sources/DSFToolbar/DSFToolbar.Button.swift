@@ -279,20 +279,23 @@ extension DSFToolbar.Button {
 	}
 
 	private func updateDisplay() {
+
+		guard let button = self.button else { fatalError() }
+
 		// If there's an image and no title, set the state to imageOnly
 		if self._title.count == 0 && self._image != nil {
-			self.button?.imagePosition = .imageOnly
+			button.imagePosition = .imageOnly
 		}
 		else if self._title.count > 0 && self._image == nil {
-			self.button?.imagePosition = .noImage
+			button.imagePosition = .noImage
 		}
 		else {
-			self.button?.imagePosition = self._imagePosition
-			self.button?.imageScaling = self._imageScaling
+			button.imagePosition = self._imagePosition
+			button.imageScaling = self._imageScaling
 		}
 
-		self.button?.image = self._image
-		self.button?.title = self._title
-		self.button?.bezelStyle = self._bezelStyle
+		button.image = self._image
+		button.title = self._title
+		button.bezelStyle = self._bezelStyle
 	}
 }
