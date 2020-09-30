@@ -46,6 +46,7 @@ public extension DSFToolbar {
 		public override func close() {
 			self._action = nil
 			self._isEnabled = nil
+			super.close()
 		}
 
 		deinit {

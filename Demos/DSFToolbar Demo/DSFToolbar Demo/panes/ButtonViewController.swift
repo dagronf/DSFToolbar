@@ -19,6 +19,8 @@ class ButtonViewController: NSViewController {
 		self.build()
     }
 
+	@objc dynamic var topTitle: String = "Top"
+
 	func build() {
 		self.toolbarContainer = DSFToolbar.Make(
 			toolbarIdentifier: NSToolbar.Identifier("primary-buttons"),
@@ -55,9 +57,9 @@ class ButtonViewController: NSViewController {
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-2")) {
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-4"), buttonType: .pushOnPushOff)
-					.title("Top")
+					.bindTitle(to: self, withKeyPath: "topTitle")
 					.bezelStyle(.regularSquare)
-					.width(minVal: 50)
+					.width(minVal: 50, maxVal: 100)
 					.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 					.imagePosition(.imageAbove)
 					.imageScaling(.scaleProportionallyDown)

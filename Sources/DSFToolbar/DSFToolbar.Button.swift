@@ -35,37 +35,28 @@ public extension DSFToolbar {
 		var minWidth: NSLayoutConstraint?
 		var maxWidth: NSLayoutConstraint?
 
+		// Bindings and actions
+
+		// Button press action
+		private var _action: ((NSButton) -> Void)?
+
+		// Embedded button styles
+
+		// Button title
+		private var _title: String = ""
+		private let _titleBinding = BindableAttribute<String>()
+
+		// Button image
+		private var _image: NSImage? = nil
+		// Button bezel style
+		private var _bezelStyle: NSButton.BezelStyle = .texturedRounded
+		// Button image scaling
+		private var _imageScaling: NSImageScaling = .scaleNone
+		// Button image position
+		private var _imagePosition: NSControl.ImagePosition = .imageLeft
+
 		override var toolbarItem: NSToolbarItem? {
 			return self.buttonToolbarItem
-		}
-
-		private func buildButton(type: NSButton.ButtonType) -> NSButton {
-			let b = NSButton(frame: .zero)
-			b.translatesAutoresizingMaskIntoConstraints = false
-			b.bezelStyle = .texturedRounded
-			b.title = self._title
-			b.image = self._image
-			b.imagePosition = self._imagePosition
-			b.setButtonType(type)
-			return b
-		}
-
-		private func updateDisplay() {
-			// If there's an image and no title, set the state to imageOnly
-			if self._title.count == 0 && self._image != nil {
-				self.button?.imagePosition = .imageOnly
-			}
-			else if self._title.count > 0 && self._image == nil {
-				self.button?.imagePosition = .noImage
-			}
-			else {
-				self.button?.imagePosition = self._imagePosition
-				self.button?.imageScaling = self._imageScaling
-			}
-
-			self.button?.image = self._image
-			self.button?.title = self._title
-			self.button?.bezelStyle = self._bezelStyle
 		}
 
 		public init(_ identifier: NSToolbarItem.Identifier,
@@ -78,6 +69,11 @@ public extension DSFToolbar {
 			self.buttonToolbarItem = a
 		}
 
+
+		/// Create a toolbar button item using a pre-existing button item
+		/// - Parameters:
+		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
+		///   - button: The button to add to the toolbar item
 		public init(_ identifier: NSToolbarItem.Identifier, button: NSButton) {
 			super.init(identifier)
 
@@ -89,6 +85,9 @@ public extension DSFToolbar {
 
 		/// Cleanup
 		override public func close() {
+
+			self._titleBinding.unbind()
+
 			self._action = nil
 
 			self.button?.target = nil
@@ -106,7 +105,6 @@ public extension DSFToolbar {
 
 		// MARK: - Button type
 
-
 		/// Set the type of button (on/off, toggle, momentary etc)
 		/// - Parameter type: the type of button
 		/// - Returns: self
@@ -116,8 +114,6 @@ public extension DSFToolbar {
 		}
 
 		// MARK: - Title
-
-		private var _title: String = ""
 
 		/// Set the title for the embedded button
 		/// - Parameter title: the title
@@ -135,9 +131,25 @@ public extension DSFToolbar {
 			return self
 		}
 
-		// MARK: - Image
+		/// Bind the button title to a key path (String)
+		/// - Parameters:
+		///   - object: The object to bind to
+		///   - keyPath: The keypath identifying the member to bind to
+		/// - Returns: self
+		///
+		/// Binding the title to a keypath allows the ability to change the button title dynamically when
+		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
+		/// take effect
+		@discardableResult
+		public func bindTitle(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+			self._titleBinding.setup(observable: object, keyPath: keyPath)
+			self._titleBinding.bind { [weak self] newText in
+				self?.title(newText)
+			}
+			return self
+		}
 
-		private var _image: NSImage? = nil
+		// MARK: - Image
 
 		/// The image to display on the button
 		/// - Parameter image: the image
@@ -151,8 +163,6 @@ public extension DSFToolbar {
 
 		// MARK: - Image position
 
-		private var _imagePosition: NSControl.ImagePosition = .imageLeft
-
 		/// The position of the image on the embedded button (defaults to left)
 		/// - Parameter position: The position for the image
 		/// - Returns: self
@@ -163,8 +173,6 @@ public extension DSFToolbar {
 			return self
 		}
 
-		private var _imageScaling: NSImageScaling = .scaleNone
-
 		/// The image scaling for the embedded button (defaults to left)
 		/// - Parameter scaling: The type of scaling to use for the image on the embedded button
 		/// - Returns: self
@@ -174,8 +182,6 @@ public extension DSFToolbar {
 			self.updateDisplay()
 			return self
 		}
-
-		private var _bezelStyle: NSButton.BezelStyle = .texturedRounded
 		
 		/// The position of the image on the embedded button (defaults to left)
 		/// - Parameter position: The position for the image
@@ -229,8 +235,6 @@ public extension DSFToolbar {
 
 		// MARK: - Action handling
 
-		private var _action: ((NSButton) -> Void)?
-
 		/// Provide a block to be called when the button is activated
 		/// - Parameter action: the action block to be called
 		/// - Returns: self
@@ -259,5 +263,36 @@ public extension DSFToolbar {
 				self._action?(b)
 			}
 		}
+	}
+}
+
+extension DSFToolbar.Button {
+	private func buildButton(type: NSButton.ButtonType) -> NSButton {
+		let b = NSButton(frame: .zero)
+		b.translatesAutoresizingMaskIntoConstraints = false
+		b.bezelStyle = .texturedRounded
+		b.title = self._title
+		b.image = self._image
+		b.imagePosition = self._imagePosition
+		b.setButtonType(type)
+		return b
+	}
+
+	private func updateDisplay() {
+		// If there's an image and no title, set the state to imageOnly
+		if self._title.count == 0 && self._image != nil {
+			self.button?.imagePosition = .imageOnly
+		}
+		else if self._title.count > 0 && self._image == nil {
+			self.button?.imagePosition = .noImage
+		}
+		else {
+			self.button?.imagePosition = self._imagePosition
+			self.button?.imageScaling = self._imageScaling
+		}
+
+		self.button?.image = self._image
+		self.button?.title = self._title
+		self.button?.bezelStyle = self._bezelStyle
 	}
 }

@@ -67,6 +67,15 @@ public extension DSFToolbar {
 			self.mapGroupMode(selectionMode: selectionMode)
 		}
 
+		public override func close() {
+			self.items.forEach { $0.close() }
+			super.close()
+		}
+
+		deinit {
+			debugPrint("DSFToolbar.Group deinit")
+		}
+
 		private func mapGroupMode(selectionMode: SelectionMode) {
 			if #available(OSX 10.15, *) {
 				let mode: NSToolbarItemGroup.SelectionMode

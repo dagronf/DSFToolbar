@@ -63,6 +63,13 @@ public class DSFToolbar: NSObject {
 		}
 	}
 
+	/// Build a new toolbar
+	/// - Parameters:
+	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
+	///   - allowsUserCustomization: is the user allowed to customize the toolbar
+	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
+	///   - items: The toolbar items
+	/// - Returns: The created toolbar
 	public static func Build(
 		toolbarIdentifier: NSToolbar.Identifier,
 		allowsUserCustomization: Bool = false,

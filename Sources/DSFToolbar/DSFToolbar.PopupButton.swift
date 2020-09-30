@@ -43,6 +43,8 @@ public extension DSFToolbar {
 			self._popupButton = nil
 			self._popupMenu = nil
 			self._popupButtonItem = nil
+
+			super.close()
 		}
 
 		deinit {

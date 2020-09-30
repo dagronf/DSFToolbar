@@ -39,20 +39,27 @@ public extension DSFToolbarBuilder {
 }
 
 public extension DSFToolbar.Group {
-	convenience init(_ identifier: NSToolbarItem.Identifier,
-					 @DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) {
+	convenience init(
+		_ identifier: NSToolbarItem.Identifier,
+		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) {
 		self.init(identifier, children: builder())
 	}
 }
 
 public extension DSFToolbar {
-
+	/// Make a new toolbar using SwiftUI declarative style
+	/// - Parameters:
+	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
+	///   - allowsUserCustomization: is the user allowed to customize the toolbar
+	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
+	///   - items: The toolbar items
+	/// - Returns: The created toolbar
 	static func Make(
 		toolbarIdentifier: NSToolbar.Identifier,
 		allowsUserCustomization: Bool = false,
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
-		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) -> DSFToolbar {
-
+		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
+	) -> DSFToolbar {
 		let tb = DSFToolbar(toolbarIdentifier: toolbarIdentifier)
 
 		let children = builder()
@@ -64,17 +71,10 @@ public extension DSFToolbar {
 
 		tb.addItems(children)
 
-		// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
-		// so that we don't have to manually destroy it
-		//objc_setAssociatedObject(tb.toolbar, &DSFToolbarBuilderAssociatedObjectHandle, tb, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
 		if let selChange = selectionDidChange {
 			_ = tb.selectionChanged(selChange)
 		}
 
-		return tb //.toolbar
+		return tb // .toolbar
 	}
-
 }
-
-
