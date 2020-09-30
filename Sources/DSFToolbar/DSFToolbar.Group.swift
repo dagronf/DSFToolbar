@@ -37,7 +37,7 @@ public extension DSFToolbar {
 			case momentary = 2	// NSToolbarItemGroup.SelectionMode.momentary
 		}
 
-		private var items: [DSFToolbar.Core] = []
+		internal var items: [DSFToolbar.Core] = []
 
 		override var toolbarItem: NSToolbarItem? {
 			return self.groupToolbarItem

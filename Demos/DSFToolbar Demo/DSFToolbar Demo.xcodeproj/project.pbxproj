@@ -24,6 +24,10 @@
 		237CD2BD25244B4500456FB4 /* PopupMenuViewcontroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */; };
 		237CD2C125244E6900456FB4 /* PopoverContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2BF25244E6900456FB4 /* PopoverContentController.swift */; };
 		237CD2C225244E6900456FB4 /* PopoverContentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2C025244E6900456FB4 /* PopoverContentController.xib */; };
+		237CD2C92524662B00456FB4 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2C72524662B00456FB4 /* CustomViewController.swift */; };
+		237CD2CA2524662B00456FB4 /* CustomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2C82524662B00456FB4 /* CustomViewController.xib */; };
+		237CD2CF2524669500456FB4 /* CustomToolbarItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2CD2524669500456FB4 /* CustomToolbarItemViewController.swift */; };
+		237CD2D02524669500456FB4 /* CustomToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */; };
 		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
 		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
 		23CA2F762522C62200BF4FA2 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23CA2F752522C62200BF4FA2 /* DSFToolbar */; };
@@ -57,6 +61,10 @@
 		237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupMenuViewcontroller.xib; sourceTree = "<group>"; };
 		237CD2BF25244E6900456FB4 /* PopoverContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentController.swift; sourceTree = "<group>"; };
 		237CD2C025244E6900456FB4 /* PopoverContentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverContentController.xib; sourceTree = "<group>"; };
+		237CD2C72524662B00456FB4 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		237CD2C82524662B00456FB4 /* CustomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewController.xib; sourceTree = "<group>"; };
+		237CD2CD2524669500456FB4 /* CustomToolbarItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbarItemViewController.swift; sourceTree = "<group>"; };
+		237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomToolbarItemViewController.xib; sourceTree = "<group>"; };
 		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
 		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
 		23CA2F722522C5E000BF4FA2 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../../..; sourceTree = "<group>"; };
@@ -126,9 +134,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		237CD2C4252465D700456FB4 /* popover-popup */ = {
+			isa = PBXGroup;
+			children = (
+				237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */,
+				237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */,
+				237CD2BF25244E6900456FB4 /* PopoverContentController.swift */,
+				237CD2C025244E6900456FB4 /* PopoverContentController.xib */,
+			);
+			path = "popover-popup";
+			sourceTree = "<group>";
+		};
+		237CD2C62524660A00456FB4 /* custom-view */ = {
+			isa = PBXGroup;
+			children = (
+				237CD2C72524662B00456FB4 /* CustomViewController.swift */,
+				237CD2C82524662B00456FB4 /* CustomViewController.xib */,
+				237CD2CD2524669500456FB4 /* CustomToolbarItemViewController.swift */,
+				237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */,
+			);
+			path = "custom-view";
+			sourceTree = "<group>";
+		};
 		23CA2F842522CCD100BF4FA2 /* panes */ = {
 			isa = PBXGroup;
 			children = (
+				237CD2C62524660A00456FB4 /* custom-view */,
+				237CD2C4252465D700456FB4 /* popover-popup */,
 				23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */,
 				23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */,
 				23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */,
@@ -141,10 +173,6 @@
 				236A7C5D25240A9A00255B96 /* SearchViewController.xib */,
 				23BD74D925241BD0008BF743 /* SeparatorViewController.swift */,
 				23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */,
-				237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */,
-				237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */,
-				237CD2BF25244E6900456FB4 /* PopoverContentController.swift */,
-				237CD2C025244E6900456FB4 /* PopoverContentController.xib */,
 			);
 			path = panes;
 			sourceTree = "<group>";
@@ -215,9 +243,11 @@
 				2337AF462522A50A0098AB2D /* PrimaryViewController.xib in Resources */,
 				236A7C5A2523F2FE00255B96 /* ButtonViewController.xib in Resources */,
 				2337AF052522A1430098AB2D /* Assets.xcassets in Resources */,
+				237CD2D02524669500456FB4 /* CustomToolbarItemViewController.xib in Resources */,
 				23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */,
 				237CD2C225244E6900456FB4 /* PopoverContentController.xib in Resources */,
 				23CA2F8F2522CD5B00BF4FA2 /* ImagesViewController.xib in Resources */,
+				237CD2CA2524662B00456FB4 /* CustomViewController.xib in Resources */,
 				2337AF082522A1430098AB2D /* MainMenu.xib in Resources */,
 				236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */,
 				23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */,
@@ -268,6 +298,8 @@
 				236A7C592523F2FE00255B96 /* ButtonViewController.swift in Sources */,
 				236A7C532523C95E00255B96 /* CoreViewController.swift in Sources */,
 				23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */,
+				237CD2CF2524669500456FB4 /* CustomToolbarItemViewController.swift in Sources */,
+				237CD2C92524662B00456FB4 /* CustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

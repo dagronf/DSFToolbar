@@ -9,25 +9,31 @@ import Cocoa
 import DSFToolbar
 
 class PopupMenuViewcontroller: NSViewController {
-
 	@IBOutlet var popupMenu: NSMenu!
-
+	
 	var popovercontent = PopoverContentController()
-
+	
 	var toolbarContainer: DSFToolbar?
-
+	
 	override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-
+		super.viewDidLoad()
+		// Do view setup here.
+		
 		self.build()
-    }
-
+	}
+	
 	@objc dynamic var popupMenuEnabled = true
 	@objc dynamic var popoverViewEnabled = true
-
+	
 	func build() {
-
+		self.popovercontent.colorChange = { color in
+			if let pv: DSFToolbar.PopoverButton = self.toolbarContainer?.item(identifier: NSToolbarItem.Identifier("Popover View")) {
+				let b = pv.button
+				b?.wantsLayer = true
+				b?.layer?.backgroundColor = color?.cgColor
+			}
+		}
+		
 		self.toolbarContainer = DSFToolbar.Make(
 			toolbarIdentifier: NSToolbar.Identifier("primary-popup"),
 			allowsUserCustomization: true
@@ -37,27 +43,28 @@ class PopupMenuViewcontroller: NSViewController {
 				.image(ProjectAssets.ImageSet.toolbar_cog.template)
 				.bindEnabled(to: self, withKeyPath: "popupMenuEnabled")
 				.isSelectable(true)
-
+			
 			DSFToolbar.FixedSpace
-
+			
 			DSFToolbar.PopoverButton(NSToolbarItem.Identifier("Popover View"),
 									 popoverContentController: self.popovercontent)
 				.label("Popover View")
+				.image(ProjectAssets.ImageSet.toolbar_cog.template)
 				.bindEnabled(to: self, withKeyPath: "popoverViewEnabled")
-
 		}
 	}
-
 }
 
 extension PopupMenuViewcontroller {
-	@IBAction func NewDocument(_ sender: Any) {
+	@IBAction func NewDocument(_: Any) {
 		Swift.print("New Document")
 	}
-	@IBAction func OpenDocument(_ sender: Any) {
+	
+	@IBAction func OpenDocument(_: Any) {
 		Swift.print("Open Document")
 	}
-	@IBAction func CloseDocument(_ sender: Any) {
+	
+	@IBAction func CloseDocument(_: Any) {
 		Swift.print("Close Document")
 	}
 }
@@ -75,15 +82,15 @@ extension PopupMenuViewcontroller: DemoContentViewController {
 	static func Create() -> NSViewController {
 		return PopupMenuViewcontroller()
 	}
-
+	
 	static func Title() -> String {
 		return "Popup/Popover"
 	}
-
+	
 	var customToolbar: DSFToolbar? {
 		return self.toolbarContainer
 	}
-
+	
 	func cleanup() {
 		self.toolbarContainer?.close()
 		self.toolbarContainer = nil

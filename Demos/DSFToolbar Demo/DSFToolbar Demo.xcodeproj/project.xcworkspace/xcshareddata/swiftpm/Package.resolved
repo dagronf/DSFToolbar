@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CIFilterFactory",
+        "repositoryURL": "https://github.com/dagronf/CIFilterFactory",
+        "state": {
+          "branch": null,
+          "revision": "a87a9bcd1c4011cbeec889ab5a83ce2f18128d75",
+          "version": "10.15.7"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="CustomToolbarItemViewController" customModule="DSFToolbar_Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="channelLeft" destination="0gx-dh-vIY" id="r3C-2E-dN5"/>
+                <outlet property="channelRight" destination="7ZD-ke-4vX" id="db0-tA-rdY"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="158" height="48"/>
+            <subviews>
+                <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="800" verticalHuggingPriority="800" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gvx-PA-88V">
+                    <rect key="frame" x="4" y="4" width="150" height="40"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfr-ur-MfJ">
+                            <rect key="frame" x="0.0" y="22" width="150" height="18"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5zN-By-W9q">
+                                    <rect key="frame" x="-2" y="1" width="16" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="L" id="Pqa-fe-bQN">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-dh-vIY">
+                                    <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <shadow key="shadow" blurRadius="2">
+                                        <size key="offset" width="1" height="-1"/>
+                                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.67589349856321834" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </shadow>
+                                    <levelIndicatorCell key="cell" editable="YES" alignment="left" doubleValue="4" maxValue="20" warningValue="12" criticalValue="16" id="V3K-FW-AFV"/>
+                                    <connections>
+                                        <binding destination="-2" name="enabled" keyPath="self.enabled" id="c0h-zV-3kS"/>
+                                    </connections>
+                                </levelIndicator>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ig-ak-CEH">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="18"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oNt-hI-TIZ">
+                                    <rect key="frame" x="-2" y="1" width="16" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="R" id="RBa-yW-JgY">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7ZD-ke-4vX">
+                                    <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <shadow key="shadow" blurRadius="2">
+                                        <size key="offset" width="1" height="-1"/>
+                                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.67589349856321834" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </shadow>
+                                    <levelIndicatorCell key="cell" editable="YES" alignment="left" doubleValue="18" maxValue="20" warningValue="12" criticalValue="16" id="BDk-b8-gnR"/>
+                                    <connections>
+                                        <binding destination="-2" name="enabled" keyPath="self.enabled" id="Rtc-oR-n01"/>
+                                    </connections>
+                                </levelIndicator>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="5zN-By-W9q" firstAttribute="width" secondItem="oNt-hI-TIZ" secondAttribute="width" id="FH9-3U-rgS"/>
+                        <constraint firstAttribute="width" constant="150" id="hYF-uo-0me"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Gvx-PA-88V" secondAttribute="bottom" constant="4" id="5Xq-Am-TA9"/>
+                <constraint firstAttribute="trailing" secondItem="Gvx-PA-88V" secondAttribute="trailing" constant="4" id="5gZ-Z9-LdR"/>
+                <constraint firstItem="Gvx-PA-88V" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="4" id="Tuj-rD-Pwe"/>
+                <constraint firstItem="Gvx-PA-88V" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="4" id="UDS-Ma-Clb"/>
+            </constraints>
+            <point key="canvasLocation" x="-310" y="46"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="8D8-YB-13x"/>
+    </objects>
+</document>

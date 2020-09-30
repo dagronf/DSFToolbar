@@ -48,6 +48,19 @@ public class DSFToolbar: NSObject {
 		self.items.append(contentsOf: items)
 	}
 
+	public func item<T>(identifier: NSToolbarItem.Identifier) -> T? {
+
+		var items = self.items
+		let groupContent = items.compactMap { ($0 as? DSFToolbar.Group)?.items }
+		items += groupContent.flatMap { $0 }
+
+		if let item = items.filter({ $0.identifier == identifier }).first {
+			return item as? T
+		}
+
+		return nil
+	}
+
 	public init(toolbarIdentifier: NSToolbar.Identifier) {
 		self.identifier = toolbarIdentifier
 		super.init()

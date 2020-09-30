@@ -29,7 +29,7 @@ import AppKit
 
 public extension DSFToolbar {
 	class PopoverButton: Core {
-		private var button: NSButton?
+		public private(set) var button: NSButton?
 		private var buttonToolbarItem: NSToolbarItem? = nil
 		private var _controller: NSViewController?
 
@@ -40,7 +40,7 @@ public extension DSFToolbar {
 		private func buildButton(type: NSButton.ButtonType) -> NSButton {
 			let b = NSButton(frame: .zero)
 			b.translatesAutoresizingMaskIntoConstraints = false
-			b.bezelStyle = .texturedRounded
+			b.bezelStyle = .regularSquare //  .texturedRounded
 			b.setButtonType(type)
 			return b
 		}
@@ -69,6 +69,13 @@ public extension DSFToolbar {
 			self.buttonToolbarItem = nil
 
 			super.close()
+		}
+
+		private var _image: NSImage? = nil
+		public func image(_ image: NSImage) -> Self {
+			self._image = image
+			self.button?.image = image
+			return self
 		}
 
 		var _popover: NSPopover? = nil

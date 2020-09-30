@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	func setup() {
+
 		guard let cv = self.window.contentView else {
 			return
 		}
