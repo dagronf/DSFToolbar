@@ -54,6 +54,12 @@ class PropertiesViewController: NSViewController {
 		// Attach the custom toolbar to the window
 		if let c = self.current as? DemoContentViewController {
 			c.customToolbar?.attachedWindow = self.view.window
+
+			let cVal = c.customToolbar?.toolbarHeight
+			Swift.print("toolbar height is \(cVal ?? -1)")
+
+			let cVal2 = c.customToolbar?.contentOffsetForToolbar
+			Swift.print("toolbar offset required is is \(cVal2 ?? -1)")
 		}
 
 		// And close the previous one

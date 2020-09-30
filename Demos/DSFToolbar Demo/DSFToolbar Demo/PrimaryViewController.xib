@@ -8,12 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrimaryViewController" customModule="DSFToolbar_Demo" customModuleProvider="target">
             <connections>
+                <outlet property="scrollView" destination="wxF-tX-CD0" id="0AI-74-n3P"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+        <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <subviews>
                 <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y7s-AU-L6B">

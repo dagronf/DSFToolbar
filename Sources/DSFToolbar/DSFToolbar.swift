@@ -76,6 +76,26 @@ public class DSFToolbar: NSObject {
 		}
 	}
 
+	/// Returns the height of the toolbar
+	public var toolbarHeight: CGFloat? {
+		guard let w = self.attachedWindow else {
+			return nil
+		}
+		return w.frame.height - w.contentLayoutRect.height
+	}
+
+	/// Returns the offset from the top of the window to the top of the contentView so that it is
+	/// not obscured by a toolbar
+	public var contentOffsetForToolbar: CGFloat? {
+		guard let w = self.attachedWindow else {
+			return nil
+		}
+		if w.styleMask.contains([.fullSizeContentView]) {
+			return w.frame.height - w.contentLayoutRect.height
+		}
+		return 0
+	}
+
 	/// Build a new toolbar
 	/// - Parameters:
 	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
