@@ -93,34 +93,6 @@
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 33,
-      "symbol": "DSFToolbar.Group.SelectionMode",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 35,
-      "symbol": "DSFToolbar.Group.SelectionMode.selectOne",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 36,
-      "symbol": "DSFToolbar.Group.SelectionMode.selectAny",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 37,
-      "symbol": "DSFToolbar.Group.SelectionMode.momentary",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
       "line": 41,
       "symbol": "DSFToolbar.Group",
       "symbol_kind": "source.lang.swift.decl.extension",
@@ -128,21 +100,21 @@
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 50,
+      "line": 56,
       "symbol": "DSFToolbar.Group.init(_:selectionMode:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 60,
+      "line": 66,
       "symbol": "DSFToolbar.Group.init(_:selectionMode:children:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Group.swift",
-      "line": 70,
+      "line": 76,
       "symbol": "DSFToolbar.Group.close()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -184,49 +156,42 @@
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 32,
-      "symbol": "DSFToolbar.PopoverButton.button",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 50,
+      "line": 52,
       "symbol": "DSFToolbar.PopoverButton.init(_:popoverContentController:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 66,
+      "line": 68,
       "symbol": "DSFToolbar.PopoverButton.close()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 115,
+      "line": 117,
       "symbol": "DSFToolbar.PopoverButton",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 116,
+      "line": 118,
       "symbol": "DSFToolbar.PopoverButton.popoverDidClose(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 123,
+      "line": 125,
       "symbol": "DSFToolbar.PopoverButton",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.PopoverButton.swift",
-      "line": 124,
+      "line": 126,
       "symbol": "DSFToolbar.PopoverButton.changeToUseLegacySizing()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

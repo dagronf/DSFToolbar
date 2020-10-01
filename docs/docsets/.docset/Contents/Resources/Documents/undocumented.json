@@ -380,35 +380,14 @@
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Standard.swift",
-      "line": 33,
-      "symbol": "DSFToolbar.ShowColors",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Standard.swift",
-      "line": 34,
-      "symbol": "DSFToolbar.FixedSpace",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Standard.swift",
-      "line": 35,
-      "symbol": "DSFToolbar.FlexibleSpace",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Standard.swift",
-      "line": 37,
+      "line": 42,
       "symbol": "DSFToolbar.Print",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/dford/Projects/Projects/DSFToolbar/Sources/DSFToolbar/DSFToolbar.Standard.swift",
-      "line": 42,
+      "line": 47,
       "symbol": "DSFToolbar.Print.validateToolbarItem(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

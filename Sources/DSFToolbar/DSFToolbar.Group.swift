@@ -30,6 +30,9 @@ import AppKit
 public extension DSFToolbar {
 	class Group: Core {
 
+		/// The selection mode for a group.
+		///
+		/// A basic wrapper around NSToolbarItemGroup.SelectionMode (as it is only available on 10.15 and later)
 		public enum SelectionMode: Int {
 			public typealias RawValue = Int
 			/// NSToolbarItemGroup.SelectionMode.selectOne
