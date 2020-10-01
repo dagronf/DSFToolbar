@@ -13,6 +13,7 @@
 		23E7E2B42526742800F02672 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23E7E2B22526742800F02672 /* Main.storyboard */; };
 		23E7E2C32526747500F02672 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23E7E2C22526747500F02672 /* DSFToolbar */; };
 		23E7E2C62526752600F02672 /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7E2C52526752600F02672 /* ProjectAssets.swift */; };
+		23E7E2C92526862900F02672 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7E2C82526862900F02672 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		23E7E2B62526742800F02672 /* Simple_Documentation_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Simple_Documentation_Demo.entitlements; sourceTree = "<group>"; };
 		23E7E2BD2526744200F02672 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../..; sourceTree = "<group>"; };
 		23E7E2C52526752600F02672 /* ProjectAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAssets.swift; sourceTree = "<group>"; };
+		23E7E2C82526862900F02672 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				23E7E2B52526742800F02672 /* Info.plist */,
 				23E7E2B62526742800F02672 /* Simple_Documentation_Demo.entitlements */,
 				23E7E2C52526752600F02672 /* ProjectAssets.swift */,
+				23E7E2C82526862900F02672 /* Utilities.swift */,
 			);
 			path = "Simple Documentation Demo";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			files = (
 				23E7E2AF2526742800F02672 /* ViewController.swift in Sources */,
 				23E7E2AD2526742800F02672 /* AppDelegate.swift in Sources */,
+				23E7E2C92526862900F02672 /* Utilities.swift in Sources */,
 				23E7E2C62526752600F02672 /* ProjectAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

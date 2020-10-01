@@ -29,81 +29,6 @@ import AppKit
 
 public extension DSFToolbar {
 	class Segmented: Core {
-
-		/// Definition of a segment within a segmented control
-		public class Segment: NSObject {
-			var index: Int = -1
-			weak var parent: Segmented?
-
-			var _title: String = ""
-			public func title(_ string: String) -> Segment {
-				self._title = string
-				return self
-			}
-
-			// MARK: - Segment image and positioning
-
-			private var _image: NSImage?
-			private var _imageScaling: NSImageScaling = .scaleProportionallyUpOrDown
-			public func image(_ image: NSImage, scaling: NSImageScaling = .scaleProportionallyUpOrDown) -> Segment {
-				self._image = image
-				self._imageScaling = scaling
-				return self
-			}
-
-			// MARK: - Segment enabled binding
-
-			private let _segmentEnabled = BindableAttribute<Bool>()
-
-
-			/// Bind the enabled state for the segment to a member variable
-			/// - Parameters:
-			///   - object: The object to bind to
-			///   - keyPath: The key path for the member variable within 'object' (Bool)
-			/// - Returns: self
-			public func bindEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
-				self._segmentEnabled.setup(observable: object, keyPath: keyPath)
-				return self
-			}
-
-			public init(title: String = "") {
-				self._title = title
-				super.init()
-			}
-
-			deinit {
-				debugPrint("DSFToolbar.Segmented.Segment deinit")
-			}
-
-			// Called when the segmented control is created, and we know our segment index is
-			internal func onCreate(parent: Segmented, index: Int) {
-				self.parent = parent
-				self.index = index
-
-				guard let segmented = parent.segmented else {
-					fatalError()
-				}
-
-				// Label
-				segmented.setLabel(self._title, forSegment: index)
-
-				// Image
-				segmented.setImage(self._image, forSegment: index)
-				segmented.setImageScaling(self._imageScaling, forSegment: index)
-
-				// Segment enable
-				self._segmentEnabled.bind { [weak self] newState in
-					// When the segment enable changes, make sure our parent segmentedcontrol knows
-					self?.parent?.segmented?.setEnabled(newState, forSegment: index)
-				}
-			}
-
-			func close() {
-				self.parent = nil
-				self._segmentEnabled.unbind()
-			}
-		}
-
 		public enum SegmentedType {
 			case Separated
 			case Grouped
@@ -117,7 +42,6 @@ public extension DSFToolbar {
 		}
 
 		var segments: [Segment]
-
 
 		/// Create a Segmented Control toolbar item
 		/// - Parameters:
@@ -199,7 +123,8 @@ public extension DSFToolbar {
 		/// Define the action to call when the selection within the segmented control changes
 		/// - Parameter block: The block to call, passing the selected segment indexes
 		/// - Returns: Self
-		public func action(_ block: @escaping (Set<Int>) -> Void) -> Segmented {
+		public func action(_ action: @escaping (Set<Int>) -> Void) -> Segmented {
+			self._action = action
 			self.segmented?.target = self
 			self.segmented?.action = #selector(itemPressed(_:))
 			return self
@@ -255,12 +180,88 @@ public extension DSFToolbar {
 	}
 }
 
+// MARK: - Segment definition
+
+public extension DSFToolbar.Segmented {
+	/// Definition of a segment within a segmented control
+	class Segment: NSObject {
+		var index: Int = -1
+		weak var parent: DSFToolbar.Segmented?
+
+		var _title: String = ""
+		public func title(_ string: String) -> Segment {
+			self._title = string
+			return self
+		}
+
+		// MARK: - Segment image and positioning
+
+		private var _image: NSImage?
+		private var _imageScaling: NSImageScaling = .scaleProportionallyUpOrDown
+		public func image(_ image: NSImage, scaling: NSImageScaling = .scaleProportionallyUpOrDown) -> Segment {
+			self._image = image
+			self._imageScaling = scaling
+			return self
+		}
+
+		// MARK: - Segment enabled binding
+
+		private let _segmentEnabled = BindableAttribute<Bool>()
+
+		/// Bind the enabled state for the segment to a member variable
+		/// - Parameters:
+		///   - object: The object to bind to
+		///   - keyPath: The key path for the member variable within 'object' (Bool)
+		/// - Returns: self
+		public func bindEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+			self._segmentEnabled.setup(observable: object, keyPath: keyPath)
+			return self
+		}
+
+		public init(title: String = "") {
+			self._title = title
+			super.init()
+		}
+
+		deinit {
+			debugPrint("DSFToolbar.Segmented.Segment deinit")
+		}
+
+		// Called when the segmented control is created, and we know our segment index is
+		internal func onCreate(parent: DSFToolbar.Segmented, index: Int) {
+			self.parent = parent
+			self.index = index
+
+			guard let segmented = parent.segmented else {
+				fatalError()
+			}
+
+			// Label
+			segmented.setLabel(self._title, forSegment: index)
+
+			// Image
+			segmented.setImage(self._image, forSegment: index)
+			segmented.setImageScaling(self._imageScaling, forSegment: index)
+
+			// Segment enable
+			self._segmentEnabled.bind { [weak self] newState in
+				// When the segment enable changes, make sure our parent segmentedcontrol knows
+				self?.parent?.segmented?.setEnabled(newState, forSegment: index)
+			}
+		}
+
+		func close() {
+			self.parent = nil
+			self._segmentEnabled.unbind()
+		}
+	}
+}
+
 // MARK: - Legacy support
 
 extension DSFToolbar.Segmented {
 	// Legacy for older systems
 	override func changeToUseLegacySizing() {
-
 		// If we're using legacy sizing, we have to remove the constraints first
 
 		guard let b = self.segmented else {

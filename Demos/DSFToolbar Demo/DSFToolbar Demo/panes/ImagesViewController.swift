@@ -65,35 +65,31 @@ class ImagesViewController: NSViewController {
 
 			// A group of image items
 
-			DSFToolbar.Group(
-				NSToolbarItem.Identifier("food-grouped"),
-				selectionMode: .selectAny,
-				children: [
-					DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-egg-2"))
-						.label("Egg")
-						.image(ProjectAssets.ImageSet.toolbar_egg.image)
-						.legacySizes(minSize: NSSize(width: 32, height: 32))
-						.action { _ in
-							Swift.print("Got grouped egg!")
-						},
-
-					DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon-2"))
-						.label("Watermelon")
-						.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
-						.legacySizes(minSize: NSSize(width: 32, height: 32))
-						.action { _ in
-							Swift.print("Got grouped watermelon!")
-						},
-
-					DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger-2"))
-						.label("Burger")
-						.image(ProjectAssets.ImageSet.toolbar_burger.image)
-						.legacySizes(minSize: NSSize(width: 32, height: 32))
-						.action { _ in
-							Swift.print("Got grouped burger!")
-						},
-				]
-			)
+			DSFToolbar.Group(NSToolbarItem.Identifier("food-grouped"), selectionMode: .selectAny) {
+				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-egg-2"))
+					.label("Egg")
+					.image(ProjectAssets.ImageSet.toolbar_egg.image)
+					.legacySizes(minSize: NSSize(width: 32, height: 32))
+					.action { _ in
+						Swift.print("Got grouped egg!")
+					}
+				
+				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon-2"))
+					.label("Watermelon")
+					.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+					.legacySizes(minSize: NSSize(width: 32, height: 32))
+					.action { _ in
+						Swift.print("Got grouped watermelon!")
+					}
+				
+				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger-2"))
+					.label("Burger")
+					.image(ProjectAssets.ImageSet.toolbar_burger.image)
+					.legacySizes(minSize: NSSize(width: 32, height: 32))
+					.action { _ in
+						Swift.print("Got grouped burger!")
+					}
+			}
 			.label("Grouped Foods")
 			.legacySizes(minSize: NSSize(width: 96, height: 32))
 			.isSelectable(true)

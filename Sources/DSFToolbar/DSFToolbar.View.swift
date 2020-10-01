@@ -51,7 +51,6 @@ public extension DSFToolbar {
 			return self.viewController as? DSFToolbarViewControllerProtocol
 		}
 
-
 		/// Create a toolbar item containing a custom view
 		/// - Parameters:
 		///   - identifier: The identifier

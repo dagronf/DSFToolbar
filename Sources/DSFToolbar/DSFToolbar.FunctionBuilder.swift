@@ -27,6 +27,8 @@
 
 import AppKit
 
+// MARK: - Core function builder
+
 @_functionBuilder
 public struct DSFToolbarBuilder {
 	static func buildBlock() -> [DSFToolbar.Core] { [] }
@@ -38,9 +40,12 @@ public extension DSFToolbarBuilder {
 	}
 }
 
+// MARK: - Group function builder
+
 public extension DSFToolbar.Group {
 	convenience init(
 		_ identifier: NSToolbarItem.Identifier,
+		selectionMode: SelectionMode = .momentary,
 		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) {
 		self.init(identifier, children: builder())
 	}

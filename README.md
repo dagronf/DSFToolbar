@@ -31,25 +31,25 @@ If you're familiar with SwiftUI syntax you'll feel comfortable with the declarat
 self.customToolbar =
    DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
 
-     DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
+     DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-document-new"))
        .label("New")
-       .image(NSImage(named: "toolbar-button-person-add")!)
-       .enabled { return false }
+       .image(NSImage(named: "toolbar-document-new")!)
+       .enabled { return self.canAddDocument() }
        .action { _ in
-         Swift.print("Pressed item 1")
+          self.addDocument()
       }
 
-     DSFToolbar.Image(NSToolbarItem.Identifier("item-edit"))
+     DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-document-edit"))
        .label("Edit")
-      .image(NSImage(named: "toolbar-button-person-add")!)
-       .enabled { return true }
+       .image(NSImage(named: "toolbar-document-edit")!)
+       .enabled { return self.canEditDocument() }
        .action { _ in
-         Swift.print("Pressed item 2")
+          self.editDocument()
       }
 
      DSFToolbar.FlexibleSpace
 
-     DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+     DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
        .label("Search")
        .bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
        .bindText(self, keyPath: #keyPath(searchText))
@@ -59,6 +59,8 @@ self.customToolbar =
 self.customToolbar?.attachedWindow = self.window
 ```
 ![](https://github.com/dagronf/dagronf.github.io/blob/master/art/projects/DSFToolbar/sample.png?raw=true)
+
+And thats it!
 
 ## Concepts
 
@@ -78,7 +80,7 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Buttons")) {
 
 ### Block requests
 
-Some toolbar items can request information. For example, you can pass a block that returns the enabled status of an `Image` item during the declaration.
+Some toolbar items can request information. For example, you can pass a block that provides the enabled status of an `Image` item during the declaration.
 
 ```swift
 self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Enabled-buttons")) {
@@ -111,111 +113,13 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
 
 | Type | Description |
 |------|-------------|
-| Image | Basic toolbar 'image' type. Provides basic image, label, action etc |
-| Group | Group multiple items together to represent a unit
-| Search | Provides a search text field |
-| Segmented | A simple segmented control |
-| Separator (macOS 11 only) | Hooks into a NSSplitView to track a toolbar separator to a split view separator | 
-| Button | A toolbar item containing an `NSButton` |
-| View | A toolbar item containing a custom view |
-
-# Available Properties, Bindings and Actions
-
-## Core
-
-Core properties and bindings are available to all toolbar item types.
-
-### Properties
-
-| Property   | Type (default)     |  Description |
-|----------|-------------|------|
-| `label`  | `String`    | The label to be displayed on the toolbar item |
-| `paletteLabel`  | `String` (optional)   | The palette label is shown when the user is customizing the toolbar |
-| `tooltip`  | `String` (optional) | The tooltip for the toolbar item |
-| `isBordered` | `Bool` (false) | Apply a border to the toolbar item (10.15+)  |
-| `isDefault` | `Bool` (true) | Mark the item as available on the 'default' toolbar presented to the user  |
-| `isSelectable` | `Bool` (false) | Mark the toolbar item as being selectable  |
-
-### Bindings
-
-| Binding   | Type (default)     |  Description |
-|----------|-------------|------|
-| `bindLabel` | `String` | Bind the label for the toolbar item to a key path
-| `bindEnabled` | `Bool` | Bind the enabled state for the toolbar item to a key path
-
-### Legacy (pre 10.13) support
-
-Earlier macOS versions did not support autolayout within the toolbar items and relied on the dev to specify a maximum and minimum size for the toolbar item.  If you need to support older systems you will need to provide these for each item - on 10.13+ these values will be ignored for autolayout constraints.
-
-| Property   | Type (default)     |  Description |
-|----------|-------------|------|
-| `legacySizes`  | `CGSize,CGSize`    | The max and min size for the toolbar item |
-
-## Image
-
-A toolbar 'image' type is the basic type of toolbar items
-
-### Properties
-
-| Property   | Type (default)     |  Description |
-|----------|-------------|------|
-| `image`  | `NSImage`    | the image to display on the toolbar item
-
-
-### Actions
-
-| Action    | Description |
-|-----------|---------------------|
-| `action`  | The block to call when the toolbar item is activated (eg. clicked)  |
-| `enabled` | Supply a callback block to be called to determine the enabled state of the item |
-
-## Segmented Control
-
-### Segment
-
-#### Properties
-
-| Property   | Type (default)     |  Description |
-|----------|-------------|------|
-| `title`  | `String`    | the title to display on the segmented control
-| `image`  | `NSImage`    | the image to display on the toolbar item
-
-#### Actions
-
-| Action    | Description |
-|----------|-------------|
-| `action`  | The block to call when the selection of the segmented control changes |
-
-
-#### Bindings
-
-| Binding   | Type (default)     |  Description |
-| `bindEnabled` | `Bool` | Bind the enabled state for the toolbar item to a key path
-
-## Search
-
-A search field toolbar item.  Uses `NSSearchToolbarItem` for macOS 11+, falls back to a embedded `NSSearchField` for earlier macOS versions.
-
-### Properties
-
-| Property   | Type    |  Description |
-|----------|-------------|------|
-| `delegate`  |  `NSSearchFieldDelegate` | The object to act as the delegate for the search field (overridden by `searchChange`) |
-
-### Actions
-
-| Action    | Description |
-|-----------|---------------------|
-| `searchChange`  | The block to call when the content of the search field changes  |
-
-### Bindings
-
-| Binding   | Type    |  Description |
-|----------|-------------|----------|
-| `bindText` | `String` | Bind the search text to a key path
-
-## Group
-
-A group groups a number of toolbar items together into a single unit.
-
-
+| [Core](Markdown/core.md) | Core elements available to all toolbar item types |
+| [Image](Markdown/image.md) | Basic toolbar 'image' type. Provides basic image, label, action etc |
+| [Group](Markdown/group.md) | Group multiple items together to represent a unit |
+| [Search](Markdown/search.md) | Provides a search text field |
+| [Segmented](Markdown/segmented.md) | A simple segmented control |
+| [Separator (macOS 11 only)](Markdown/separator.md) | Hooks into an NSSplitView to track a toolbar separator to a split view separator | 
+| [Button](Markdown/button.md) | A toolbar item containing an `NSButton` |
+| [PopupButton](Markdown/popup-button.md) | A toolbar item that displays a menu when activated |
+| [PopoverButton](Markdown/popover-button.md) | A toolbar item that displays a popover when activated |
+| [View](Markdown/view.md) | A toolbar item containing a custom view |

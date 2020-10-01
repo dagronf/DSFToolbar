@@ -55,7 +55,7 @@ extension DSFToolbar {
 		}
 
 		deinit {
-			Swift.print("DSFToolbar.Search deinit")
+			debugPrint("DSFToolbar.Search deinit")
 		}
 
 		lazy var searchItem: NSToolbarItem = {

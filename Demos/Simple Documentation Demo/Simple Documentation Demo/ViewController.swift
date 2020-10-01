@@ -9,27 +9,31 @@ import Cocoa
 
 import DSFToolbar
 
-// Use Fluent System icons
+// Uses Fluent System icons
 // https://github.com/microsoft/fluentui-system-icons
 
-
 class ViewController: NSViewController {
+	private let windowCloseNotifier = WindowCloseNotifier()
 
 	private var customToolbar: DSFToolbar?
 
 	@objc dynamic var searchEnabled: Bool = true
 	@objc dynamic var searchText: String = ""
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		// Do any additional setup after loading the view.
-		self.buildToolbar()
+	private func windowWillClose() {
+		// Need to call close on the toolbar to make sure that any bindings and controls have been release
+		self.customToolbar?.close()
 	}
 
 	override func viewDidAppear() {
 		super.viewDidAppear()
-		self.customToolbar?.attachedWindow = self.view.window
+
+		// Do any additional setup after loading the view.
+		self.buildToolbar()
+
+		self.windowCloseNotifier.observe(self.view.window!) { [weak self] in
+			self?.windowWillClose()
+		}
 	}
 
 	override var representedObject: Any? {
@@ -42,22 +46,26 @@ class ViewController: NSViewController {
 		self.customToolbar =
 			DSFToolbar.Make(
 				toolbarIdentifier: NSToolbar.Identifier("Core"),
-				allowsUserCustomization: true) {
-
+				allowsUserCustomization: true
+			) {
 				DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
 					.label("New")
-					.image(ProjectAssets.ImageSet.toolbar_new_document.image)
-					.enabled { return false }
+					.image(ProjectAssets.ImageSet.toolbar_new_document.template)
+					.enabled {
+						self.canAddDocument()
+					}
 					.action { _ in
-						Swift.print("Pressed new document")
+						self.addDocument()
 					}
 
 				DSFToolbar.Image(NSToolbarItem.Identifier("item-edit"))
 					.label("Edit")
-					.image(ProjectAssets.ImageSet.toolbar_edit_document.image)
-					.enabled { return true }
+					.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
+					.enabled {
+						self.canEditDocument()
+					}
 					.action { _ in
-						Swift.print("Pressed edit document")
+						self.editDocument()
 					}
 
 				DSFToolbar.FlexibleSpace
@@ -67,7 +75,27 @@ class ViewController: NSViewController {
 					.bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
 					.bindText(self, keyPath: #keyPath(searchText))
 			}
+
+		self.customToolbar?.attachedWindow = self.view.window
 	}
 
-}
+	// MARK: Add document
 
+	private func canAddDocument() -> Bool {
+		return false
+	}
+
+	private func addDocument() {
+		Swift.print("Creating new document...")
+	}
+
+	// MARK: Edit document
+
+	private func canEditDocument() -> Bool {
+		return true
+	}
+
+	private func editDocument() {
+		Swift.print("Editing document...")
+	}
+}

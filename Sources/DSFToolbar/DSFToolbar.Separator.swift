@@ -63,5 +63,9 @@ public extension DSFToolbar {
 
 			super.init(identifier)
 		}
+
+		deinit {
+			debugPrint("DSFToolbar.Separator deinit")
+		}
 	}
 }

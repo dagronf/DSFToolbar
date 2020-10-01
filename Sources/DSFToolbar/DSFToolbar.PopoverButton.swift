@@ -41,14 +41,6 @@ public extension DSFToolbar {
 			return self.buttonToolbarItem
 		}
 
-		private func buildButton(type: NSButton.ButtonType) -> NSButton {
-			let b = NSButton(frame: .zero)
-			b.translatesAutoresizingMaskIntoConstraints = false
-			b.bezelStyle = .regularSquare //  .texturedRounded
-			b.setButtonType(type)
-			return b
-		}
-
 		public init(_ identifier: NSToolbarItem.Identifier,
 			 popoverContentController: NSViewController) {
 			self._controller = popoverContentController
@@ -111,6 +103,16 @@ public extension DSFToolbar {
 
 			p.show(relativeTo: self.button!.bounds, of: self.button!, preferredEdge: .maxY)
 		}
+	}
+}
+
+extension DSFToolbar.PopoverButton {
+	private func buildButton(type: NSButton.ButtonType) -> NSButton {
+		let b = NSButton(frame: .zero)
+		b.translatesAutoresizingMaskIntoConstraints = false
+		b.bezelStyle = .regularSquare //  .texturedRounded
+		b.setButtonType(type)
+		return b
 	}
 }
 
