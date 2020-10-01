@@ -90,7 +90,7 @@ public class DSFToolbar: NSObject {
 		guard let w = self.attachedWindow else {
 			return nil
 		}
-		if w.styleMask.contains([.fullSizeContentView]) {
+		if w.styleMask.contains(.fullSizeContentView) {
 			return w.frame.height - w.contentLayoutRect.height
 		}
 		return 0

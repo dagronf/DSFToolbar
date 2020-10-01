@@ -12,34 +12,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	@IBOutlet var window: NSWindow!
 
-	let settingsWindow = TitlebarPropertiesWindowController()
-
 	let primaryView = PrimaryViewController()
 
 	func applicationDidFinishLaunching(_ notification: Notification) {
 		self.setup()
-
-		self.settingsWindow.updateSettings = { [weak self] settings in
-			guard let w = self?.window else { return }
-			w.titleVisibility = settings.titlebarVisibility ? .visible : .hidden
-			w.titlebarAppearsTransparent = settings.titlebarTransparent
-
-			if settings.unifiedTitlebar {
-				w.styleMask.insert(NSWindow.StyleMask.unifiedTitleAndToolbar)
-			}
-			else {
-				w.styleMask.remove(NSWindow.StyleMask.unifiedTitleAndToolbar)
-			}
-
-			if settings.fullsizeContentView {
-				w.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
-			}
-			else {
-				w.styleMask.remove(NSWindow.StyleMask.fullSizeContentView)
-			}
-		}
-
-		self.settingsWindow.showWindow(self)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification) {

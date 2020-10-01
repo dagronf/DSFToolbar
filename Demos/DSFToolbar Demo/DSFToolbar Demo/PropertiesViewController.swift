@@ -13,6 +13,11 @@ class PropertiesViewController: NSViewController {
 
 	@IBOutlet var primarySplit: NSSplitView!
 
+	@IBOutlet weak var primaryViewController: PrimaryViewController!
+
+	@IBOutlet weak var contentView: NSView!
+	@IBOutlet weak var contentTopConstraint: NSLayoutConstraint!
+
 	var previous: NSViewController? = nil
 	var current: NSViewController? = nil {
 		willSet {
@@ -34,17 +39,17 @@ class PropertiesViewController: NSViewController {
 				c.primarySplit = self.primarySplit
 			}
 
-			self.view.addSubview(c.view)
-			c.view.frame = self.view.bounds
+			self.contentView.addSubview(c.view)
+			c.view.frame = self.contentView.bounds
 
 			//self.view.window?.makeFirstResponder(c)
 
-			self.view.addConstraints(
+			self.contentView.addConstraints(
 				NSLayoutConstraint.constraints(
 					withVisualFormat: "V:|[item]|",
 					options: .alignAllCenterX,
 					metrics: nil, views: ["item": c.view]))
-			self.view.addConstraints(
+			self.contentView.addConstraints(
 				NSLayoutConstraint.constraints(
 					withVisualFormat: "H:|[item]|",
 					options: .alignAllCenterY,
@@ -54,18 +59,31 @@ class PropertiesViewController: NSViewController {
 		// Attach the custom toolbar to the window
 		if let c = self.current as? DemoContentViewController {
 			c.customToolbar?.attachedWindow = self.view.window
-
-			let cVal = c.customToolbar?.toolbarHeight
-			Swift.print("toolbar height is \(cVal ?? -1)")
-
-			let cVal2 = c.customToolbar?.contentOffsetForToolbar
-			Swift.print("toolbar offset required is is \(cVal2 ?? -1)")
 		}
+
+		self.updateOffsets()
 
 		// And close the previous one
 		if let p = self.previous as? DemoContentViewController {
 			p.cleanup()
 			self.previous = nil
+		}
+	}
+
+	func updateOffsets() {
+
+		if let c = self.current as? DemoContentViewController {
+			c.customToolbar?.attachedWindow = self.view.window
+			let cVal = c.customToolbar?.toolbarHeight ?? -1
+			let cVal2 = c.customToolbar?.contentOffsetForToolbar ?? -1
+			self.primaryViewController?.toolbarHeightMessage =
+				"> Toolbar Height: \(cVal)"
+			self.primaryViewController?.toolbarOffsetMessage =
+				"> Content Offset: \(cVal2)"
+
+			self.contentTopConstraint.animator().constant = cVal2
+			self.contentView.needsUpdateConstraints = true
+			self.contentView.needsLayout = true
 		}
 	}
 
