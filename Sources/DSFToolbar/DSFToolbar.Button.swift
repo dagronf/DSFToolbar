@@ -55,19 +55,6 @@ public extension DSFToolbar {
 		// Button image position
 		private var _imagePosition: NSControl.ImagePosition = .imageLeft
 
-		// Legacy for older systems
-		override func changeToUseLegacySizing() {
-
-			// If we're using legacy sizing, we have to remove the constraints first
-
-			guard let b = self.button else {
-				fatalError()
-			}
-
-			b.translatesAutoresizingMaskIntoConstraints = true
-			b.removeConstraints(b.constraints)
-		}
-
 		override var toolbarItem: NSToolbarItem? {
 			return self.buttonToolbarItem
 		}
@@ -310,5 +297,19 @@ extension DSFToolbar.Button {
 		button.image = self._image
 		button.title = self._title
 		button.bezelStyle = self._bezelStyle
+	}
+}
+
+// MARK: - Legacy sizing support
+
+extension DSFToolbar.Button {
+	override func changeToUseLegacySizing() {
+		guard let b = self.button else {
+			fatalError()
+		}
+
+		// If we're using legacy sizing, we have to remove the constraints first
+		b.translatesAutoresizingMaskIntoConstraints = true
+		b.removeConstraints(b.constraints)
 	}
 }

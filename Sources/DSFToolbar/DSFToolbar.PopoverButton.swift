@@ -33,6 +33,8 @@ public extension DSFToolbar {
 		private var buttonToolbarItem: NSToolbarItem? = nil
 		private var _controller: NSViewController?
 
+		private var _popover: NSPopover? = nil
+
 		override var toolbarItem: NSToolbarItem? {
 			return self.buttonToolbarItem
 		}
@@ -62,6 +64,11 @@ public extension DSFToolbar {
 		}
 
 		override public func close() {
+
+			// Make sure the popover is closed
+			self._popover?.close()
+			self._popover = nil
+
 			self.button?.target = nil
 			self.button = nil
 
@@ -71,20 +78,25 @@ public extension DSFToolbar {
 			super.close()
 		}
 
+		// MARK: - Image
+
 		private var _image: NSImage? = nil
+
+		/// Set the image to display in the item
+		/// - Parameter image: the image
+		/// - Returns: self
+		@discardableResult
 		public func image(_ image: NSImage) -> Self {
 			self._image = image
 			self.button?.image = image
 			return self
 		}
 
-		var _popover: NSPopover? = nil
-
-		@objc func action(_ sender: Any) {
+		@objc private func action(_ sender: Any) {
 			self.showPopover()
 		}
 
-		func showPopover() {
+		private func showPopover() {
 			if let p = _popover {
 				p.close()
 				_popover = nil
@@ -105,6 +117,8 @@ extension DSFToolbar.PopoverButton: NSPopoverDelegate {
 		_popover = nil
 	}
 }
+
+// MARK: - Legacy sizing support
 
 extension DSFToolbar.PopoverButton {
 	override func changeToUseLegacySizing() {

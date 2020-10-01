@@ -15,7 +15,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+        <customView wantsLayer="YES" horizontalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="158" height="48"/>
             <subviews>
                 <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="800" verticalHuggingPriority="800" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gvx-PA-88V">
@@ -34,6 +34,9 @@
                                 </textField>
                                 <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-dh-vIY">
                                     <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="2p5-hM-wiZ"/>
+                                    </constraints>
                                     <shadow key="shadow" blurRadius="2">
                                         <size key="offset" width="1" height="-1"/>
                                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.67589349856321834" colorSpace="custom" customColorSpace="sRGB"/>
@@ -66,6 +69,9 @@
                                 </textField>
                                 <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7ZD-ke-4vX">
                                     <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="5Pa-8d-J0D"/>
+                                    </constraints>
                                     <shadow key="shadow" blurRadius="2">
                                         <size key="offset" width="1" height="-1"/>
                                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.67589349856321834" colorSpace="custom" customColorSpace="sRGB"/>

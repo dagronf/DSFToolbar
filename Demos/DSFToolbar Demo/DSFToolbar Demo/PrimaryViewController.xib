@@ -16,23 +16,23 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="286"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="298"/>
             <subviews>
                 <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y7s-AU-L6B">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="286"/>
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="298"/>
                     <subviews>
                         <customView id="xPQ-z0-dzK">
-                            <rect key="frame" x="0.0" y="0.0" width="204" height="286"/>
+                            <rect key="frame" x="0.0" y="0.0" width="204" height="298"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <scrollView horizontalHuggingPriority="100" verticalHuggingPriority="100" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxF-tX-CD0">
-                                    <rect key="frame" x="0.0" y="167" width="204" height="119"/>
+                                    <rect key="frame" x="0.0" y="196" width="204" height="102"/>
                                     <clipView key="contentView" id="1wk-HG-83E">
-                                        <rect key="frame" x="1" y="1" width="202" height="117"/>
+                                        <rect key="frame" x="1" y="1" width="202" height="100"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="g5E-8q-wuf">
-                                                <rect key="frame" x="0.0" y="0.0" width="202" height="117"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="202" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -88,13 +88,13 @@
                                     </scroller>
                                 </scrollView>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="tMA-Fe-hcN">
-                                    <rect key="frame" x="0.0" y="0.0" width="204" height="168"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="204" height="197"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Gy-6n-0cy">
-                                            <rect key="frame" x="8" y="8" width="167" height="152"/>
+                                            <rect key="frame" x="8" y="8" width="167" height="181"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e1j-db-FDO">
-                                                    <rect key="frame" x="-2" y="136" width="113" height="16"/>
+                                                    <rect key="frame" x="-2" y="165" width="113" height="16"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Window settings" id="lq0-Aj-PEI">
                                                         <font key="font" metaFont="systemBold"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -102,18 +102,18 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <button toolTip="Unified style is always on (since Yosemite)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="di6-NP-s3F">
-                                                    <rect key="frame" x="-2" y="112" width="171" height="18"/>
+                                                    <rect key="frame" x="-2" y="141" width="171" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Unified Toolbar and Title" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="flj-Oz-mbc">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="-2" name="enabled" keyPath="self.unifiedTitlebarEnabled" id="cBT-oc-Mps"/>
                                                         <binding destination="-2" name="value" keyPath="self.unifiedTitlebar" id="gPL-r3-0iy"/>
+                                                        <binding destination="-2" name="enabled" keyPath="self.unifiedTitlebarEnabled" id="cBT-oc-Mps"/>
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IMa-On-aE7">
-                                                    <rect key="frame" x="-2" y="90" width="152" height="18"/>
+                                                    <rect key="frame" x="-2" y="119" width="152" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Full size content view" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lIA-uX-tLA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -123,7 +123,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8WN-TX-MuR">
-                                                    <rect key="frame" x="-2" y="68" width="142" height="18"/>
+                                                    <rect key="frame" x="-2" y="97" width="142" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Titlebar transparent" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gxe-SO-OSh">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -133,7 +133,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nUC-US-ai5">
-                                                    <rect key="frame" x="-2" y="46" width="124" height="18"/>
+                                                    <rect key="frame" x="-2" y="75" width="124" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Titlebar is visible" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="htC-da-hk0">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -142,6 +142,45 @@
                                                         <binding destination="-2" name="value" keyPath="self.titleVisibility" id="hWj-6M-6eP"/>
                                                     </connections>
                                                 </button>
+                                                <popUpButton horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i2t-Ee-Uq6">
+                                                    <rect key="frame" x="-2" y="45" width="172" height="25"/>
+                                                    <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="81W-ZO-Dd8" id="lIH-Ql-Ady">
+                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="menu"/>
+                                                        <menu key="menu" id="iE1-ui-LzR">
+                                                            <items>
+                                                                <menuItem title="Automatic" state="on" id="81W-ZO-Dd8">
+                                                                    <connections>
+                                                                        <action selector="toolbarStyleAutomatic:" target="-2" id="VRl-oe-DlR"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="Expanded" tag="1" id="5Kh-Z2-2VE">
+                                                                    <connections>
+                                                                        <action selector="toolbarStyleAutomatic:" target="-2" id="pKz-af-R07"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="Preference" tag="2" id="AWL-1z-2kx">
+                                                                    <connections>
+                                                                        <action selector="toolbarStyleAutomatic:" target="-2" id="4Pj-O4-uAF"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="Unified" tag="3" id="I6u-HR-gva">
+                                                                    <connections>
+                                                                        <action selector="toolbarStyleAutomatic:" target="-2" id="ws4-Tw-Zoz"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="Unified Compact" tag="4" id="s5o-uZ-Oy7">
+                                                                    <connections>
+                                                                        <action selector="toolbarStyleAutomatic:" target="-2" id="63c-Zq-aga"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                            </items>
+                                                        </menu>
+                                                    </popUpButtonCell>
+                                                    <connections>
+                                                        <binding destination="-2" name="enabled" keyPath="self.toolbarStyleEnabled" id="p9C-z3-K0c"/>
+                                                    </connections>
+                                                </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Hs-i4-UdA">
                                                     <rect key="frame" x="-2" y="24" width="37" height="16"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="a7p-nL-Rux">
@@ -173,8 +212,10 @@
                                                 <integer value="1000"/>
                                                 <integer value="1000"/>
                                                 <integer value="1000"/>
+                                                <integer value="1000"/>
                                             </visibilityPriorities>
                                             <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
                                                 <real value="3.4028234663852886e+38"/>
                                                 <real value="3.4028234663852886e+38"/>
                                                 <real value="3.4028234663852886e+38"/>
@@ -204,11 +245,11 @@
                             </constraints>
                         </customView>
                         <customView id="hLe-Th-HWl">
-                            <rect key="frame" x="205" y="0.0" width="275" height="286"/>
+                            <rect key="frame" x="205" y="0.0" width="275" height="298"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="lhE-k6-LyR">
-                                    <rect key="frame" x="0.0" y="0.0" width="275" height="286"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="275" height="298"/>
                                 </customView>
                             </subviews>
                             <constraints>
