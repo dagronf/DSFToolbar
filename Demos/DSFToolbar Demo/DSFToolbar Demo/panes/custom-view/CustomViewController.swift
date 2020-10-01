@@ -33,9 +33,11 @@ class CustomViewController: NSViewController {
 			DSFToolbar.View(NSToolbarItem.Identifier("customview1"), viewController: self.customContent1)
 				.label("Input Levels")
 				.bindEnabled(to: self, withKeyPath: "customContent1Enabled")
+				.legacySizes(minSize: NSSize(width: 175, height: 20))
 
 			DSFToolbar.View(NSToolbarItem.Identifier("customview2"), viewController: self.customContent2)
 				.label("Aux Levels")
+				.legacySizes(minSize: NSSize(width: 175, height: 20))
 		}
 	}
 }

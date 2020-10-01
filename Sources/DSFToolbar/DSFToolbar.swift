@@ -40,6 +40,8 @@ public class DSFToolbar: NSObject {
 
 	deinit {
 		debugPrint("DSFToolbar: deinit")
+		self.sizeModeDidChange = nil
+		self.toolbar.removeObserver(self, forKeyPath: "sizeMode")
 	}
 
 	// The items to be added to the touchbar
@@ -61,9 +63,25 @@ public class DSFToolbar: NSObject {
 		return nil
 	}
 
+	/// An observable size mode for the contained toolbar
+	@objc public dynamic var toolbarSizeMode: NSToolbar.SizeMode = .default
+
+	/// A callback to be called when the sizeMode of the toolbar changes
+	public var sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? = nil
+
 	public init(toolbarIdentifier: NSToolbar.Identifier) {
 		self.identifier = toolbarIdentifier
 		super.init()
+
+		self.setup()
+	}
+
+	func setup() {
+		// Add an observer for changing the size of the toolbar
+		self.toolbar.addObserver(
+			self,
+			forKeyPath: "sizeMode",
+			options: [.new], context: nil)
 	}
 
 	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
@@ -219,6 +237,12 @@ extension DSFToolbar {
 			if oldVal != newVal {
 				self._selectionChanged?(newVal)
 			}
+		}
+		else if (object as? NSToolbar) === self.toolbar, keyPath == "sizeMode",
+		   let newVal = change?[.newKey] as? UInt,
+		   let sizeMode = NSToolbar.SizeMode(rawValue: newVal) {
+			self.toolbarSizeMode = sizeMode
+			self.sizeModeDidChange?(sizeMode)
 		}
 		else {
 			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)

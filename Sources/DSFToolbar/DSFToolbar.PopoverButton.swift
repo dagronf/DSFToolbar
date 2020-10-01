@@ -105,3 +105,13 @@ extension DSFToolbar.PopoverButton: NSPopoverDelegate {
 		_popover = nil
 	}
 }
+
+extension DSFToolbar.PopoverButton {
+	override func changeToUseLegacySizing() {
+		guard let b = self.button else {
+			fatalError()
+		}
+		b.translatesAutoresizingMaskIntoConstraints = true
+		b.removeConstraints(b.constraints)
+	}
+}

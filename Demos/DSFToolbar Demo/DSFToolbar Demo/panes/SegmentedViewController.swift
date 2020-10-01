@@ -52,6 +52,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Styles Separated")
+			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { (selection) in
 				Swift.print("Styles Separated: New Selection -> \(selection)")
 			}
@@ -70,6 +71,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Styles Grouped")
+			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.bindSelection(self, keyPath: "segmentsEnabled")
 			.action { (selection) in
 				Swift.print("Styles Grouped: New Selection -> \(selection)")
@@ -90,6 +92,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Justify Separate")
+			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { (selection) in
 				Swift.print("Justify Separate: New Selection -> \(selection)")
 			}
@@ -109,6 +112,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Justify Grouped")
+			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { (selection) in
 				Swift.print("Justify Grouped: New Selection -> \(selection)")
 			}

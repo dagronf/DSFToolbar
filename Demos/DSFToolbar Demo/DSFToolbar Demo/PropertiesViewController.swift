@@ -59,6 +59,11 @@ class PropertiesViewController: NSViewController {
 		// Attach the custom toolbar to the window
 		if let c = self.current as? DemoContentViewController {
 			c.customToolbar?.attachedWindow = self.view.window
+
+			c.customToolbar?.sizeModeDidChange = { newMode in
+				Swift.print("Size mode changed -> \(newMode.rawValue)")
+			}
+
 		}
 
 		self.updateOffsets()

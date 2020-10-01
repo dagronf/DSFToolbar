@@ -102,7 +102,18 @@ public extension DSFToolbar {
 		/// set for the toolbar
 		@discardableResult
 		public func label(_ label: String) -> Self {
-			self.toolbarItem?.label = label
+
+			guard let ti = self.toolbarItem else {
+				fatalError()
+			}
+
+			ti.label = label
+
+			// If the user hasn't provided a palette label, set it to the label (older version support)
+			if ti.paletteLabel.count == 0 {
+				ti.paletteLabel = label
+			}
+
 			return self
 		}
 
@@ -183,5 +194,42 @@ public extension DSFToolbar {
 		internal func enabledDidChange(to state: Bool) {
 			// Do nothing
 		}
+	}
+}
+
+// MARK: - Legacy sizing support
+
+extension DSFToolbar.Core {
+
+	@objc func changeToUseLegacySizing() {
+		// By default, do nothing
+	}
+
+	/// Set the minSize and maxSize of the toolbar item to the provided sizes.
+	///
+	/// For older macOS versions, toolbar constraints layout is buggy as hell, and its far more
+	/// reliable (but less flexible) to use minSize and maxSize.
+	///
+	/// Setting a legacy size will only affect layouts pre 10.13 (High Sierra) - newer systems
+	/// will just ignore these if they are set.
+	public func legacySizes(minSize: NSSize? = nil, maxSize: NSSize? = nil) -> Self {
+		if #available(macOS 10.13, *) {
+			return self
+		}
+
+		// Notify the toolbar item that we need to do anything special BEFORE changing
+		// the sizing to legacy.
+		// For example, a button toolbar item uses constraints to set the size and the position,
+		// so when legacy is requested from an older macOS the button is asked to 'convert' itself
+		// to legacy min/max sizing.
+		self.changeToUseLegacySizing()
+
+		if let s = minSize {
+			self.toolbarItem?.minSize = s
+		}
+		if let s = maxSize {
+			self.toolbarItem?.maxSize = s
+		}
+		return self
 	}
 }

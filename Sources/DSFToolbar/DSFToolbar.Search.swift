@@ -66,21 +66,35 @@ extension DSFToolbar {
 				return si
 			}
 			else {
+				var ms: NSSize? = nil
+
 				let si = NSSearchField()
-				si.translatesAutoresizingMaskIntoConstraints = false
-				si.addConstraint(
-					NSLayoutConstraint(
-						item: si,
-						attribute: .width,
-						relatedBy: .lessThanOrEqual,
-						toItem: nil, attribute: .notAnAttribute,
-						multiplier: 1, constant: self.maxWidth
+
+				if #available(macOS 10.14, *) {
+					si.translatesAutoresizingMaskIntoConstraints = false
+					si.addConstraint(
+						NSLayoutConstraint(
+							item: si,
+							attribute: .width,
+							relatedBy: .lessThanOrEqual,
+							toItem: nil, attribute: .notAnAttribute,
+							multiplier: 1, constant: self.maxWidth
+						)
 					)
-				)
+				}
+				else {
+					ms = NSSize(width: self.maxWidth, height: 20)
+				}
+
 				si.delegate = self._delegate
 				self._searchField = si
 				let a = NSToolbarItem(itemIdentifier: self.identifier)
 				a.view = si
+
+				if let mss = ms {
+					a.minSize = mss
+				}
+
 				return a
 			}
 		}()

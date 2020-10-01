@@ -34,6 +34,7 @@ class SeparatorViewController: NSViewController {
 			DSFToolbar.Image(NSToolbarItem.Identifier("enabler"))
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isBordered(true)
+				.legacySizes(minSize: NSSize(width: 32, height: 28))
 
 			DSFToolbar.Separator(
 				NSToolbarItem.Identifier("primary-separator-sep"),
@@ -53,6 +54,7 @@ class SeparatorViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Styles Grouped")
+			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { (selection) in
 				Swift.print("Styles Grouped: New Selection -> \(selection)")
 			}
@@ -77,6 +79,7 @@ class SeparatorViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Justify Grouped")
+			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { (selection) in
 				Swift.print("Justify Grouped: New Selection -> \(selection)")
 			}

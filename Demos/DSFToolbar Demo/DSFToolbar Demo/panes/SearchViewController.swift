@@ -42,6 +42,8 @@ class SearchViewController: NSViewController {
 				.image(ProjectAssets.ImageSet.toolbar_search_enable.image)
 				.imageScaling(.scaleProportionallyDown)
 				.bindLabel(to: self, withKeyPath: "searchButtonLabel")
+				.legacySizes(minSize: NSSize(width: 80, height: 63))
+
 				.action { [weak self] sender in
 					if sender.state == .on {
 						self?.searchButtonLabel = "Disable Search"
@@ -58,6 +60,7 @@ class SearchViewController: NSViewController {
 				.bezelStyle(.regularSquare)
 				.image(ProjectAssets.ImageSet.toolbar_search_hardcode.image)
 				.imageScaling(.scaleProportionallyDown)
+				.legacySizes(minSize: NSSize(width: 80, height: 63))
 				.label("Hardcode")
 				.action { [weak self] _ in
 					self?.searchText = "Hardcoded"

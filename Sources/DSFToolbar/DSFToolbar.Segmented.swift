@@ -206,6 +206,19 @@ public extension DSFToolbar {
 			}
 		}
 
+		// Legacy for older systems
+		override func changeToUseLegacySizing() {
+
+			// If we're using legacy sizing, we have to remove the constraints first
+
+			guard let b = self.segmented else {
+				fatalError()
+			}
+
+			b.translatesAutoresizingMaskIntoConstraints = true
+			b.removeConstraints(b.constraints)
+		}
+
 		///// Cleanup
 
 		override public func close() {

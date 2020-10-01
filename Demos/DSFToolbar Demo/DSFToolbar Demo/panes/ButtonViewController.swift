@@ -30,6 +30,7 @@ class ButtonViewController: NSViewController {
 				.title("Text only")
 				.paletteLabel("This is the text")
 				.width(minVal: 50)
+				.legacySizes(minSize: NSSize(width: 75, height: 20))
 
 			DSFToolbar.Button(NSToolbarItem.Identifier("button-1"), buttonType: .pushOnPushOff)
 				.bezelStyle(.regularSquare)
@@ -37,23 +38,28 @@ class ButtonViewController: NSViewController {
 				.paletteLabel("Add a person")
 				.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 				.imagePosition(.imageOnly)
+				.legacySizes(minSize: NSSize(width: 48, height: 48))
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-1")) {
-			DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
-				.title("Left")
-				.width(minVal: 50)
-				.image(ProjectAssets.ImageSet.toolbar_button_click.template)
-				.imagePosition(.imageLeft)
-				.imageScaling(.scaleProportionallyDown)
+				DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
+					.title("Left")
+					.width(minVal: 70)
+					.image(ProjectAssets.ImageSet.toolbar_button_click.template)
+					.imagePosition(.imageLeft)
+					.imageScaling(.scaleProportionallyDown)
+					.legacySizes(minSize: NSSize(width: 75, height: 27))
 
-			DSFToolbar.Button(NSToolbarItem.Identifier("button-3"))
-				.title("Right")
-				.width(minVal: 50)
-				.image(ProjectAssets.ImageSet.toolbar_button_direction.template)
-				.imagePosition(.imageRight)
-				.imageScaling(.scaleProportionallyDown)
+				DSFToolbar.Button(NSToolbarItem.Identifier("button-3"))
+					.title("Right")
+					.width(minVal: 70)
+					.image(ProjectAssets.ImageSet.toolbar_button_direction.template)
+					.imagePosition(.imageRight)
+					.imageScaling(.scaleProportionallyDown)
+					.legacySizes(minSize: NSSize(width: 75, height: 27))
 			}
+			.legacySizes(minSize: NSSize(width: 160, height: 27))
 			.label("First button group")
+			.paletteLabel("Directions")
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-2")) {
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-4"), buttonType: .pushOnPushOff)
@@ -63,6 +69,7 @@ class ButtonViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 					.imagePosition(.imageAbove)
 					.imageScaling(.scaleProportionallyDown)
+					.legacySizes(minSize: NSSize(width: 60, height: 60))
 
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-5"), buttonType: .pushOnPushOff)
 					.title("Bottom")
@@ -71,8 +78,11 @@ class ButtonViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 					.imagePosition(.imageBelow)
 					.imageScaling(.scaleProportionallyDown)
+					.legacySizes(minSize: NSSize(width: 60, height: 60))
 			}
 			.label("Second button group")
+			.legacySizes(minSize: NSSize(width: 120, height: 60))
+
 
 			// Add a button that isn't part of the default toolbar (you'll need to customize and add it to see it)
 
@@ -84,6 +94,7 @@ class ButtonViewController: NSViewController {
 				.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 				.imagePosition(.imageAbove)
 				.imageScaling(.scaleProportionallyDown)
+				.legacySizes(minSize: NSSize(width: 60, height: 60))
 			}
 	}
 

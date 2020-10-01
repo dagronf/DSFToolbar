@@ -87,5 +87,9 @@ public extension DSFToolbar {
 				self.groupToolbarItem.selectionMode = mode
 			}
 		}
+
+		override func changeToUseLegacySizing() {
+			// Doesn't need to do anything
+		}
 	}
 }
