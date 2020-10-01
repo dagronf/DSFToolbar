@@ -29,6 +29,8 @@ import AppKit
 
 public extension DSFToolbar {
 	class PopoverButton: Core {
+
+		/// The popover button item
 		public private(set) var button: NSButton?
 		private var buttonToolbarItem: NSToolbarItem? = nil
 		private var _controller: NSViewController?

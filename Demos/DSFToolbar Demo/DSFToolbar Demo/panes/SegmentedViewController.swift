@@ -45,7 +45,7 @@ class SegmentedViewController: NSViewController {
 				segmentWidths: 32,
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindEnabled(to: self, withKeyPath: "segmentEnabled"),
+					.bindEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
@@ -64,7 +64,7 @@ class SegmentedViewController: NSViewController {
 				segmentWidths: 32,
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindEnabled(to: self, withKeyPath: "segmentEnabled"),
+					.bindEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()

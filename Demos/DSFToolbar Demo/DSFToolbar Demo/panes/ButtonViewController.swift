@@ -63,7 +63,7 @@ class ButtonViewController: NSViewController {
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-2")) {
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-4"), buttonType: .pushOnPushOff)
-					.bindTitle(to: self, withKeyPath: "topTitle")
+					.bindTitle(to: self, withKeyPath: #keyPath(topTitle))
 					.bezelStyle(.regularSquare)
 					.width(minVal: 50, maxVal: 100)
 					.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)

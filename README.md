@@ -6,7 +6,7 @@ A SwiftUI-style declarative `NSToolbar` for macOS.
 
 NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount of boilerplate code required for each toolbar.
 
-Because of this, I tended to find that I wasn't putting toolbars into my (admittedly basic) apps just because of the boilerplate required.
+Because of this, I tended to find that I wasn't putting toolbars into my (admittedly basic) apps.
 
 I was keen to see if I could produce an API that can :-
 
@@ -18,11 +18,13 @@ I was keen to see if I could produce an API that can :-
 
 This module doesn't contain the full functionality of the `NSToolbar`/`NSToolbarDelegate`, but provides a decent chunk of the core functionality.
 
-## Simple Example
+## TL;DR - Show me something!
+
+If you're familiar with SwiftUI syntax you'll feel comfortable with the declaration style.
 
 ```swift
 self.customToolbar = 
-   DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
+   DSFToolbar.Make(NSToolbar.Identifier("Core")) {
    
       DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
          .label("New")
@@ -40,8 +42,8 @@ self.customToolbar =
       
       DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
          .label("Search")
-         .bindEnabled(to: self, withKeyPath: "searchEnabled")
-         .bindText(self, keyPath: "searchText")
+         .bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+         .bindText(self, keyPath: #keyPath(searchText))
    }
    
 // Attaching the window to the toolbar will make the toolbar appear
@@ -50,6 +52,37 @@ self.customToolbar.attachedWindow = …some window…
 
 ## Concepts
 
+### Actions
+
+Items which provide callbacks (for example, responses to clicks) can provide a block action to respond with as part of the declaration.
+
+```swift
+self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Buttons")) {
+   DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
+      .label("Burger")
+      .action { _ in
+         Swift.print("Clicked burger!")
+      }
+   }
+```
+
+### Block requests
+
+Some toolbar items can request information. For example, you can pass a block that returns the enabled status of an `Image` item during the declaration.
+
+```swift
+self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Enabled-buttons")) {
+   DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
+      .label("Burger")
+      .enabled {
+         return self.IsBurgerMenuEnabled()
+      }
+      .action { _ in
+         Swift.print("Clicked burger!")
+      }
+   }
+```
+
 ### Bindings
 
 A lot of functionality can be hooked up via bindings in order to pass information to and from a toolbar item. For example, you can hook the content of the Search item to a class variable to observe when the content of the search field changes.
@@ -57,26 +90,12 @@ A lot of functionality can be hooked up via bindings in order to pass informatio
 ```swift
 @objc dynamic var searchText: String = ""
    ...
-self.customToolbar = DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Search")) {
+self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
    DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
       .label("Search")
-      .bindText(self, keyPath: "searchText")
+      .bindText(self, keyPath: #keyPath(searchText))
+   }
 ```
-
-### Actions
-
-
-
-```swift
-self.customToolbar = DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Buttons")) {
-   DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
-      .label("Burger")
-      .action { _ in
-         Swift.print("Clicked burger!")
-      }
-
-```
-
 
 ## Available toolbar item types
 
@@ -140,6 +159,28 @@ A toolbar 'image' type is the basic type of toolbar items
 | `action`  | The block to call when the toolbar item is activated (eg. clicked)  |
 | `enabled` | Supply a callback block to be called to determine the enabled state of the item |
 
+## Segmented Control
+
+### Segment
+
+#### Properties
+
+| Property   | Type (default)     |  Description |
+|----------|-------------|------|
+| `title`  | `String`    | the title to display on the segmented control
+| `image`  | `NSImage`    | the image to display on the toolbar item
+
+#### Actions
+
+| Action    | Description |
+|----------|-------------|
+| `action`  | The block to call when the selection of the segmented control changes |
+
+
+#### Bindings
+
+| Binding   | Type (default)     |  Description |
+| `bindEnabled` | `Bool` | Bind the enabled state for the toolbar item to a key path
 
 ## Search
 

@@ -29,6 +29,8 @@ import AppKit
 
 public extension DSFToolbar {
 	class Segmented: Core {
+
+		/// Definition of a segment within a segmented control
 		public class Segment: NSObject {
 			var index: Int = -1
 			weak var parent: Segmented?
@@ -51,8 +53,14 @@ public extension DSFToolbar {
 
 			// MARK: - Segment enabled binding
 
-			let _segmentEnabled = BindableAttribute<Bool>()
+			private let _segmentEnabled = BindableAttribute<Bool>()
 
+
+			/// Bind the enabled state for the segment to a member variable
+			/// - Parameters:
+			///   - object: The object to bind to
+			///   - keyPath: The key path for the member variable within 'object' (Bool)
+			/// - Returns: self
 			public func bindEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
 				self._segmentEnabled.setup(observable: object, keyPath: keyPath)
 				return self
@@ -68,7 +76,7 @@ public extension DSFToolbar {
 			}
 
 			// Called when the segmented control is created, and we know our segment index is
-			func onCreate(parent: Segmented, index: Int) {
+			internal func onCreate(parent: Segmented, index: Int) {
 				self.parent = parent
 				self.index = index
 
@@ -110,6 +118,14 @@ public extension DSFToolbar {
 
 		var segments: [Segment]
 
+
+		/// Create a Segmented Control toolbar item
+		/// - Parameters:
+		///   - identifier: The unique identifier for the item.  Must be unique within the items in the toolbar
+		///   - type: Segmented or Grouped
+		///   - switching: The type of tracking behavior a segmented control exhibits
+		///   - segmentWidths: (optional) set a fixed width for all segments. If not provided, size to fit content
+		///   - segments: The segments
 		public init(_ identifier: NSToolbarItem.Identifier,
 					type: SegmentedType,
 					switching: NSSegmentedControl.SwitchTracking = .selectAny,
@@ -155,11 +171,35 @@ public extension DSFToolbar {
 			self.segmentedItem = a
 		}
 
-		////// Item action callbacks
+		override public func close() {
+			self._action = nil
+			self._selectionBinding.unbind()
+
+			self.segmentedItem?.view = nil
+			self.segmentedItem = nil
+
+			self.segments.forEach { $0.close() }
+			self.segments = []
+
+			self.segmented?.target = nil
+			self.segmented?.action = nil
+			self.segmented = nil
+
+			super.close()
+		}
+
+		deinit {
+			debugPrint("DSFToolbar.Segmented deinit")
+		}
+
+		// MARK: - Segment Action
 
 		var _action: ((Set<Int>) -> Void)?
+
+		/// Define the action to call when the selection within the segmented control changes
+		/// - Parameter block: The block to call, passing the selected segment indexes
+		/// - Returns: Self
 		public func action(_ block: @escaping (Set<Int>) -> Void) -> Segmented {
-			self._action = block
 			self.segmented?.target = self
 			self.segmented?.action = #selector(itemPressed(_:))
 			return self
@@ -181,12 +221,19 @@ public extension DSFToolbar {
 			self._action?(Set(selected))
 		}
 
-		///// Selection bindings
-
 		// MARK: - Selection bindings
 
-		let _selectionBinding = BindableAttribute<NSSet>()
+		private let _selectionBinding = BindableAttribute<NSSet>()
 
+		/// Bind the selection of the item to a key path (NSSet<Int>)
+		/// - Parameters:
+		///   - object: The object to bind to
+		///   - keyPath: The keypath identifying the member variable to bind to
+		/// - Returns: self
+		///
+		/// Binding the selection to a keypath allows the ability to change the selection dynamically when
+		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
+		/// take effect
 		public func bindSelection(_ object: AnyObject, keyPath: String) -> Self {
 			_selectionBinding.setup(observable: object, keyPath: keyPath)
 			_selectionBinding.bind { [weak self] newValue in
@@ -195,7 +242,7 @@ public extension DSFToolbar {
 			return self
 		}
 
-		public func setSelection(selectedItems: NSSet) {
+		private func setSelection(selectedItems: NSSet) {
 			guard let s = self.segmented,
 				  let sels = selectedItems as? Set<Int> else {
 				fatalError()
@@ -205,41 +252,22 @@ public extension DSFToolbar {
 				s.setSelected(sels.contains(segment.offset), forSegment: segment.offset)
 			}
 		}
+	}
+}
 
-		// Legacy for older systems
-		override func changeToUseLegacySizing() {
+// MARK: - Legacy support
 
-			// If we're using legacy sizing, we have to remove the constraints first
+extension DSFToolbar.Segmented {
+	// Legacy for older systems
+	override func changeToUseLegacySizing() {
 
-			guard let b = self.segmented else {
-				fatalError()
-			}
+		// If we're using legacy sizing, we have to remove the constraints first
 
-			b.translatesAutoresizingMaskIntoConstraints = true
-			b.removeConstraints(b.constraints)
+		guard let b = self.segmented else {
+			fatalError()
 		}
 
-		///// Cleanup
-
-		override public func close() {
-			self._action = nil
-			self._selectionBinding.unbind()
-
-			self.segmentedItem?.view = nil
-			self.segmentedItem = nil
-
-			self.segments.forEach { $0.close() }
-			self.segments = []
-
-			self.segmented?.target = nil
-			self.segmented?.action = nil
-			self.segmented = nil
-
-			super.close()
-		}
-
-		deinit {
-			debugPrint("DSFToolbar.Segmented deinit")
-		}
+		b.translatesAutoresizingMaskIntoConstraints = true
+		b.removeConstraints(b.constraints)
 	}
 }

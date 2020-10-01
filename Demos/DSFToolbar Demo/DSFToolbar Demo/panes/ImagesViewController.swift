@@ -25,6 +25,7 @@ class ImagesViewController: NSViewController {
 	@objc dynamic var selectedToolbarItem: String = "Toolbar Selection: (none)"
 
 	func build() {
+
 		self.toolbarContainer = DSFToolbar.Make(
 			toolbarIdentifier: NSToolbar.Identifier("primary-images"),
 			allowsUserCustomization: true
@@ -44,14 +45,14 @@ class ImagesViewController: NSViewController {
 				.tooltip("My cat likes watermelon")
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 				.isSelectable(true)
-				.bindEnabled(to: self, withKeyPath: "toolbar_watermelon_enabled")
+				.bindEnabled(to: self, withKeyPath: #keyPath(toolbar_watermelon_enabled))
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
 				.action { _ in
 					Swift.print("Got watermelon!")
 				}
 
 			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger"))
-				.bindLabel(to: self, withKeyPath: "toolbar_burger_label")
+				.bindLabel(to: self, withKeyPath: #keyPath(toolbar_burger_label))
 				.tooltip("I really really want a burger")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isSelectable(true)
@@ -96,7 +97,7 @@ class ImagesViewController: NSViewController {
 			.label("Grouped Foods")
 			.legacySizes(minSize: NSSize(width: 96, height: 32))
 			.isSelectable(true)
-			.bindEnabled(to: self, withKeyPath: "toolbar_group_enabled")
+			.bindEnabled(to: self, withKeyPath: #keyPath(toolbar_group_enabled))
 
 			/// A bordered button (10.15+ only)
 

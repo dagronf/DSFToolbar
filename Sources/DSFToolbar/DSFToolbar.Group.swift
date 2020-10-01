@@ -32,9 +32,12 @@ public extension DSFToolbar {
 
 		public enum SelectionMode: Int {
 			public typealias RawValue = Int
-			case selectOne = 0	// NSToolbarItemGroup.SelectionMode.selectOne
-			case selectAny = 1	// NSToolbarItemGroup.SelectionMode.selectAny
-			case momentary = 2	// NSToolbarItemGroup.SelectionMode.momentary
+			/// NSToolbarItemGroup.SelectionMode.selectOne
+			case selectOne = 0
+			/// NSToolbarItemGroup.SelectionMode.selectAny
+			case selectAny = 1
+			/// NSToolbarItemGroup.SelectionMode.momentary
+			case momentary = 2
 		}
 
 		internal var items: [DSFToolbar.Core] = []

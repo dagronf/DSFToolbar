@@ -46,6 +46,8 @@ public extension DSFToolbar.Group {
 	}
 }
 
+// MARK: - SwiftUI declarative
+
 public extension DSFToolbar {
 	/// Make a new toolbar using SwiftUI declarative style
 	/// - Parameters:
@@ -60,7 +62,7 @@ public extension DSFToolbar {
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
 		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
 	) -> DSFToolbar {
-		let tb = DSFToolbar(toolbarIdentifier: toolbarIdentifier)
+		let tb = DSFToolbar(toolbarIdentifier)
 
 		let children = builder()
 

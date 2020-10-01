@@ -41,7 +41,7 @@ class SearchViewController: NSViewController {
 				.bezelStyle(.regularSquare)
 				.image(ProjectAssets.ImageSet.toolbar_search_enable.image)
 				.imageScaling(.scaleProportionallyDown)
-				.bindLabel(to: self, withKeyPath: "searchButtonLabel")
+				.bindLabel(to: self, withKeyPath: #keyPath(searchButtonLabel))
 				.legacySizes(minSize: NSSize(width: 80, height: 63))
 
 				.action { [weak self] sender in
@@ -70,8 +70,8 @@ class SearchViewController: NSViewController {
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search for stuff")
-				.bindEnabled(to: self, withKeyPath: "searchEnabled")
-				.bindText(self, keyPath: "searchText")
+				.bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+				.bindText(self, keyPath: #keyPath(searchText))
 				.searchChange { [weak self] _, text in
 					self?.searchDebounce.debounce {
 						Swift.print("Search text is now '\(text)'")

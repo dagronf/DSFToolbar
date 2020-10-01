@@ -30,8 +30,13 @@ import AppKit
 
 public extension DSFToolbar {
 
+	/// An item to display the standard color palette
 	static let ShowColors: Core = { Core(.showColors) }()
+
+	/// A fixed space toolbar item
 	static let FixedSpace: Core = { Core(.space) }()
+
+	/// A flexible space toolbar item
 	static let FlexibleSpace: Core = { Core(.flexibleSpace) }()
 
 	class Print: Core, NSToolbarItemValidation {

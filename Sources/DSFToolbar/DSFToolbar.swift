@@ -27,6 +27,7 @@
 
 import AppKit
 
+/// A declarative-style NSToolbar wrapper (styled on SwiftUI)
 public class DSFToolbar: NSObject {
 	private let identifier: NSToolbar.Identifier
 
@@ -46,43 +47,17 @@ public class DSFToolbar: NSObject {
 
 	// The items to be added to the touchbar
 	private var items: [DSFToolbar.Core] = []
-	public func addItems(_ items: [DSFToolbar.Core]) {
+
+	/// Add items to the toolbar
+	internal func addItems(_ items: [DSFToolbar.Core]) {
 		self.items.append(contentsOf: items)
 	}
 
-	public func item<T>(identifier: NSToolbarItem.Identifier) -> T? {
-
-		var items = self.items
-		let groupContent = items.compactMap { ($0 as? DSFToolbar.Group)?.items }
-		items += groupContent.flatMap { $0 }
-
-		if let item = items.filter({ $0.identifier == identifier }).first {
-			return item as? T
-		}
-
-		return nil
-	}
-
-	/// An observable size mode for the contained toolbar
+	/// An observable size mode for the contained toolbar.
 	@objc public dynamic var toolbarSizeMode: NSToolbar.SizeMode = .default
 
-	/// A callback to be called when the sizeMode of the toolbar changes
-	public var sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? = nil
-
-	public init(toolbarIdentifier: NSToolbar.Identifier) {
-		self.identifier = toolbarIdentifier
-		super.init()
-
-		self.setup()
-	}
-
-	func setup() {
-		// Add an observer for changing the size of the toolbar
-		self.toolbar.addObserver(
-			self,
-			forKeyPath: "sizeMode",
-			options: [.new], context: nil)
-	}
+	/// A block to be called when the size mode of the toolbar changes.
+	public var sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)?
 
 	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
 	public var attachedWindow: NSWindow? {
@@ -94,25 +69,7 @@ public class DSFToolbar: NSObject {
 		}
 	}
 
-	/// Returns the height of the toolbar
-	public var toolbarHeight: CGFloat? {
-		guard let w = self.attachedWindow else {
-			return nil
-		}
-		return w.frame.height - w.contentLayoutRect.height
-	}
-
-	/// Returns the offset from the top of the window to the top of the contentView so that it is
-	/// not obscured by a toolbar
-	public var contentOffsetForToolbar: CGFloat? {
-		guard let w = self.attachedWindow else {
-			return nil
-		}
-		if w.styleMask.contains(.fullSizeContentView) {
-			return w.frame.height - w.contentLayoutRect.height
-		}
-		return 0
-	}
+	// MARK: - Create and destroy
 
 	/// Build a new toolbar
 	/// - Parameters:
@@ -127,7 +84,7 @@ public class DSFToolbar: NSObject {
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
 		_ items: DSFToolbar.Core...
 	) -> NSToolbar {
-		let tb = DSFToolbar(toolbarIdentifier: toolbarIdentifier)
+		let tb = DSFToolbar(toolbarIdentifier)
 
 		tb.toolbar.allowsUserCustomization = allowsUserCustomization
 		if allowsUserCustomization {
@@ -150,12 +107,29 @@ public class DSFToolbar: NSObject {
 		return tb.toolbar
 	}
 
+	/// Create a toolbar
+	/// - Parameter toolbarIdentifier: the toolbar identifier. Must be unique within the application.
+	public init(_ toolbarIdentifier: NSToolbar.Identifier) {
+		self.identifier = toolbarIdentifier
+		super.init()
+
+		self.setup()
+	}
+
+	private func setup() {
+		// Add an observer for changing the size of the toolbar
+		self.toolbar.addObserver(
+			self,
+			forKeyPath: "sizeMode",
+			options: [.new], context: nil
+		)
+	}
+
 	/// Close the toolbar
 	///
 	/// You must call `close()` on a DSFToolbar object when you are finished to release any internal stores and/or
 	/// binding observers.
 	public func close() {
-
 		// Make sure to detach ourselves if we aren't already
 		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
 		if self.toolbar === self.attachedWindow?.toolbar {
@@ -174,6 +148,45 @@ public class DSFToolbar: NSObject {
 			item.close()
 		}
 		self.items = []
+	}
+
+	// MARK: - Locate
+
+	/// Locate an item within the toolbar by its identifier
+	/// - Parameter identifier: The identifier to locate
+	/// - Returns: The toolbar item, or nil if not found (or of mismatching type)
+	public func item<T>(identifier: NSToolbarItem.Identifier) -> T? {
+		var items = self.items
+		let groupContent = items.compactMap { ($0 as? DSFToolbar.Group)?.items }
+		items += groupContent.flatMap { $0 }
+
+		if let item = items.filter({ $0.identifier == identifier }).first {
+			return item as? T
+		}
+
+		return nil
+	}
+
+	// MARK: - Toolbar height helpers
+
+	/// Returns the height of the toolbar
+	public var toolbarHeight: CGFloat? {
+		guard let w = self.attachedWindow else {
+			return nil
+		}
+		return w.frame.height - w.contentLayoutRect.height
+	}
+
+	/// Returns the offset from the top of the window to the top of the contentView so that it is
+	/// not obscured by a toolbar
+	public var contentOffsetForToolbar: CGFloat? {
+		guard let w = self.attachedWindow else {
+			return nil
+		}
+		if w.styleMask.contains(.fullSizeContentView) {
+			return w.frame.height - w.contentLayoutRect.height
+		}
+		return 0
 	}
 
 	// MARK: - Selection change block
@@ -199,9 +212,8 @@ public class DSFToolbar: NSObject {
 // MARK: - Toolbar delegate
 
 extension DSFToolbar: NSToolbarDelegate {
-
 	public func toolbarDefaultItemIdentifiers(_: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return items.filter({ $0.isDefaultItem })
+		return items.filter { $0.isDefaultItem }
 			.map { $0.identifier }
 	}
 
@@ -239,8 +251,9 @@ extension DSFToolbar {
 			}
 		}
 		else if (object as? NSToolbar) === self.toolbar, keyPath == "sizeMode",
-		   let newVal = change?[.newKey] as? UInt,
-		   let sizeMode = NSToolbar.SizeMode(rawValue: newVal) {
+				let newVal = change?[.newKey] as? UInt,
+				let sizeMode = NSToolbar.SizeMode(rawValue: newVal)
+		{
 			self.toolbarSizeMode = sizeMode
 			self.sizeModeDidChange?(sizeMode)
 		}

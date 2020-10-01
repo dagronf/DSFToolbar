@@ -29,6 +29,9 @@ import AppKit
 
 public extension DSFToolbar {
 
+	/// A toolbar item representing a separator
+	///
+	/// Note that separators were introduced in macOS 11, for lower versions this item is ignored
 	class Separator: Core {
 
 		override var toolbarItem: NSToolbarItem? {
@@ -37,6 +40,12 @@ public extension DSFToolbar {
 
 		let separatorToolbarItem: NSToolbarItem? // NSTrackingSeparatorToolbarItem
 
+
+		/// Create a separator item
+		/// - Parameters:
+		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
+		///   - splitView: The split view to track
+		///   - dividerIndex: The divider index index within `splitView` to track
 		public init(_ identifier: NSToolbarItem.Identifier,
 			 splitView: NSSplitView,
 			 dividerIndex: Int) {

@@ -41,7 +41,7 @@ class PopupMenuViewcontroller: NSViewController {
 			DSFToolbar.PopupButton(NSToolbarItem.Identifier("PopupButton"), menu: self.popupMenu)
 				.label("Popup")
 				.image(ProjectAssets.ImageSet.toolbar_cog.template)
-				.bindEnabled(to: self, withKeyPath: "popupMenuEnabled")
+				.bindEnabled(to: self, withKeyPath: #keyPath(popupMenuEnabled))
 				.legacySizes(minSize: NSSize(width: 48, height: 32))
 				.isSelectable(true)
 			
@@ -51,7 +51,7 @@ class PopupMenuViewcontroller: NSViewController {
 				.label("Popover View")
 				.image(ProjectAssets.ImageSet.toolbar_cog.template)
 				.legacySizes(minSize: NSSize(width: 48, height: 30))
-				.bindEnabled(to: self, withKeyPath: "popoverViewEnabled")
+				.bindEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
 		}
 	}
 }

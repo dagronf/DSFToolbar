@@ -27,6 +27,7 @@
 
 import AppKit
 
+/// A view controller protocol to provide feedback during the toolbar lifecycle
 public protocol DSFToolbarViewControllerProtocol {
 
 	/// Called when the enabled state of the toolbarItem is changing
@@ -40,6 +41,8 @@ public protocol DSFToolbarViewControllerProtocol {
 }
 
 public extension DSFToolbar {
+
+	/// A toolbar item containing an arbitrary view.
 	class View: Core {
 
 		private var viewController: NSViewController? = nil
@@ -48,6 +51,11 @@ public extension DSFToolbar {
 			return self.viewController as? DSFToolbarViewControllerProtocol
 		}
 
+
+		/// Create a toolbar item containing a custom view
+		/// - Parameters:
+		///   - identifier: The identifier
+		///   - viewController: The view controller for the view to be inserted
 		public init(_ identifier: NSToolbarItem.Identifier, viewController: NSViewController) {
 			self.viewController = viewController
 			super.init(identifier)
