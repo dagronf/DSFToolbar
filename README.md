@@ -2,6 +2,8 @@
 
 A SwiftUI-style declarative `NSToolbar` for macOS.
 
+Requires Xcode 12.
+
 ## Why?
 
 NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount of boilerplate code required for each toolbar.
@@ -23,32 +25,40 @@ This module doesn't contain the full functionality of the `NSToolbar`/`NSToolbar
 If you're familiar with SwiftUI syntax you'll feel comfortable with the declaration style.
 
 ```swift
-self.customToolbar = 
-   DSFToolbar.Make(NSToolbar.Identifier("Core")) {
-   
-      DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
-         .label("New")
-         .image(…some image…)
-         .enabled { return false }
-         .action  { Swift.print("Pressed item 1") }
-         
-      DSFToolbar.Image(NSToolbarItem.Identifier("item-edit"))
-         .label("Edit")
-         .image(…some image…)
-         .enabled { return true }
-         .action  { Swift.print("Pressed item 2") }
-         
-      DSFToolbar.FlexibleSpace
-      
-      DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
-         .label("Search")
-         .bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
-         .bindText(self, keyPath: #keyPath(searchText))
+@objc dynamic var searchEnabled: Bool = true
+@objc dynamic var searchText: String = ""
+...
+self.customToolbar =
+   DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
+
+     DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
+       .label("New")
+       .image(NSImage(named: "toolbar-button-person-add")!)
+       .enabled { return false }
+       .action { _ in
+         Swift.print("Pressed item 1")
+      }
+
+     DSFToolbar.Image(NSToolbarItem.Identifier("item-edit"))
+       .label("Edit")
+      .image(NSImage(named: "toolbar-button-person-add")!)
+       .enabled { return true }
+       .action { _ in
+         Swift.print("Pressed item 2")
+      }
+
+     DSFToolbar.FlexibleSpace
+
+     DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+       .label("Search")
+       .bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+       .bindText(self, keyPath: #keyPath(searchText))
    }
-   
+
 // Attaching the window to the toolbar will make the toolbar appear
-self.customToolbar.attachedWindow = …some window…
+self.customToolbar?.attachedWindow = self.window
 ```
+![](https://github.com/dagronf/dagronf.github.io/blob/master/art/projects/DSFToolbar/sample.png?raw=true)
 
 ## Concepts
 
