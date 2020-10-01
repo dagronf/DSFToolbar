@@ -24,7 +24,7 @@ func willClose()
 ```swift
 DSFToolbar.View(NSToolbarItem.Identifier("customview1"), viewController: self.customContent1)
    .label("Input Levels")
-   .bindEnabled(to: self, withKeyPath: #keyPath(customContent1Enabled))
+   .bindIsEnabled(to: self, withKeyPath: #keyPath(customContent1Enabled))
 ```
 
 ## Properties

@@ -103,7 +103,7 @@ public extension DSFToolbar {
 			self._popupMenu?.insertItem(newI, at: 0)
 		}
 
-		override func enabledDidChange(to state: Bool) {
+		override func isEnabledDidChange(to state: Bool) {
 			self._popupButtonItem?.isEnabled = state
 			self._popupButton?.isEnabled = state
 		}

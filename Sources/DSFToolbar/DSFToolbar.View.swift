@@ -66,7 +66,7 @@ public extension DSFToolbar {
 		}
 
 		/// Called when the enabled binding state changes
-		override func enabledDidChange(to state: Bool) {
+		override func isEnabledDidChange(to state: Bool) {
 			self.externalViewController?.setEnabled(state)
 		}
 

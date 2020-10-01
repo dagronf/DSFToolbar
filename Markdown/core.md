@@ -18,7 +18,7 @@ Core properties and bindings are available to all toolbar item types.
 | Binding   | Type (default)     |  Description |
 |----------|-------------|------|
 | `bindLabel` | `String` | Bind the label for the toolbar item to a key path
-| `bindEnabled` | `Bool` | Bind the enabled state for the toolbar item to a key path
+| `bindIsEnabled` | `Bool` | Bind the enabled state for the toolbar item to a key path
 
 ## Legacy (pre 10.13) support
 

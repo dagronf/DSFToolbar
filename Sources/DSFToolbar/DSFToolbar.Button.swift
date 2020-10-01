@@ -28,6 +28,8 @@
 import AppKit
 
 public extension DSFToolbar {
+
+	/// A standard toolbar item containing an NSButton
 	class Button: Core {
 		private var button: NSButton?
 		private var buttonToolbarItem: NSToolbarItem?
@@ -194,7 +196,7 @@ public extension DSFToolbar {
 		}
 
 
-		/// Set the minimum width for the button.
+		/// Set the minimum and maximum widths for the button.
 		/// - Parameter width: The width to set
 		/// - Returns: self
 		@discardableResult
@@ -302,7 +304,7 @@ extension DSFToolbar.Button {
 
 // MARK: - Legacy sizing support
 
-extension DSFToolbar.Button {
+internal extension DSFToolbar.Button {
 	override func changeToUseLegacySizing() {
 		guard let b = self.button else {
 			fatalError()

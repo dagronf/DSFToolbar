@@ -15,7 +15,7 @@ DSFToolbar.Segmented(NSToolbarItem.Identifier("toolbar-styles-2"),
    segmentWidths: 32,
    DSFToolbar.Segmented.Segment()
       .image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-      .bindEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
+      .bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
    DSFToolbar.Segmented.Segment()
       .image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
    DSFToolbar.Segmented.Segment()
@@ -66,4 +66,4 @@ None.
 ## Bindings
 	
 | Binding   | Type (default)     |  Description |
-| `bindEnabled` | `Bool` | Bind the enabled state for the segment
+| `bindIsEnabled` | `Bool` | Bind the enabled state for the segment

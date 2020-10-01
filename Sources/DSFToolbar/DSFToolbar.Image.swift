@@ -28,22 +28,25 @@
 import AppKit
 
 public extension DSFToolbar {
+	/// A standard toolbar item. Supports images and labels.
+	///
+	/// See [documentation](https://developer.apple.com/documentation/appkit/nstoolbaritem)
 	class Image: Core {
-
 		lazy var imageToolbarItem: NSToolbarItem = {
-			return NSToolbarItem(itemIdentifier: self.identifier)
+			NSToolbarItem(itemIdentifier: self.identifier)
 		}()
 
 		override var toolbarItem: NSToolbarItem? {
 			return self.imageToolbarItem
 		}
 
+		/// Create an image item
 		override public init(_ identifier: NSToolbarItem.Identifier) {
 			super.init(identifier)
 		}
 
 		/// Called when the item is being closed
-		public override func close() {
+		override public func close() {
 			self._action = nil
 			self._isEnabled = nil
 			super.close()
@@ -98,7 +101,7 @@ public extension DSFToolbar {
 		}
 
 		/// Called when the enabled binding state changes
-		override func enabledDidChange(to state: Bool) {
+		override func isEnabledDidChange(to _: Bool) {
 			// Called when the enabled binding state changes
 		}
 	}

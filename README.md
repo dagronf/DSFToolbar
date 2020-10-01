@@ -51,7 +51,7 @@ self.customToolbar =
 
      DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
        .label("Search")
-       .bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+       .bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
        .bindText(self, keyPath: #keyPath(searchText))
    }
 

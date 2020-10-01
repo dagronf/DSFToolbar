@@ -72,7 +72,7 @@ class ViewController: NSViewController {
 
 				DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 					.label("Search")
-					.bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+					.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
 					.bindText(self, keyPath: #keyPath(searchText))
 			}
 

@@ -10,7 +10,7 @@ A toolbar item that displays a popover when activated.
 DSFToolbar.PopoverButton(NSToolbarItem.Identifier("Popover View"), popoverContentController: self.popovercontent)
    .label("Popover View")
    .image(ProjectAssets.ImageSet.toolbar_cog.template)
-   .bindEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
+   .bindIsEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
 ```
 
 ## Properties

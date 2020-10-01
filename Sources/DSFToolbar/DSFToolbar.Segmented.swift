@@ -213,7 +213,7 @@ public extension DSFToolbar.Segmented {
 		///   - object: The object to bind to
 		///   - keyPath: The key path for the member variable within 'object' (Bool)
 		/// - Returns: self
-		public func bindEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+		public func bindIsEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
 			self._segmentEnabled.setup(observable: object, keyPath: keyPath)
 			return self
 		}

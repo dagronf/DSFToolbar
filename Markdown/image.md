@@ -2,7 +2,18 @@
 
 A toolbar 'image' type is the basic type of toolbar items
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ImagesViewController.swift)
+## Example
+
+```swift
+DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon-2"))
+   .label("Watermelon")
+   .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+   .action { _ in
+      Swift.print("Got grouped watermelon!")
+   }
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ImagesViewController.swift)
 
 ## Properties
 

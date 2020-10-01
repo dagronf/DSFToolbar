@@ -180,18 +180,18 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindEnabled(to observable: NSObject, withKeyPath keyPath: String) -> Self {
+		public func bindIsEnabled(to observable: NSObject, withKeyPath keyPath: String) -> Self {
 			self._enabled.setup(observable: observable, keyPath: keyPath)
 			self._enabled.bind { [weak self] newEnabledState in
 				self?.toolbarItem?.isEnabled = newEnabledState
-				self?.enabledDidChange(to: newEnabledState)
+				self?.isEnabledDidChange(to: newEnabledState)
 			}
 			return self
 		}
 
 		/// Called when the enabled state of an item changes.  Override to provide custom
 		/// logic when your toolbar item changes its enabled state
-		internal func enabledDidChange(to state: Bool) {
+		internal func isEnabledDidChange(to state: Bool) {
 			// Do nothing
 		}
 	}
@@ -201,7 +201,7 @@ public extension DSFToolbar {
 
 extension DSFToolbar.Core {
 
-	@objc func changeToUseLegacySizing() {
+	@objc internal func changeToUseLegacySizing() {
 		// By default, do nothing
 	}
 

@@ -22,8 +22,8 @@ class SearchViewController: NSViewController {
 		self.build()
 	}
 
-	@objc dynamic var searchEnabled: Bool = false
-	@objc dynamic var searchButtonLabel: String = "Enable Search"
+	@objc dynamic var searchEnabled: Bool = true
+	@objc dynamic var searchButtonLabel: String = "Disable Search"
 	@objc dynamic var searchText: String = "" {
 		didSet {
 
@@ -45,7 +45,7 @@ class SearchViewController: NSViewController {
 				.legacySizes(minSize: NSSize(width: 80, height: 63))
 
 				.action { [weak self] sender in
-					if sender.state == .on {
+					if sender.state == .off {
 						self?.searchButtonLabel = "Disable Search"
 					}
 					else {
@@ -70,7 +70,7 @@ class SearchViewController: NSViewController {
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search for stuff")
-				.bindEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+				.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
 				.bindText(self, keyPath: #keyPath(searchText))
 				.searchChange { [weak self] _, text in
 					self?.searchDebounce.debounce {

@@ -153,7 +153,7 @@ extension DSFToolbar {
 			return self
 		}
 
-		override func enabledDidChange(to state: Bool) {
+		override func isEnabledDidChange(to state: Bool) {
 			self._searchField?.isEnabled = state
 		}
 	}

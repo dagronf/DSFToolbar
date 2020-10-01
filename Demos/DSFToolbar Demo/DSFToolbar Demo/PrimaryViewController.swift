@@ -25,16 +25,39 @@ class PrimaryViewController: NSViewController {
 			self.toolbarStyleEnabled = true
 		}
 	}
-	
+
+	private var intern: Bool = false
+
 	@objc dynamic var titleVisibility: Bool = true {
 		didSet {
-			self.updateSettings()
+			if !intern {
+				intern = true
+				let ms = titleSelection.mutableCopy() as! NSMutableIndexSet
+				self.titleVisibility ? ms.add(0) : ms.remove(0)
+				self.titleSelection = ms
+				self.updateSettings()
+				intern = false
+			}
 		}
 	}
 
 	@objc dynamic var titlebarTransparent: Bool = false {
 		didSet {
-			self.updateSettings()
+			if !intern {
+				intern = true
+				let ms = titleSelection.mutableCopy() as! NSMutableIndexSet
+				self.titlebarTransparent ? ms.add(1) : ms.remove(1)
+				self.titleSelection = ms
+				self.updateSettings()
+				intern = false
+			}
+		}
+	}
+
+	@objc dynamic var titleSelection = NSIndexSet(index: 1) {
+		didSet {
+			self.titleVisibility = self.titleSelection.contains(0)
+			self.titlebarTransparent = self.titleSelection.contains(1)
 		}
 	}
 
