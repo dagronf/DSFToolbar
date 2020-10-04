@@ -25,28 +25,31 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
 
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 public extension DSFToolbar {
 
 	/// An item to display the standard color palette
-	static let ShowColors: Core = { Core(.showColors) }()
+	private static let _showColors: Core = { Core(.showColors) }()
+	static func ShowColors() -> Core { return DSFToolbar._showColors }
 
 	/// A fixed space toolbar item
-	static let FixedSpace: Core = { Core(.space) }()
+	private static let _fixedSpace: Core = { Core(.space) }()
+	static func FixedSpace() -> Core { return DSFToolbar._fixedSpace }
 
 	/// A flexible space toolbar item
-	static let FlexibleSpace: Core = { Core(.flexibleSpace) }()
+	private static let _flexibleSpace: Core = { Core(.flexibleSpace) }()
+	static func FlexibleSpace() -> Core { return DSFToolbar._flexibleSpace }
 
-	class Print: Core, NSToolbarItemValidation {
-		init(printTarget: AnyObject?) {
-			super.init(.print)
-			self.toolbarItem?.target = printTarget
-		}
-		public func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-
-			return false
-		}
-	}
+	/// Print
+	private static let _print: Core = { Core(.print) }()
+	static func Print() -> Core { return DSFToolbar._print }
 }
+
+#endif

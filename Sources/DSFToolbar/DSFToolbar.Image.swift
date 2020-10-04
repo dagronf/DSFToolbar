@@ -25,7 +25,13 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
+
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 public extension DSFToolbar {
 	/// A standard toolbar item. Supports images and labels.
@@ -62,7 +68,7 @@ public extension DSFToolbar {
 		/// - Parameter image: the image
 		/// - Returns: self
 		@discardableResult
-		public func image(_ image: NSImage) -> Self {
+		public func image(_ image: DSFImage) -> Self {
 			self.toolbarItem?.image = image
 			return self
 		}
@@ -107,6 +113,8 @@ public extension DSFToolbar {
 	}
 }
 
+#if os(macOS)
+
 // MARK: - Validation
 
 extension DSFToolbar.Image: NSToolbarItemValidation {
@@ -133,3 +141,7 @@ extension DSFToolbar.Image: NSToolbarItemValidation {
 		return newState
 	}
 }
+
+#endif
+
+#endif

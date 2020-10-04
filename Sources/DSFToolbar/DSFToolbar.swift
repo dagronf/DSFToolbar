@@ -25,7 +25,13 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
+
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 /// A declarative-style NSToolbar wrapper (styled on SwiftUI)
 public class DSFToolbar: NSObject {
@@ -60,6 +66,9 @@ public class DSFToolbar: NSObject {
 	public var sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)?
 
 	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
+
+
+	#if os(macOS)
 	public var attachedWindow: NSWindow? {
 		didSet {
 			if let attachedWindow = self.attachedWindow {
@@ -68,6 +77,21 @@ public class DSFToolbar: NSObject {
 			}
 		}
 	}
+	#else
+
+	public var attachedScene: UIScene? {
+		didSet {
+			// Hook in our toolbar
+			self.titleBar?.toolbar = self.toolbar
+		}
+	}
+
+	var titleBar: UITitlebar? {
+		let ws = self.attachedScene as? UIWindowScene
+		return ws?.titlebar
+	}
+
+	#endif
 
 	// MARK: - Create and destroy
 
@@ -132,10 +156,17 @@ public class DSFToolbar: NSObject {
 	public func close() {
 		// Make sure to detach ourselves if we aren't already
 		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
+		#if os(macOS)
 		if self.toolbar === self.attachedWindow?.toolbar {
 			self.attachedWindow?.toolbar = nil
 		}
 		self.attachedWindow = nil
+		#else
+		if self.titleBar?.toolbar === self.toolbar {
+			self.titleBar?.toolbar = nil
+		}
+		self.attachedScene = nil
+		#endif
 
 		// If we'd been observing selection changes, make sure we remove the observer
 		if self._selectionChanged != nil {
@@ -169,6 +200,8 @@ public class DSFToolbar: NSObject {
 
 	// MARK: - Toolbar height helpers
 
+	#if os(macOS)
+
 	/// Returns the height of the toolbar
 	public var toolbarHeight: CGFloat? {
 		guard let w = self.attachedWindow else {
@@ -188,6 +221,8 @@ public class DSFToolbar: NSObject {
 		}
 		return 0
 	}
+
+	#endif
 
 	// MARK: - Selection change block
 
@@ -262,3 +297,5 @@ extension DSFToolbar {
 		}
 	}
 }
+
+#endif

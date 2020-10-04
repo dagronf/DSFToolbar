@@ -25,6 +25,8 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS)
+
 import AppKit
 
 /// A view controller protocol to provide feedback during the toolbar lifecycle
@@ -88,3 +90,5 @@ public extension DSFToolbar {
 		}
 	}
 }
+
+#endif

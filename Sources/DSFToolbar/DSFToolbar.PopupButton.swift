@@ -25,21 +25,21 @@
 //  IN THE SOFTWARE.
 //
 
-import AppKit
+#if os(macOS)
 
+import AppKit
 
 public extension DSFToolbar {
 	class PopupButton: Core {
-
-		private var _popupButton: NSButton? = nil
-		private var _popupMenu: NSMenu? = nil
+		private var _popupButton: NSButton?
+		private var _popupMenu: NSMenu?
 		private var _popupButtonItem: NSToolbarItem?
 
 		override var toolbarItem: NSToolbarItem? {
 			return self._popupButtonItem
 		}
 
-		public override func close() {
+		override public func close() {
 			self._popupButton = nil
 			self._popupMenu = nil
 			self._popupButtonItem = nil
@@ -53,11 +53,12 @@ public extension DSFToolbar {
 
 		private func updateDisplay() {
 			guard let p = self._popupMenu,
-			   p.items.count > 0,
-			   p.items[0].tag == -5201 else {
+				p.items.count > 0,
+				p.items[0].tag == -5201 else
+			{
 				fatalError()
 			}
-			
+
 			p.items[0].title = self._title
 
 			if let i = self._image {
@@ -65,10 +66,10 @@ public extension DSFToolbar {
 			}
 
 			// If there's an image and no title, set the state to imageOnly
-			if self._title.count == 0 && self._image != nil {
+			if self._title.count == 0, self._image != nil {
 				self._popupButton?.imagePosition = .imageOnly
 			}
-			else if self._title.count > 0 && self._image == nil {
+			else if self._title.count > 0, self._image == nil {
 				self._popupButton?.imagePosition = .noImage
 			}
 			else {
@@ -82,8 +83,8 @@ public extension DSFToolbar {
 			self.updateDisplay()
 			return self
 		}
-		
-		private var _image: NSImage? = nil
+
+		private var _image: NSImage?
 		public func image(_ image: NSImage) -> Self {
 			self._image = image
 			self.updateDisplay()
@@ -109,8 +110,8 @@ public extension DSFToolbar {
 		}
 
 		public init(_ identifier: NSToolbarItem.Identifier,
-			 menu: NSMenu) {
-
+		            menu: NSMenu)
+		{
 			_popupMenu = menu.copy() as? NSMenu
 
 			super.init(identifier)
@@ -137,9 +138,8 @@ public extension DSFToolbar {
 			self.updateDisplay()
 		}
 
-		@objc func dummyTargetSelector(_ sender: Any) {
-
-		}
+		@objc func dummyTargetSelector(_: Any) {}
 	}
-	
 }
+
+#endif

@@ -45,14 +45,16 @@ class SeparatorViewController: NSViewController {
 				NSToolbarItem.Identifier("primary-separator-styles"),
 				type: .Grouped,
 				switching: .selectAny,
-				segmentWidths: 32,
+				segmentWidths: 32) {
+
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-			)
+				
+			}
 			.label("Styles Grouped")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { (selection) in
@@ -69,7 +71,7 @@ class SeparatorViewController: NSViewController {
 				type: .Grouped,
 				switching: .selectOne,
 				segmentWidths: 32,
-				DSFToolbar.Segmented.Segment()
+				segments: DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown),
@@ -84,7 +86,7 @@ class SeparatorViewController: NSViewController {
 				Swift.print("Justify Grouped: New Selection -> \(selection)")
 			}
 
-			DSFToolbar.FlexibleSpace
+			DSFToolbar.FlexibleSpace()
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search for stuff")

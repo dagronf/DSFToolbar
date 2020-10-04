@@ -45,7 +45,7 @@ class PopupMenuViewcontroller: NSViewController {
 				.legacySizes(minSize: NSSize(width: 48, height: 32))
 				.isSelectable(true)
 			
-			DSFToolbar.FixedSpace
+			DSFToolbar.FixedSpace()
 			
 			DSFToolbar.PopoverButton(NSToolbarItem.Identifier("Popover View"), popoverContentController: self.popovercontent)
 				.label("Popover View")

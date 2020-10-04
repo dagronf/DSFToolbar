@@ -25,6 +25,8 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS)
+
 import AppKit
 
 extension DSFToolbar {
@@ -169,3 +171,5 @@ extension DSFToolbar.Search: NSSearchFieldDelegate {
 		}
 	}
 }
+
+#endif

@@ -27,6 +27,14 @@
 
 import Foundation
 
+#if os(macOS)
+import AppKit
+public typealias DSFImage = NSImage
+#else
+import UIKit
+public typealias DSFImage = UIImage
+#endif
+
 internal extension Sequence {
 	/// Return unique elements in an array, given a predicate
 	/// - Parameter includeElement: block determining whether the elements are equivalent

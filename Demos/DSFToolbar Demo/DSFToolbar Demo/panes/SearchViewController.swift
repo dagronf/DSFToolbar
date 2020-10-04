@@ -66,7 +66,7 @@ class SearchViewController: NSViewController {
 					self?.searchText = "Hardcoded"
 				}
 
-			DSFToolbar.FlexibleSpace
+			DSFToolbar.FlexibleSpace()
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search for stuff")

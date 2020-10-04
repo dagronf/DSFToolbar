@@ -25,6 +25,8 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS)
+
 import AppKit
 
 public extension DSFToolbar {
@@ -315,3 +317,5 @@ internal extension DSFToolbar.Button {
 		b.removeConstraints(b.constraints)
 	}
 }
+
+#endif

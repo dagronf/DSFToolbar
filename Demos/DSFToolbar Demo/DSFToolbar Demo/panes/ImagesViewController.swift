@@ -61,7 +61,7 @@ class ImagesViewController: NSViewController {
 					Swift.print("Got burger!")
 				}
 
-			DSFToolbar.FixedSpace
+			DSFToolbar.FixedSpace()
 
 			// A group of image items
 

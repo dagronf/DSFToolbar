@@ -42,15 +42,17 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles-2"),
 				type: .Separated,
 				switching: .selectAny,
-				segmentWidths: 32,
+				segmentWidths: 32) {
+
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
+					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-			)
+
+			}
 			.label("Styles Separated")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { (selection) in
@@ -61,15 +63,17 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles"),
 				type: .Grouped,
 				switching: .selectAny,
-				segmentWidths: 32,
+				segmentWidths: 32) {
+
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
+					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-			)
+
+			}
 			.label("Styles Grouped")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.bindSelection(self, keyPath: "segmentsEnabled")
@@ -81,16 +85,18 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles-3"),
 				type: .Separated,
 				switching: .selectOne,
-				segmentWidths: 32,
+				segmentWidths: 32) {
+
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
-			)
+
+			}
 			.label("Justify Separate")
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { (selection) in
@@ -101,16 +107,18 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles-4"),
 				type: .Grouped,
 				switching: .selectOne,
-				segmentWidths: 32,
+				segmentWidths: 32) {
+
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
-			)
+
+			}
 			.label("Justify Grouped")
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { (selection) in

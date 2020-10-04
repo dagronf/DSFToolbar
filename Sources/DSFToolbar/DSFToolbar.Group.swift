@@ -25,7 +25,13 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
+
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 public extension DSFToolbar {
 	class Group: Core {
@@ -93,9 +99,17 @@ public extension DSFToolbar {
 				self.groupToolbarItem.selectionMode = mode
 			}
 		}
-
-		override func changeToUseLegacySizing() {
-			// Doesn't need to do anything
-		}
 	}
 }
+
+#if os(macOS)
+
+extension DSFToolbar.Group {
+	override func changeToUseLegacySizing() {
+		// Doesn't need to do anything
+	}
+}
+
+#endif
+
+#endif

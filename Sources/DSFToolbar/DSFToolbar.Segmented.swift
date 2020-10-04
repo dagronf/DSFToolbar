@@ -25,6 +25,8 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS)
+
 import AppKit
 
 public extension DSFToolbar {
@@ -50,13 +52,14 @@ public extension DSFToolbar {
 		///   - switching: The type of tracking behavior a segmented control exhibits
 		///   - segmentWidths: (optional) set a fixed width for all segments. If not provided, size to fit content
 		///   - segments: The segments
-		public init(_ identifier: NSToolbarItem.Identifier,
-					type: SegmentedType,
-					switching: NSSegmentedControl.SwitchTracking = .selectAny,
-					segmentWidths: CGFloat? = nil,
-					_ segments: Segment...)
-		{
-			self.segments = segments.map { $0 }
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			type: SegmentedType,
+			switching: NSSegmentedControl.SwitchTracking = .selectAny,
+			segmentWidths: CGFloat? = nil,
+			segments: [Segment]
+		) {
+			self.segments = segments
 
 			super.init(identifier)
 
@@ -93,6 +96,26 @@ public extension DSFToolbar {
 			let a = NSToolbarItem(itemIdentifier: self.identifier)
 			a.view = s
 			self.segmentedItem = a
+		}
+
+		/// Create a Segmented Control toolbar item
+		/// - Parameters:
+		///   - identifier: The unique identifier for the item.  Must be unique within the items in the toolbar
+		///   - type: Segmented or Grouped
+		///   - switching: The type of tracking behavior a segmented control exhibits
+		///   - segmentWidths: (optional) set a fixed width for all segments. If not provided, size to fit content
+		///   - segments: The segments to add
+		public convenience init(
+			_ identifier: NSToolbarItem.Identifier,
+			type: SegmentedType,
+			switching: NSSegmentedControl.SwitchTracking = .selectAny,
+			segmentWidths _: CGFloat? = nil,
+			segments: Segment...
+		) {
+			self.init(identifier,
+					  type: type,
+					  switching: switching,
+					  segments: segments.map { $0 })
 		}
 
 		override public func close() {
@@ -169,7 +192,8 @@ public extension DSFToolbar {
 
 		private func setSelection(selectedItems: NSSet) {
 			guard let s = self.segmented,
-				  let sels = selectedItems as? Set<Int> else {
+				  let sels = selectedItems as? Set<Int> else
+			{
 				fatalError()
 			}
 
@@ -272,3 +296,183 @@ extension DSFToolbar.Segmented {
 		b.removeConstraints(b.constraints)
 	}
 }
+
+#endif
+
+
+
+
+/// Catalyst
+
+
+
+
+
+#if targetEnvironment(macCatalyst)
+
+import UIKit
+
+public extension DSFToolbar {
+	class Segmented: Core {
+		private var segmentedItem: NSToolbarItemGroup?
+
+		override var toolbarItem: NSToolbarItem? {
+			return self.segmentedItem
+		}
+
+		var segments: [Segment]
+
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			selectionMode: NSToolbarItemGroup.SelectionMode,
+			children: [Segment]
+		) {
+			self.segments = children
+
+			super.init(identifier)
+			
+			let items = segments.map { $0.makeToolbarItem() }
+
+			let grp = NSToolbarItemGroup(itemIdentifier: identifier)
+			grp.subitems = items
+			grp.action = #selector(groupSelectionChange(_:))
+			grp.target = self
+			grp.selectionMode = selectionMode
+
+			// For catalyst style apps, make this the default
+			grp.isBordered = true
+
+			self.segmentedItem = grp
+		}
+
+		public override func isBordered(_ state: Bool) -> Self {
+			// Do nothing.  For catalyst, segmented control ALWAYS as isBordered
+			debugPrint("Calling 'isBordered' on a catalyst segmented control does nothing")
+			return self
+		}
+
+		public convenience init(
+			_ identifier: NSToolbarItem.Identifier,
+			selectionMode: NSToolbarItemGroup.SelectionMode,
+			_ segments: Segment...
+		) {
+			self.init(identifier,
+					  selectionMode: selectionMode,
+					  children: segments.map { $0 })
+		}
+
+		var _action: ((Set<Int>) -> Void)?
+
+		/// Define the action to call when the selection within the segmented control changes
+		/// - Parameter block: The block to call, passing the selected segment indexes
+		/// - Returns: Self
+		public func action(_ action: @escaping (Set<Int>) -> Void) -> Segmented {
+			self._action = action
+			return self
+		}
+
+		@objc private func groupSelectionChange(_: Any) {
+			guard let segs = self.segmentedItem else { return }
+
+			let selections = segs.subitems.enumerated().map { segs.isSelected(at: $0.offset) }
+			let selIndexes = selections.enumerated().compactMap { $0.element == true ? $0.offset : nil }
+
+			_selectionBinding.updateValue(NSSet(array: selIndexes))
+
+			self._action?(Set(selIndexes))
+		}
+
+		/// Set the selection mode for the segmented control
+		/// - Parameter selectionMode: The mode (select one, select any, momentary etc)
+		/// - Returns: self
+		public func selectionMode(_ selectionMode: NSToolbarItemGroup.SelectionMode) -> Self {
+			self.segmentedItem?.selectionMode = selectionMode
+			return self
+		}
+
+		// MARK: - Selection bindings
+
+		private let _selectionBinding = BindableAttribute<NSSet>()
+
+		/// Bind the selection of the item to a key path (NSSet<Int>)
+		/// - Parameters:
+		///   - object: The object to bind to
+		///   - keyPath: The keypath identifying the member variable to bind to
+		/// - Returns: self
+		///
+		/// Binding the selection to a keypath allows the ability to change the selection dynamically when
+		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
+		/// take effect
+		public func bindSelection(_ object: AnyObject, keyPath: String) -> Self {
+			_selectionBinding.setup(observable: object, keyPath: keyPath)
+			_selectionBinding.bind { [weak self] newValue in
+				self?.setState(newValue as! Set<Int>)
+			}
+			return self
+		}
+
+		/// Set the state for the segmented control
+		/// - Parameter state: An array containing the indexes of items to select
+		/// - Returns: Self
+		@discardableResult
+		public func setState(_ state: Set<Int>) -> Self {
+			guard let item = self.segmentedItem else { fatalError() }
+			item.subitems.enumerated().forEach {
+				item.setSelected(state.contains($0.offset),
+								 at: $0.offset)
+			}
+			return self
+		}
+
+		override func isEnabledDidChange(to state: Bool) {
+			guard let item = self.segmentedItem else { fatalError() }
+			item.subitems.enumerated().forEach {
+				$0.element.isEnabled = state
+			}
+		}
+	}
+}
+
+public extension DSFToolbar.Segmented {
+	/// Definition of a segment within a segmented control
+	class Segment: NSObject {
+		fileprivate var _label: String = ""
+		public func label(_ string: String) -> Segment {
+			self._label = string
+			return self
+		}
+
+		fileprivate var _title: String = ""
+		public func title(_ string: String) -> Segment {
+			self._title = string
+			return self
+		}
+
+		// MARK: - Segment image
+
+		fileprivate var _image: DSFImage?
+		public func image(_ image: DSFImage) -> Segment {
+			self._image = image
+			return self
+		}
+
+		public func makeToolbarItem() -> NSToolbarItem {
+			let item = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(_label))
+			item.image = _image
+			item.title = _title
+			return item
+		}
+	}
+}
+
+#endif
+
+
+/// NOTES:
+///
+/// IsBordered seems to take the concept of individual controls and makes them a
+/// single unit.
+/// For example,
+///    a group with isBordered=true handles the selectionMode 'correctly'
+///    a group with isBordered=false treats every child item as independent
+

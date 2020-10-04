@@ -25,7 +25,13 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
+
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 public extension DSFToolbar {
 
@@ -197,6 +203,8 @@ public extension DSFToolbar {
 	}
 }
 
+#if os(macOS)
+
 // MARK: - Legacy sizing support
 
 extension DSFToolbar.Core {
@@ -233,3 +241,7 @@ extension DSFToolbar.Core {
 		return self
 	}
 }
+
+#endif
+
+#endif

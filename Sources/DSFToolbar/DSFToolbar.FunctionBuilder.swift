@@ -25,7 +25,13 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(macOS) || targetEnvironment(macCatalyst)
+
+#if os(macOS)
 import AppKit
+#elseif targetEnvironment(macCatalyst)
+import UIKit
+#endif
 
 // MARK: - Core function builder
 
@@ -50,6 +56,51 @@ public extension DSFToolbar.Group {
 		self.init(identifier, children: builder())
 	}
 }
+
+// MARK: - Segment function builder
+
+@_functionBuilder
+public struct DSFToolbarSegmentBuilder {
+	static func buildBlock() -> [DSFToolbar.Segmented.Segment] { [] }
+}
+
+public extension DSFToolbarSegmentBuilder {
+	static func buildBlock(_ settings: DSFToolbar.Segmented.Segment...) -> [DSFToolbar.Segmented.Segment] {
+		settings
+	}
+}
+
+#if targetEnvironment(macCatalyst)
+
+public extension DSFToolbar.Segmented {
+	convenience init(
+		_ identifier: NSToolbarItem.Identifier,
+		selectionMode: NSToolbarItemGroup.SelectionMode = .momentary,
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]) {
+		self.init(identifier,
+				  selectionMode: selectionMode,
+				  children: builder())
+	}
+}
+
+#else
+
+public extension DSFToolbar.Segmented {
+	convenience init(
+		_ identifier: NSToolbarItem.Identifier,
+		type: SegmentedType,
+		switching: NSSegmentedControl.SwitchTracking = .selectAny,
+		segmentWidths: CGFloat? = nil,
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]) {
+		self.init(identifier,
+				  type: type,
+				  switching: switching,
+				  segmentWidths: segmentWidths,
+				  segments: builder())
+	}
+}
+
+#endif
 
 // MARK: - SwiftUI declarative
 
@@ -85,3 +136,5 @@ public extension DSFToolbar {
 		return tb // .toolbar
 	}
 }
+
+#endif
