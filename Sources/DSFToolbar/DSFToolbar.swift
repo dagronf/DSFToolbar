@@ -46,9 +46,10 @@ public class DSFToolbar: NSObject {
 	}()
 
 	deinit {
-		debugPrint("DSFToolbar: deinit")
 		self.sizeModeDidChange = nil
 		self.toolbar.removeObserver(self, forKeyPath: "sizeMode")
+
+		Logging.memory("DSFToolbar: deinit")
 	}
 
 	// The items to be added to the touchbar

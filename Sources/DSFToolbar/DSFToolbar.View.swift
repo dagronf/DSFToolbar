@@ -86,7 +86,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.View deinit")
+			Logging.memory("DSFToolbar.View deinit")
 		}
 	}
 }

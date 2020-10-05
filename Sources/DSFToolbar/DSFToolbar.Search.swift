@@ -30,6 +30,10 @@
 import AppKit
 
 extension DSFToolbar {
+
+	/// A toolbar search item.
+	///
+	/// Unavailable in Mac Catalyst
 	public class Search: Core {
 		let maxWidth: CGFloat
 		weak var _delegate: NSSearchFieldDelegate?
@@ -57,7 +61,7 @@ extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Search deinit")
+			Logging.memory("DSFToolbar.Search deinit")
 		}
 
 		lazy var searchItem: NSToolbarItem = {
@@ -101,6 +105,11 @@ extension DSFToolbar {
 			}
 		}()
 
+
+		/// Create a search field toolbar item
+		/// - Parameters:
+		///   - identifier: The identifier for the search field
+		///   - maxWidth: The maximum width allowed for the search field
 		public init(_ identifier: NSToolbarItem.Identifier,
 			 maxWidth: CGFloat = 180) {
 			self.maxWidth = maxWidth

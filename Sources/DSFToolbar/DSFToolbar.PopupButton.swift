@@ -48,7 +48,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.PopupButton deinit")
+			Logging.memory("DSFToolbar.PopupButton deinit")
 		}
 
 		private func updateDisplay() {

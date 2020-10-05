@@ -118,6 +118,7 @@ public extension DSFToolbar {
 					  segments: segments.map { $0 })
 		}
 
+		/// Called when the toolbar is being closed
 		override public func close() {
 			self._action = nil
 			self._selectionBinding.unbind()
@@ -136,7 +137,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Segmented deinit")
+			Logging.memory("DSFToolbar.Segmented deinit")
 		}
 
 		// MARK: - Segment Action
@@ -248,7 +249,7 @@ public extension DSFToolbar.Segmented {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Segmented.Segment deinit")
+			Logging.memory("DSFToolbar.Segmented.Segment deinit")
 		}
 
 		// Called when the segmented control is created, and we know our segment index is
@@ -302,8 +303,7 @@ extension DSFToolbar.Segmented {
 
 
 
-/// Catalyst
-
+// MARK: - Mac Catalyst support
 
 
 
@@ -345,12 +345,6 @@ public extension DSFToolbar {
 			self.segmentedItem = grp
 		}
 
-		public override func isBordered(_ state: Bool) -> Self {
-			// Do nothing.  For catalyst, segmented control ALWAYS as isBordered
-			debugPrint("Calling 'isBordered' on a catalyst segmented control does nothing")
-			return self
-		}
-
 		public convenience init(
 			_ identifier: NSToolbarItem.Identifier,
 			selectionMode: NSToolbarItemGroup.SelectionMode,
@@ -361,13 +355,38 @@ public extension DSFToolbar {
 					  children: segments.map { $0 })
 		}
 
-		var _action: ((Set<Int>) -> Void)?
+		/// Called when the control is being destroyed
+		public override func close() {
+
+			self._selectionBinding.unbind()
+			self._action = nil
+
+			self.segments = []
+			self.segmentedItem = nil
+
+			super.close()
+		}
+
+		deinit {
+			Logging.memory("DSFToolbar.Segmented deinit")
+		}
+
+		public override func isBordered(_ state: Bool) -> Self {
+			// Do nothing.  For catalyst, segmented control ALWAYS as isBordered
+			debugPrint("Calling 'isBordered' on a catalyst segmented control does nothing")
+			return self
+		}
+
+		// MARK: - Callback action block
+
+		private var _action: ((Set<Int>) -> Void)?
 
 		/// Define the action to call when the selection within the segmented control changes
-		/// - Parameter block: The block to call, passing the selected segment indexes
+		/// - Parameter actionBlock: The block to call, passing the selected segment indexes
 		/// - Returns: Self
-		public func action(_ action: @escaping (Set<Int>) -> Void) -> Segmented {
-			self._action = action
+		@discardableResult
+		public func action(_ actionBlock: @escaping (Set<Int>) -> Void) -> Segmented {
+			self._action = actionBlock
 			return self
 		}
 
@@ -381,6 +400,8 @@ public extension DSFToolbar {
 
 			self._action?(Set(selIndexes))
 		}
+
+		// MARK: - Selection handling
 
 		/// Set the selection mode for the segmented control
 		/// - Parameter selectionMode: The mode (select one, select any, momentary etc)
@@ -446,6 +467,10 @@ public extension DSFToolbar.Segmented {
 		public func title(_ string: String) -> Segment {
 			self._title = string
 			return self
+		}
+
+		deinit {
+			Logging.memory("DSFToolbar.Segmented.Segment deinit")
 		}
 
 		// MARK: - Segment image

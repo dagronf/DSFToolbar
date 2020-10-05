@@ -33,8 +33,9 @@ public extension DSFToolbar {
 
 	/// A toolbar item representing a separator
 	///
-	/// Note that separators were introduced in macOS 11, for lower versions this item is ignored
-	/// Not available in Mac Catalyst
+	/// Note that separators were introduced in macOS 11, for lower versions this item is ignored.
+	///
+	/// Not yet available in Mac Catalyst
 	class Separator: Core {
 
 		override var toolbarItem: NSToolbarItem? {
@@ -68,7 +69,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Separator deinit")
+			Logging.memory("DSFToolbar.Separator deinit")
 		}
 	}
 }

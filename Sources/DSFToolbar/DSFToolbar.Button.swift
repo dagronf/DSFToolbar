@@ -104,7 +104,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			Swift.print("DSFToolbar.Button deinit")
+			Logging.memory("DSFToolbar.Button deinit")
 		}
 
 		// MARK: - Button type

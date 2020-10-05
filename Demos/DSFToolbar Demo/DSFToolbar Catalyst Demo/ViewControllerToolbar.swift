@@ -10,13 +10,14 @@ import UIKit
 #if targetEnvironment(macCatalyst)
 import DSFToolbar
 
-class PrimaryToolbar: NSObject {
+class ViewControllerToolbar: NSObject {
 	func hookToolbar(into scene: UIScene) {
 		self.customToolbar.attachedScene = scene
 	}
 
 	func unhook() {
-		self.customToolbar.attachedScene = nil
+		self.customToolbar.close()
+		//self.customToolbar.attachedScene = nil
 	}
 
 	@objc dynamic var boundEnabled: Bool = true

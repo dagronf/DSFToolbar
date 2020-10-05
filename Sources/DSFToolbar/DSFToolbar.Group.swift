@@ -85,7 +85,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Group deinit")
+			Logging.memory("DSFToolbar.Group deinit")
 		}
 
 		private func mapGroupMode(selectionMode: SelectionMode) {

@@ -59,7 +59,7 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			debugPrint("DSFToolbar.Item deinit")
+			Logging.memory("DSFToolbar.Item deinit")
 		}
 
 		// MARK: - Image

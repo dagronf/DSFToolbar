@@ -36,7 +36,7 @@
 		23909542252A8F6100E88CC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23909541252A8F6100E88CC5 /* Assets.xcassets */; };
 		23909545252A8F6100E88CC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23909543252A8F6100E88CC5 /* LaunchScreen.storyboard */; };
 		23909558252A8F9A00E88CC5 /* DSFToolbar-Library in Frameworks */ = {isa = PBXBuildFile; productRef = 23909557252A8F9A00E88CC5 /* DSFToolbar-Library */; };
-		2390955C252A8FC400E88CC5 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2390955B252A8FC400E88CC5 /* CustomToolbar.swift */; };
+		2390955C252A8FC400E88CC5 /* ViewControllerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2390955B252A8FC400E88CC5 /* ViewControllerToolbar.swift */; };
 		2390956D252A908B00E88CC5 /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2390956C252A908B00E88CC5 /* ProjectAssets.swift */; };
 		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
 		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
@@ -83,7 +83,7 @@
 		23909544252A8F6100E88CC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23909546252A8F6100E88CC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2390954C252A8F6F00E88CC5 /* DSFToolbar Catalyst Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DSFToolbar Catalyst Demo.entitlements"; sourceTree = "<group>"; };
-		2390955B252A8FC400E88CC5 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
+		2390955B252A8FC400E88CC5 /* ViewControllerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerToolbar.swift; sourceTree = "<group>"; };
 		2390956C252A908B00E88CC5 /* ProjectAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssets.swift; sourceTree = "<group>"; };
 		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
 		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 				23909541252A8F6100E88CC5 /* Assets.xcassets */,
 				23909543252A8F6100E88CC5 /* LaunchScreen.storyboard */,
 				23909546252A8F6100E88CC5 /* Info.plist */,
-				2390955B252A8FC400E88CC5 /* CustomToolbar.swift */,
+				2390955B252A8FC400E88CC5 /* ViewControllerToolbar.swift */,
 			);
 			path = "DSFToolbar Catalyst Demo";
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2390955C252A8FC400E88CC5 /* CustomToolbar.swift in Sources */,
+				2390955C252A8FC400E88CC5 /* ViewControllerToolbar.swift in Sources */,
 				2390953D252A8F6000E88CC5 /* ViewController.swift in Sources */,
 				23909539252A8F6000E88CC5 /* AppDelegate.swift in Sources */,
 				2390953B252A8F6000E88CC5 /* SceneDelegate.swift in Sources */,
