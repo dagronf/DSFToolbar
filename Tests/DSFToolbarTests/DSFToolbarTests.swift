@@ -1,5 +1,5 @@
 import XCTest
-@testable import DSFToolbar
+@testable import DSFToolbar_beta
 
 final class DSFToolbarTests: XCTestCase {
 //    func testExample() {

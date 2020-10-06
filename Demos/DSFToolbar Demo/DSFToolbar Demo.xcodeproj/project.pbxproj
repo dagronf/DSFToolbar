@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A7E252C11D5007658F6 /* DSFToolbar-beta */; };
+		23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A82252C11E0007658F6 /* DSFToolbar-beta */; };
 		2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF022522A1420098AB2D /* AppDelegate.swift */; };
 		2337AF052522A1430098AB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF042522A1430098AB2D /* Assets.xcassets */; };
 		2337AF082522A1430098AB2D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF062522A1430098AB2D /* MainMenu.xib */; };
@@ -45,8 +47,6 @@
 		23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */; };
 		23E9DA46252BFC9F0010A3AE /* ViewControllerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA45252BFC9F0010A3AE /* ViewControllerToolbar.swift */; };
 		23E9DA4C252BFCBB0010A3AE /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA4B252BFCBB0010A3AE /* ProjectAssets.swift */; };
-		23E9DA6B252C0AB10010A3AE /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23E9DA6A252C0AB10010A3AE /* DSFToolbar */; };
-		23E9DA71252C0AE50010A3AE /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23E9DA70252C0AE50010A3AE /* DSFToolbar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23E9DA6B252C0AB10010A3AE /* DSFToolbar in Frameworks */,
+				23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23E9DA71252C0AE50010A3AE /* DSFToolbar in Frameworks */,
+				23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,11 +247,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				23E9DA69252C0AAB0010A3AE /* PBXTargetDependency */,
+				23124A7D252C11D1007658F6 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Demo";
 			packageProductDependencies = (
-				23E9DA6A252C0AB10010A3AE /* DSFToolbar */,
+				23124A7E252C11D5007658F6 /* DSFToolbar-beta */,
 			);
 			productName = "DSFToolbar Demo";
 			productReference = 2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */;
@@ -269,11 +269,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				23E9DA6F252C0ADD0010A3AE /* PBXTargetDependency */,
+				23124A81252C11DC007658F6 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Catalyst Demo";
 			packageProductDependencies = (
-				23E9DA70252C0AE50010A3AE /* DSFToolbar */,
+				23124A82252C11E0007658F6 /* DSFToolbar-beta */,
 			);
 			productName = "DSFToolbar Catalyst Demo";
 			productReference = 23642E3F252BF9D30063590F /* DSFToolbar Catalyst Demo.app */;
@@ -429,13 +429,13 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		23E9DA69252C0AAB0010A3AE /* PBXTargetDependency */ = {
+		23124A7D252C11D1007658F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 23E9DA68252C0AAB0010A3AE /* DSFToolbar */;
+			productRef = 23124A7C252C11D1007658F6 /* DSFToolbar-beta */;
 		};
-		23E9DA6F252C0ADD0010A3AE /* PBXTargetDependency */ = {
+		23124A81252C11DC007658F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 23E9DA6E252C0ADD0010A3AE /* DSFToolbar */;
+			productRef = 23124A80252C11DC007658F6 /* DSFToolbar-beta */;
 		};
 /* End PBXTargetDependency section */
 
@@ -708,21 +708,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		23E9DA68252C0AAB0010A3AE /* DSFToolbar */ = {
+		23124A7C252C11D1007658F6 /* DSFToolbar-beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DSFToolbar;
+			productName = "DSFToolbar-beta";
 		};
-		23E9DA6A252C0AB10010A3AE /* DSFToolbar */ = {
+		23124A7E252C11D5007658F6 /* DSFToolbar-beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DSFToolbar;
+			productName = "DSFToolbar-beta";
 		};
-		23E9DA6E252C0ADD0010A3AE /* DSFToolbar */ = {
+		23124A80252C11DC007658F6 /* DSFToolbar-beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DSFToolbar;
+			productName = "DSFToolbar-beta";
 		};
-		23E9DA70252C0AE50010A3AE /* DSFToolbar */ = {
+		23124A82252C11E0007658F6 /* DSFToolbar-beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DSFToolbar;
+			productName = "DSFToolbar-beta";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

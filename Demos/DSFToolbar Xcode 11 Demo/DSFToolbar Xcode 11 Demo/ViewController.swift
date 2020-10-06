@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import DSFToolbar_xc11
+import DSFToolbar_beta
 
 class ViewController: NSViewController {
 

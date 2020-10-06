@@ -9,7 +9,7 @@ import UIKit
 
 #if targetEnvironment(macCatalyst)
 
-import DSFToolbar
+import DSFToolbar_beta
 
 class ViewControllerToolbar: NSObject {
 	func hookToolbar(into scene: UIScene) {

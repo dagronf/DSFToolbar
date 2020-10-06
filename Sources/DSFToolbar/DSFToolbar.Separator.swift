@@ -54,16 +54,8 @@ public extension DSFToolbar {
 			 splitView: NSSplitView,
 			 dividerIndex: Int) {
 
-			if #available(OSX 11.0, *) {
-				self.separatorToolbarItem = NSTrackingSeparatorToolbarItem(
-					identifier: identifier,
-					splitView: splitView,
-					dividerIndex: dividerIndex
-				)
-			}
-			else {
-				self.separatorToolbarItem = nil
-			}
+			// Do nothing.  Not supported on pre 11 systems
+			self.separatorToolbarItem = nil
 
 			super.init(identifier)
 		}

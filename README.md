@@ -1,5 +1,8 @@
 # DSFToolbar
 
+![](https://img.shields.io/github/v/tag/dagronf/DSFToolbar) ![](https://img.shields.io/badge/platforms-mac | macCatalyst-blue) ![](https://img.shields.io/badge/macOS-10.11+-blueviolet) ![](https://img.shields.io/badge/Swift-5.0+-orange.svg)
+![](https://img.shields.io/badge/License-MIT-lightgrey) [![](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager)
+
 A SwiftUI-style declarative `NSToolbar` for macOS and Mac Catalyst.
 
 ## Why?
@@ -72,21 +75,21 @@ There are two targets :-
 
 ### DSFToolbar
 
+A target for Xcode 11 and Xcode 12 (`DSFToolbar-xc11`) for legacy applications that can't move up to Xcode 12.2 yet.  Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12.2+).
+
+Backwards compatible back to macOS 10.11.
+
 ```swift
-// Support for Xcode 12.2 and later
 import DSFToolbar
 ```
 
-The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur.
+### DSFToolbar-beta
 
-
-
-### DSFToolbar-xc11
-A target for Xcode 11 (`DSFToolbar-xc11`) for legacy applications that can't move up to Xcode 12.2 yet.  Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12.2+)
+The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur (such as split view tracking)
 
 ```swift
-// Support for Xcode 11
-import DSFToolbar_xc11
+// Support for Xcode 12.2 and later
+import DSFToolbar_beta
 ```
 
 ## Concepts
@@ -127,7 +130,11 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Enabled-buttons")) {
 A lot of functionality can be hooked up via bindings in order to pass information to and from a toolbar item. For example, you can hook the content of the Search item to a class variable to observe when the content of the search field changes.
 
 ```swift
-@objc dynamic var searchText: String = ""
+@objc dynamic var searchText: String = "" {
+   didSet {
+      // Update the search with the new string
+   }
+}
    ...
 self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
    DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
@@ -138,18 +145,32 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
 
 ## Available toolbar item types
 
+### Common
+
 | Type | Description |
 |------|-------------|
 | [Core](Markdown/core.md) | Core elements available to all toolbar item types |
-| [Image](Markdown/image.md) | Basic toolbar 'image' type. Provides basic image, label, action etc |
-| [Group](Markdown/group.md) | Group multiple items together to represent a unit |
-| [Search](Markdown/search.md) | Provides a search text field |
-| [Segmented](Markdown/segmented.md) | A simple segmented control |
-| [Separator (macOS 11 only)](Markdown/separator.md) | Hooks into an NSSplitView to track a toolbar separator to a split view separator | 
-| [Button](Markdown/button.md) | A toolbar item containing an `NSButton` |
-| [PopupButton](Markdown/popup-button.md) | A toolbar item that displays a menu when activated |
-| [PopoverButton](Markdown/popover-button.md) | A toolbar item that displays a popover when activated |
-| [View](Markdown/view.md) | A toolbar item containing a custom view |
+
+### Controls
+
+| Type | Available | Description |
+|------|:--------:|-------------|
+| [Image](Markdown/image.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc |
+| [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a unit |
+| [Search](Markdown/search.md) | macOS<br/>macCatalyst | Provides a search text field |
+| [Segmented](Markdown/segmented.md) | macOS<br/>macCatalyst | A simple segmented control |
+| [Separator](Markdown/separator.md) | macOS11+<br/>macCatalyst | Hooks into an NSSplitView to track a toolbar separator to a split view separator | 
+| [Button](Markdown/button.md) | macOS | A toolbar item containing an `NSButton` |
+| [PopupButton](Markdown/popup-button.md) | macOS | A toolbar item that displays a menu when activated |
+| [PopoverButton](Markdown/popover-button.md) | macOS | A toolbar item that displays a popover when activated |
+| [View](Markdown/view.md) | macOS | A toolbar item containing a custom view |
+
+# Demos
+
+You can find pre-made demos under the `Demos` folder
+
+* `DSFToolbar Demo`: Project for Xcode 12.2+ containing targets for macOS and macCatalyst
+* `DSFToolbar Xcode 11 Demo`: A simple project for Xcode release versions (Xcode 12 and lower)
 
 # License
 

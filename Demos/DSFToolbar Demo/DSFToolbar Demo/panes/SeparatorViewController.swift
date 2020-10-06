@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import DSFToolbar
+import DSFToolbar_beta
 
 class SeparatorViewController: NSViewController {
 

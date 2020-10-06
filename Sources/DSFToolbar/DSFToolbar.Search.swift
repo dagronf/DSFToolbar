@@ -65,46 +65,37 @@ extension DSFToolbar {
 		}
 
 		lazy var searchItem: NSToolbarItem = {
-			if #available(macOS 11, *) {
-				let si = NSSearchToolbarItem(itemIdentifier: self.identifier)
-				si.searchField.delegate = self._delegate
-				self._searchField = si.searchField
-				return si
+			var ms: NSSize? = nil
+
+			let si = NSSearchField()
+
+			if #available(macOS 10.13, *) {
+				si.translatesAutoresizingMaskIntoConstraints = false
+				si.addConstraint(
+					NSLayoutConstraint(
+						item: si,
+						attribute: .width,
+						relatedBy: .lessThanOrEqual,
+						toItem: nil, attribute: .notAnAttribute,
+						multiplier: 1, constant: self.maxWidth
+					)
+				)
 			}
 			else {
-				var ms: NSSize? = nil
-
-				let si = NSSearchField()
-
-				if #available(macOS 10.13, *) {
-					si.translatesAutoresizingMaskIntoConstraints = false
-					si.addConstraint(
-						NSLayoutConstraint(
-							item: si,
-							attribute: .width,
-							relatedBy: .lessThanOrEqual,
-							toItem: nil, attribute: .notAnAttribute,
-							multiplier: 1, constant: self.maxWidth
-						)
-					)
-				}
-				else {
-					ms = NSSize(width: self.maxWidth, height: 20)
-				}
-
-				si.delegate = self._delegate
-				self._searchField = si
-				let a = NSToolbarItem(itemIdentifier: self.identifier)
-				a.view = si
-
-				if let mss = ms {
-					a.minSize = mss
-				}
-
-				return a
+				ms = NSSize(width: self.maxWidth, height: 20)
 			}
-		}()
 
+			si.delegate = self._delegate
+			self._searchField = si
+			let a = NSToolbarItem(itemIdentifier: self.identifier)
+			a.view = si
+
+			if let mss = ms {
+				a.minSize = mss
+			}
+
+			return a
+		}()
 
 		/// Create a search field toolbar item
 		/// - Parameters:

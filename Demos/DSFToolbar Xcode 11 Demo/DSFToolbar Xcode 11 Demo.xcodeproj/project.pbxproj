@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23183280252C117400DF8EC8 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 2318327F252C117400DF8EC8 /* DSFToolbar */; };
 		233629D5252C0B430028F4AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233629D4252C0B430028F4AE /* AppDelegate.swift */; };
 		233629D7252C0B430028F4AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233629D6252C0B430028F4AE /* ViewController.swift */; };
 		233629D9252C0B440028F4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233629D8252C0B440028F4AE /* Assets.xcassets */; };
 		233629DC252C0B440028F4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 233629DA252C0B440028F4AE /* Main.storyboard */; };
-		233629E9252C0B5C0028F4AE /* DSFToolbar-xc11 in Frameworks */ = {isa = PBXBuildFile; productRef = 233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				233629E9252C0B5C0028F4AE /* DSFToolbar-xc11 in Frameworks */,
+				23183280252C117400DF8EC8 /* DSFToolbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,11 +89,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				233629EB252C0B650028F4AE /* PBXTargetDependency */,
+				2318327E252C117100DF8EC8 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Xcode 11 Demo";
 			packageProductDependencies = (
-				233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */,
+				2318327F252C117400DF8EC8 /* DSFToolbar */,
 			);
 			productName = "DSFToolbar Xcode 11 Demo";
 			productReference = 233629D1252C0B430028F4AE /* DSFToolbar Xcode 11 Demo.app */;
@@ -156,9 +156,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		233629EB252C0B650028F4AE /* PBXTargetDependency */ = {
+		2318327E252C117100DF8EC8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 233629EA252C0B650028F4AE /* DSFToolbar-xc11 */;
+			productRef = 2318327D252C117100DF8EC8 /* DSFToolbar */;
 		};
 /* End PBXTargetDependency section */
 
@@ -355,13 +355,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */ = {
+		2318327D252C117100DF8EC8 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-xc11";
+			productName = DSFToolbar;
 		};
-		233629EA252C0B650028F4AE /* DSFToolbar-xc11 */ = {
+		2318327F252C117400DF8EC8 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-xc11";
+			productName = DSFToolbar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

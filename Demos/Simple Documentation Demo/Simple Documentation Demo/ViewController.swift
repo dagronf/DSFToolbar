@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import DSFToolbar
+import DSFToolbar_beta
 
 // Uses Fluent System icons
 // https://github.com/microsoft/fluentui-system-icons

@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import DSFToolbar
+import DSFToolbar_beta
 
 class PopupMenuViewcontroller: NSViewController {
 	@IBOutlet var popupMenu: NSMenu!

@@ -7,7 +7,7 @@
 
 import AppKit
 
-import DSFToolbar
+import DSFToolbar_beta
 
 let DemoContent = DemoContentContainer()
 
