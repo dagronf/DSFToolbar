@@ -32,7 +32,7 @@ If you're familiar with SwiftUI syntax you'll feel comfortable with the declarat
 self.customToolbar =
    DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
 
-     DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-document-new"))
+     DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-document-new"))
        .label("New")
        .image(NSImage(named: "toolbar-document-new")!)
        .enabled { return self.canAddDocument() }
@@ -40,7 +40,7 @@ self.customToolbar =
           self.addDocument()
       }
 
-     DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-document-edit"))
+     DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-document-edit"))
        .label("Edit")
        .image(NSImage(named: "toolbar-document-edit")!)
        .enabled { return self.canEditDocument() }
@@ -155,8 +155,8 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
 
 | Type | Available | Description |
 |------|:--------:|-------------|
-| [Image](Markdown/image.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc |
-| [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a unit |
+| [Item](Markdown/item.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc |
+| [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a common unit |
 | [Search](Markdown/search.md) | macOS<br/>macCatalyst | Provides a search text field |
 | [Segmented](Markdown/segmented.md) | macOS<br/>macCatalyst | A simple segmented control |
 | [Separator](Markdown/separator.md) | macOS11+<br/>macCatalyst | Hooks into an NSSplitView to track a toolbar separator to a split view separator | 

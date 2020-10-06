@@ -31,7 +31,7 @@ class SeparatorViewController: NSViewController {
 			allowsUserCustomization: true
 		) {
 
-			DSFToolbar.Image(NSToolbarItem.Identifier("enabler"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("enabler"))
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isBordered(true)
 				.legacySizes(minSize: NSSize(width: 32, height: 28))

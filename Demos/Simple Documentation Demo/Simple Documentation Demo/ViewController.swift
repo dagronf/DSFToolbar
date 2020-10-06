@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import DSFToolbar_beta
+import DSFToolbar
 
 // Uses Fluent System icons
 // https://github.com/microsoft/fluentui-system-icons
@@ -48,7 +48,7 @@ class ViewController: NSViewController {
 				toolbarIdentifier: NSToolbar.Identifier("Core"),
 				allowsUserCustomization: true
 			) {
-				DSFToolbar.Image(NSToolbarItem.Identifier("item-new"))
+				DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
 					.label("New")
 					.image(ProjectAssets.ImageSet.toolbar_new_document.template)
 					.enabled {
@@ -58,7 +58,7 @@ class ViewController: NSViewController {
 						self.addDocument()
 					}
 
-				DSFToolbar.Image(NSToolbarItem.Identifier("item-edit"))
+				DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
 					.label("Edit")
 					.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
 					.enabled {
@@ -68,7 +68,7 @@ class ViewController: NSViewController {
 						self.editDocument()
 					}
 
-				DSFToolbar.FlexibleSpace
+				DSFToolbar.FlexibleSpace()
 
 				DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 					.label("Search")

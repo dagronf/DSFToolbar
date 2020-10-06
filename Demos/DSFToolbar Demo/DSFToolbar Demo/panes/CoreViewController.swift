@@ -12,7 +12,7 @@ import DSFToolbar_beta
 class CoreViewController: NSViewController {
 	var demoToolbar: DSFToolbar? = {
 		DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
-			DSFToolbar.Image(NSToolbarItem.Identifier("core1"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("core1"))
 		}
 	}()
 

@@ -30,7 +30,7 @@ class ImagesViewController: NSViewController {
 			toolbarIdentifier: NSToolbar.Identifier("primary-images"),
 			allowsUserCustomization: true
 		) {
-			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-egg"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-egg"))
 				.label("Egg")
 				.tooltip("This is the egg")
 				.image(ProjectAssets.ImageSet.toolbar_egg.image)
@@ -40,7 +40,7 @@ class ImagesViewController: NSViewController {
 					Swift.print("Got egg!")
 				}
 
-			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
 				.label("Watermelon")
 				.tooltip("My cat likes watermelon")
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
@@ -51,7 +51,7 @@ class ImagesViewController: NSViewController {
 					Swift.print("Got watermelon!")
 				}
 
-			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger"))
 				.bindLabel(to: self, withKeyPath: #keyPath(toolbar_burger_label))
 				.tooltip("I really really want a burger")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
@@ -66,7 +66,7 @@ class ImagesViewController: NSViewController {
 			// A group of image items
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("food-grouped"), selectionMode: .selectAny) {
-				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-egg-2"))
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-egg-2"))
 					.label("Egg")
 					.image(ProjectAssets.ImageSet.toolbar_egg.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
@@ -74,7 +74,7 @@ class ImagesViewController: NSViewController {
 						Swift.print("Got grouped egg!")
 					}
 				
-				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon-2"))
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon-2"))
 					.label("Watermelon")
 					.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
@@ -82,7 +82,7 @@ class ImagesViewController: NSViewController {
 						Swift.print("Got grouped watermelon!")
 					}
 				
-				DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-burger-2"))
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger-2"))
 					.label("Burger")
 					.image(ProjectAssets.ImageSet.toolbar_burger.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
@@ -97,7 +97,7 @@ class ImagesViewController: NSViewController {
 
 			/// A bordered button (10.15+ only)
 
-			DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-image-bordered"))
 				.label("Boxed Burger")
 				.tooltip("My burger is in a box!")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
@@ -122,7 +122,7 @@ extension ImagesViewController: DemoContentViewController {
 	}
 
 	static func Title() -> String {
-		return "Images"
+		return "Items"
 	}
 
 	var customToolbar: DSFToolbar? {

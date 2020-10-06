@@ -85,13 +85,13 @@ class ViewControllerToolbar: NSObject {
 
 			DSFToolbar.FlexibleSpace()
 
-			DSFToolbar.Image(NSToolbarItem.Identifier("21"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("21"))
 				.label("first")
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 				.action { _ in
 					Swift.print("Pressed first")
 				}
-			DSFToolbar.Image(NSToolbarItem.Identifier("22"))
+			DSFToolbar.Item(NSToolbarItem.Identifier("22"))
 				.label("second")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.action { _ in

@@ -1,5 +1,5 @@
 //
-//  DSFToolbar.Image.swift
+//  DSFToolbar.Item.swift
 //  DSFToolbar
 //
 //  Created by Darren Ford on 25/9/20.
@@ -37,7 +37,7 @@ public extension DSFToolbar {
 	/// A standard toolbar item. Supports images and labels.
 	///
 	/// See [documentation](https://developer.apple.com/documentation/appkit/nstoolbaritem)
-	class Image: Core {
+	class Item: Core {
 		lazy var imageToolbarItem: NSToolbarItem = {
 			NSToolbarItem(itemIdentifier: self.identifier)
 		}()
@@ -75,12 +75,12 @@ public extension DSFToolbar {
 
 		// MARK: - Action
 
-		private var _action: ((Image) -> Void)?
+		private var _action: ((Item) -> Void)?
 
 		/// Supply a callback block to be called when the item is activated (eg. clicked by the user)
 		/// - Parameter action: The action block to call
 		/// - Returns: self
-		public func action(_ action: @escaping (Image) -> Void) -> Self {
+		public func action(_ action: @escaping (Item) -> Void) -> Self {
 			self._action = action
 
 			self.toolbarItem?.target = self
@@ -101,7 +101,7 @@ public extension DSFToolbar {
 		/// - Parameter block: The block to call
 		/// - Returns: self
 		@discardableResult
-		public func enabled(_ block: @escaping () -> Bool) -> Image {
+		public func enabled(_ block: @escaping () -> Bool) -> Item {
 			_isEnabled = block
 			return self
 		}
@@ -117,7 +117,7 @@ public extension DSFToolbar {
 
 // MARK: - Validation
 
-extension DSFToolbar.Image: NSToolbarItemValidation {
+extension DSFToolbar.Item: NSToolbarItemValidation {
 	public func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
 		let newState: Bool = {
 			// If there's no action, then the item is always disabled

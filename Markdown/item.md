@@ -1,11 +1,11 @@
-# Image
+# Item
 
-A toolbar 'image' type is the basic type of toolbar items
+A standard toolbar item type.
 
 ## Example
 
 ```swift
-DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-watermelon-2"))
+DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
    .label("Watermelon")
    .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
    .action { _ in
