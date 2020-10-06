@@ -1,12 +1,10 @@
 # DSFToolbar
 
-A SwiftUI-style declarative `NSToolbar` for macOS.
-
-Requires Xcode 12.
+A SwiftUI-style declarative `NSToolbar` for macOS and Mac Catalyst.
 
 ## Why?
 
-NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount of boilerplate code required for each toolbar.
+NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects and I have trouble keeping tabs on all the small components. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount code required for each toolbar.
 
 Because of this, I tended to find that I wasn't putting toolbars into my (admittedly basic) apps.
 
@@ -61,6 +59,35 @@ self.customToolbar?.attachedWindow = self.window
 ![](https://github.com/dagronf/dagronf.github.io/blob/master/art/projects/DSFToolbar/sample.png?raw=true)
 
 And thats it!
+
+## Installation
+
+Use Swift Package Manager.
+
+Add `https://github.com/dagronf/DSFToolbar` to your project.
+
+## Usage
+
+There are two targets :-
+
+### DSFToolbar
+
+```swift
+// Support for Xcode 12.2 and later
+import DSFToolbar
+```
+
+The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur.
+
+
+
+### DSFToolbar-xc11
+A target for Xcode 11 (`DSFToolbar-xc11`) for legacy applications that can't move up to Xcode 12.2 yet.  Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12.2+)
+
+```swift
+// Support for Xcode 11
+import DSFToolbar_xc11
+```
 
 ## Concepts
 

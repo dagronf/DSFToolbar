@@ -10,8 +10,14 @@ let package = Package(
 	],
 	products: [
 		// Products define the executables and libraries a package produces, and make them visible to other packages.
-		.library(name: "DSFToolbar-Library", type: .static, targets: ["DSFToolbar"]),
-		.library(name: "DSFToolbar-Shared", type: .dynamic, targets: ["DSFToolbar"]),
+		.library(
+			name: "DSFToolbar",
+			type: .static,
+			targets: ["DSFToolbar"]),
+		.library(
+			name: "DSFToolbar-xc11",
+			type: .static,
+			targets: ["DSFToolbar-xc11"]),
 	],
 	dependencies: [
 		// Dependencies declare other packages that this package depends on.
@@ -22,6 +28,9 @@ let package = Package(
 		// Targets can depend on other targets in this package, and on products in packages this package depends on.
 		.target(
 			name: "DSFToolbar",
+			dependencies: []),
+		.target(
+			name: "DSFToolbar-xc11",
 			dependencies: []),
 		.testTarget(
 			name: "DSFToolbarTests",

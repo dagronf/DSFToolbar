@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		233629D5252C0B430028F4AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233629D4252C0B430028F4AE /* AppDelegate.swift */; };
+		233629D7252C0B430028F4AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233629D6252C0B430028F4AE /* ViewController.swift */; };
+		233629D9252C0B440028F4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 233629D8252C0B440028F4AE /* Assets.xcassets */; };
+		233629DC252C0B440028F4AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 233629DA252C0B440028F4AE /* Main.storyboard */; };
+		233629E9252C0B5C0028F4AE /* DSFToolbar-xc11 in Frameworks */ = {isa = PBXBuildFile; productRef = 233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		233629D1252C0B430028F4AE /* DSFToolbar Xcode 11 Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DSFToolbar Xcode 11 Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		233629D4252C0B430028F4AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		233629D6252C0B430028F4AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		233629D8252C0B440028F4AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		233629DB252C0B440028F4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		233629DD252C0B440028F4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		233629DE252C0B440028F4AE /* DSFToolbar_Xcode_11_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DSFToolbar_Xcode_11_Demo.entitlements; sourceTree = "<group>"; };
+		233629E5252C0B550028F4AE /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../..; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		233629CE252C0B420028F4AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233629E9252C0B5C0028F4AE /* DSFToolbar-xc11 in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		233629C8252C0B420028F4AE = {
+			isa = PBXGroup;
+			children = (
+				233629E5252C0B550028F4AE /* DSFToolbar */,
+				233629D3252C0B430028F4AE /* DSFToolbar Xcode 11 Demo */,
+				233629D2252C0B430028F4AE /* Products */,
+				233629E7252C0B5C0028F4AE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		233629D2252C0B430028F4AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				233629D1252C0B430028F4AE /* DSFToolbar Xcode 11 Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		233629D3252C0B430028F4AE /* DSFToolbar Xcode 11 Demo */ = {
+			isa = PBXGroup;
+			children = (
+				233629D4252C0B430028F4AE /* AppDelegate.swift */,
+				233629D6252C0B430028F4AE /* ViewController.swift */,
+				233629D8252C0B440028F4AE /* Assets.xcassets */,
+				233629DA252C0B440028F4AE /* Main.storyboard */,
+				233629DD252C0B440028F4AE /* Info.plist */,
+				233629DE252C0B440028F4AE /* DSFToolbar_Xcode_11_Demo.entitlements */,
+			);
+			path = "DSFToolbar Xcode 11 Demo";
+			sourceTree = "<group>";
+		};
+		233629E7252C0B5C0028F4AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		233629D0252C0B420028F4AE /* DSFToolbar Xcode 11 Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 233629E1252C0B440028F4AE /* Build configuration list for PBXNativeTarget "DSFToolbar Xcode 11 Demo" */;
+			buildPhases = (
+				233629CD252C0B420028F4AE /* Sources */,
+				233629CE252C0B420028F4AE /* Frameworks */,
+				233629CF252C0B420028F4AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				233629EB252C0B650028F4AE /* PBXTargetDependency */,
+			);
+			name = "DSFToolbar Xcode 11 Demo";
+			packageProductDependencies = (
+				233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */,
+			);
+			productName = "DSFToolbar Xcode 11 Demo";
+			productReference = 233629D1252C0B430028F4AE /* DSFToolbar Xcode 11 Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		233629C9252C0B420028F4AE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					233629D0252C0B420028F4AE = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 233629CC252C0B420028F4AE /* Build configuration list for PBXProject "DSFToolbar Xcode 11 Demo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 233629C8252C0B420028F4AE;
+			productRefGroup = 233629D2252C0B430028F4AE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				233629D0252C0B420028F4AE /* DSFToolbar Xcode 11 Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		233629CF252C0B420028F4AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233629D9252C0B440028F4AE /* Assets.xcassets in Resources */,
+				233629DC252C0B440028F4AE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		233629CD252C0B420028F4AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233629D7252C0B430028F4AE /* ViewController.swift in Sources */,
+				233629D5252C0B430028F4AE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		233629EB252C0B650028F4AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 233629EA252C0B650028F4AE /* DSFToolbar-xc11 */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		233629DA252C0B440028F4AE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				233629DB252C0B440028F4AE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		233629DF252C0B440028F4AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		233629E0252C0B440028F4AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		233629E2252C0B440028F4AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Xcode 11 Demo/DSFToolbar_Xcode_11_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "DSFToolbar Xcode 11 Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Xcode-11-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		233629E3252C0B440028F4AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Xcode 11 Demo/DSFToolbar_Xcode_11_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "DSFToolbar Xcode 11 Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Xcode-11-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		233629CC252C0B420028F4AE /* Build configuration list for PBXProject "DSFToolbar Xcode 11 Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				233629DF252C0B440028F4AE /* Debug */,
+				233629E0252C0B440028F4AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		233629E1252C0B440028F4AE /* Build configuration list for PBXNativeTarget "DSFToolbar Xcode 11 Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				233629E2252C0B440028F4AE /* Debug */,
+				233629E3252C0B440028F4AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		233629E8252C0B5C0028F4AE /* DSFToolbar-xc11 */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFToolbar-xc11";
+		};
+		233629EA252C0B650028F4AE /* DSFToolbar-xc11 */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFToolbar-xc11";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 233629C9252C0B420028F4AE /* Project object */;
+}
