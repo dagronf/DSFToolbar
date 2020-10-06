@@ -102,7 +102,7 @@ class ViewControllerToolbar: NSObject {
 
 #else
 
-class PrimaryToolbar {
+class ViewControllerToolbar {
 	func hookToolbar(into _: UIScene) {}
 	func unhook() {}
 }

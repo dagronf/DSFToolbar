@@ -194,11 +194,11 @@
 				23909538252A8F6000E88CC5 /* AppDelegate.swift */,
 				2390953A252A8F6000E88CC5 /* SceneDelegate.swift */,
 				2390953C252A8F6000E88CC5 /* ViewController.swift */,
+				2390955B252A8FC400E88CC5 /* ViewControllerToolbar.swift */,
 				2390953E252A8F6000E88CC5 /* Main.storyboard */,
 				23909541252A8F6100E88CC5 /* Assets.xcassets */,
 				23909543252A8F6100E88CC5 /* LaunchScreen.storyboard */,
 				23909546252A8F6100E88CC5 /* Info.plist */,
-				2390955B252A8FC400E88CC5 /* ViewControllerToolbar.swift */,
 			);
 			path = "DSFToolbar Catalyst Demo";
 			sourceTree = "<group>";

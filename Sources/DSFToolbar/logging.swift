@@ -37,7 +37,7 @@ extension OSLog {
 
 	/// Logs the view cycles like viewDidLoad.
 
-	@available(OSX 10.12, *)
+	@available(OSX 10.12, iOS 10.0, *)
 	static let memoryAlloc = OSLog(subsystem: subsystem, category: "memory")
 }
 
@@ -45,7 +45,7 @@ class Logging {
 
 	/// Function for tracking memory and memory related events
 	static func memory(_ msg: StaticString, args: CVarArg...) {
-		if #available(OSX 10.12, *) {
+		if #available(OSX 10.12, iOS 10.0, *) {
 			os_log(msg, log: OSLog.memoryAlloc, type: .info, args)
 		}
 		else {
