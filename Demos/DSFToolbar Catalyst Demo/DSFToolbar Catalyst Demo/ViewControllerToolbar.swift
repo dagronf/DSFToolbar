@@ -8,6 +8,7 @@
 import UIKit
 
 #if targetEnvironment(macCatalyst)
+
 import DSFToolbar
 
 class ViewControllerToolbar: NSObject {

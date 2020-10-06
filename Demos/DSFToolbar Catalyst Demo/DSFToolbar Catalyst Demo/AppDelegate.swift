@@ -2,12 +2,12 @@
 //  AppDelegate.swift
 //  DSFToolbar Catalyst Demo
 //
-//  Created by Darren Ford on 5/10/20.
+//  Created by Darren Ford on 6/10/20.
 //
 
 import UIKit
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
