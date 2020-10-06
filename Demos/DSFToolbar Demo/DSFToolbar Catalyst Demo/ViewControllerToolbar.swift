@@ -101,11 +101,4 @@ class ViewControllerToolbar: NSObject {
 	}()
 }
 
-#else
-
-class ViewControllerToolbar {
-	func hookToolbar(into _: UIScene) {}
-	func unhook() {}
-}
-
 #endif

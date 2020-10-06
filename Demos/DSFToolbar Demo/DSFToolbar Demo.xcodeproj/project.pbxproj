@@ -13,6 +13,13 @@
 		2337AF452522A50A0098AB2D /* PrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF432522A50A0098AB2D /* PrimaryViewController.swift */; };
 		2337AF462522A50A0098AB2D /* PrimaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF442522A50A0098AB2D /* PrimaryViewController.xib */; };
 		2337AF4B2522A8350098AB2D /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF4A2522A8350098AB2D /* ProjectAssets.swift */; };
+		23642E42252BF9D30063590F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23642E41252BF9D30063590F /* AppDelegate.swift */; };
+		23642E44252BF9D30063590F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23642E43252BF9D30063590F /* SceneDelegate.swift */; };
+		23642E46252BF9D30063590F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23642E45252BF9D30063590F /* ViewController.swift */; };
+		23642E49252BF9D30063590F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23642E47252BF9D30063590F /* Main.storyboard */; };
+		23642E4B252BF9D40063590F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23642E4A252BF9D40063590F /* Assets.xcassets */; };
+		23642E4E252BF9D40063590F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23642E4C252BF9D40063590F /* LaunchScreen.storyboard */; };
+		23642E63252BFA390063590F /* DSFToolbar-Library in Frameworks */ = {isa = PBXBuildFile; productRef = 23642E62252BFA390063590F /* DSFToolbar-Library */; };
 		236A7C532523C95E00255B96 /* CoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C512523C95E00255B96 /* CoreViewController.swift */; };
 		236A7C542523C95E00255B96 /* CoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C522523C95E00255B96 /* CoreViewController.xib */; };
 		236A7C592523F2FE00255B96 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C572523F2FE00255B96 /* ButtonViewController.swift */; };
@@ -38,6 +45,8 @@
 		23CA2F922522CD8F00BF4FA2 /* DemoContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F912522CD8F00BF4FA2 /* DemoContentContainer.swift */; };
 		23CA2F962522D07600BF4FA2 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */; };
 		23CA2F972522D07600BF4FA2 /* SegmentedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */; };
+		23E9DA46252BFC9F0010A3AE /* ViewControllerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA45252BFC9F0010A3AE /* ViewControllerToolbar.swift */; };
+		23E9DA4C252BFCBB0010A3AE /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA4B252BFCBB0010A3AE /* ProjectAssets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +59,15 @@
 		2337AF432522A50A0098AB2D /* PrimaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryViewController.swift; sourceTree = "<group>"; };
 		2337AF442522A50A0098AB2D /* PrimaryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrimaryViewController.xib; sourceTree = "<group>"; };
 		2337AF4A2522A8350098AB2D /* ProjectAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssets.swift; sourceTree = "<group>"; };
+		23642E3F252BF9D30063590F /* DSFToolbar Catalyst Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DSFToolbar Catalyst Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		23642E41252BF9D30063590F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		23642E43252BF9D30063590F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		23642E45252BF9D30063590F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		23642E48252BF9D30063590F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		23642E4A252BF9D40063590F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		23642E4D252BF9D40063590F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		23642E4F252BF9D40063590F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23642E55252BF9DE0063590F /* DSFToolbar Catalyst Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DSFToolbar Catalyst Demo.entitlements"; sourceTree = "<group>"; };
 		236A7C512523C95E00255B96 /* CoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewController.swift; sourceTree = "<group>"; };
 		236A7C522523C95E00255B96 /* CoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoreViewController.xib; sourceTree = "<group>"; };
 		236A7C572523F2FE00255B96 /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +93,8 @@
 		23CA2F912522CD8F00BF4FA2 /* DemoContentContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoContentContainer.swift; sourceTree = "<group>"; };
 		23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
 		23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedViewController.xib; sourceTree = "<group>"; };
+		23E9DA45252BFC9F0010A3AE /* ViewControllerToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToolbar.swift; sourceTree = "<group>"; };
+		23E9DA4B252BFCBB0010A3AE /* ProjectAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +106,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23642E3C252BF9D30063590F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23642E63252BFA390063590F /* DSFToolbar-Library in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -94,6 +122,7 @@
 			children = (
 				23CA2F722522C5E000BF4FA2 /* DSFToolbar */,
 				2337AF012522A1420098AB2D /* DSFToolbar Demo */,
+				23642E40252BF9D30063590F /* DSFToolbar Catalyst Demo */,
 				2337AF002522A1420098AB2D /* Products */,
 				2337AF1F2522A3AE0098AB2D /* Frameworks */,
 			);
@@ -103,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */,
+				23642E3F252BF9D30063590F /* DSFToolbar Catalyst Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,7 +152,7 @@
 				23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */,
 				23CA2F812522CC2C00BF4FA2 /* PropertiesViewController.swift */,
 				23CA2F842522CCD100BF4FA2 /* panes */,
-				236A7C612524107000255B96 /* DSFDebounce.swift */,
+				23E9DA53252BFEE30010A3AE /* utils */,
 			);
 			path = "DSFToolbar Demo";
 			sourceTree = "<group>";
@@ -132,6 +162,23 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23642E40252BF9D30063590F /* DSFToolbar Catalyst Demo */ = {
+			isa = PBXGroup;
+			children = (
+				23E9DA4B252BFCBB0010A3AE /* ProjectAssets.swift */,
+				23642E55252BF9DE0063590F /* DSFToolbar Catalyst Demo.entitlements */,
+				23642E41252BF9D30063590F /* AppDelegate.swift */,
+				23642E43252BF9D30063590F /* SceneDelegate.swift */,
+				23642E45252BF9D30063590F /* ViewController.swift */,
+				23E9DA45252BFC9F0010A3AE /* ViewControllerToolbar.swift */,
+				23642E47252BF9D30063590F /* Main.storyboard */,
+				23642E4A252BF9D40063590F /* Assets.xcassets */,
+				23642E4C252BF9D40063590F /* LaunchScreen.storyboard */,
+				23642E4F252BF9D40063590F /* Info.plist */,
+			);
+			path = "DSFToolbar Catalyst Demo";
 			sourceTree = "<group>";
 		};
 		237CD2C4252465D700456FB4 /* popover-popup */ = {
@@ -177,6 +224,14 @@
 			path = panes;
 			sourceTree = "<group>";
 		};
+		23E9DA53252BFEE30010A3AE /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				236A7C612524107000255B96 /* DSFDebounce.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,6 +257,28 @@
 			productReference = 2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		23642E3E252BF9D30063590F /* DSFToolbar Catalyst Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23642E52252BF9D40063590F /* Build configuration list for PBXNativeTarget "DSFToolbar Catalyst Demo" */;
+			buildPhases = (
+				23642E68252BFB820063590F /* Run Squeaker */,
+				23642E3B252BF9D30063590F /* Sources */,
+				23642E3C252BF9D30063590F /* Frameworks */,
+				23642E3D252BF9D30063590F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23642E65252BFA430063590F /* PBXTargetDependency */,
+			);
+			name = "DSFToolbar Catalyst Demo";
+			packageProductDependencies = (
+				23642E62252BFA390063590F /* DSFToolbar-Library */,
+			);
+			productName = "DSFToolbar Catalyst Demo";
+			productReference = 23642E3F252BF9D30063590F /* DSFToolbar Catalyst Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,6 +289,9 @@
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
 					2337AEFE2522A1420098AB2D = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					23642E3E252BF9D30063590F = {
 						CreatedOnToolsVersion = 12.2;
 					};
 				};
@@ -232,6 +312,7 @@
 			projectRoot = "";
 			targets = (
 				2337AEFE2522A1420098AB2D /* DSFToolbar Demo */,
+				23642E3E252BF9D30063590F /* DSFToolbar Catalyst Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +338,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23642E3D252BF9D30063590F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23642E4E252BF9D40063590F /* LaunchScreen.storyboard in Resources */,
+				23642E4B252BF9D40063590F /* Assets.xcassets in Resources */,
+				23642E49252BF9D30063590F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -277,6 +368,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/bin/swift /Users/dford/Projects/Projects/Squeaker/Squeaker/main.swift \"mac\" \"${PROJECT_DIR}/DSFToolbar Demo/\" \"${PROJECT_DIR}/DSFToolbar Demo/ProjectAssets.swift\"\n";
+		};
+		23642E68252BFB820063590F /* Run Squeaker */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Squeaker";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nxcrun --sdk macosx swift /Users/dford/Projects/Projects/Squeaker/Squeaker/main.swift \"ios\" \"${PROJECT_DIR}/DSFToolbar Catalyst Demo/\" \"${PROJECT_DIR}/DSFToolbar Catalyst Demo/ProjectAssets.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -305,9 +414,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23642E3B252BF9D30063590F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23642E46252BF9D30063590F /* ViewController.swift in Sources */,
+				23642E42252BF9D30063590F /* AppDelegate.swift in Sources */,
+				23642E44252BF9D30063590F /* SceneDelegate.swift in Sources */,
+				23E9DA46252BFC9F0010A3AE /* ViewControllerToolbar.swift in Sources */,
+				23E9DA4C252BFCBB0010A3AE /* ProjectAssets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		23642E65252BFA430063590F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 23642E64252BFA430063590F /* DSFToolbar-Library */;
+		};
 		2390952E252A7EAA00E88CC5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 2390952D252A7EAA00E88CC5 /* DSFToolbar-Library */;
@@ -321,6 +446,22 @@
 				2337AF072522A1430098AB2D /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		23642E47252BF9D30063590F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23642E48252BF9D30063590F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		23642E4C252BF9D40063590F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23642E4D252BF9D40063590F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -485,6 +626,55 @@
 			};
 			name = Release;
 		};
+		23642E50252BF9D40063590F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Catalyst Demo/DSFToolbar Catalyst Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				INFOPLIST_FILE = "DSFToolbar Catalyst Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Catalyst-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		23642E51252BF9D40063590F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Catalyst Demo/DSFToolbar Catalyst Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				INFOPLIST_FILE = "DSFToolbar Catalyst Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Catalyst-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,9 +696,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		23642E52252BF9D40063590F /* Build configuration list for PBXNativeTarget "DSFToolbar Catalyst Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23642E50252BF9D40063590F /* Debug */,
+				23642E51252BF9D40063590F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		23642E62252BFA390063590F /* DSFToolbar-Library */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFToolbar-Library";
+		};
+		23642E64252BFA430063590F /* DSFToolbar-Library */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFToolbar-Library";
+		};
 		2390952D252A7EAA00E88CC5 /* DSFToolbar-Library */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "DSFToolbar-Library";

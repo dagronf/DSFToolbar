@@ -76,7 +76,7 @@ extension DSFToolbar {
 
 				let si = NSSearchField()
 
-				if #available(macOS 10.14, *) {
+				if #available(macOS 10.13, *) {
 					si.translatesAutoresizingMaskIntoConstraints = false
 					si.addConstraint(
 						NSLayoutConstraint(
