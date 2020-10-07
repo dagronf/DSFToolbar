@@ -31,6 +31,7 @@ class SearchViewController: NSViewController {
 	}
 
 	func build() {
+		
 		self.toolbarContainer = DSFToolbar.Make(
 			toolbarIdentifier: NSToolbar.Identifier("primary-search"),
 			allowsUserCustomization: true
@@ -72,7 +73,7 @@ class SearchViewController: NSViewController {
 				.label("Search for stuff")
 				.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
 				.bindText(self, keyPath: #keyPath(searchText))
-				.searchChange { [weak self] _, text in
+				.onSearchTextChange { [weak self] _, text in
 					self?.searchDebounce.debounce {
 						Swift.print("Search text is now '\(text)'")
 					}

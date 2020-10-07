@@ -15,21 +15,25 @@ import DSFToolbar
 class ViewController: NSViewController {
 	private let windowCloseNotifier = WindowCloseNotifier()
 
-	private var customToolbar: DSFToolbar?
-
 	@objc dynamic var searchEnabled: Bool = true
-	@objc dynamic var searchText: String = ""
+	@objc dynamic var searchText: String = "finding..." {
+		didSet {
+			Swift.print("Search text is now '\(searchText)'")
+		}
+	}
 
 	private func windowWillClose() {
 		// Need to call close on the toolbar to make sure that any bindings and controls have been release
-		self.customToolbar?.close()
+		self.customToolbar.close()
 	}
 
 	override func viewDidAppear() {
 		super.viewDidAppear()
 
 		// Do any additional setup after loading the view.
-		self.buildToolbar()
+
+		// Hook up the toolbar
+		self.customToolbar.attachedWindow = self.view.window
 
 		self.windowCloseNotifier.observe(self.view.window!) { [weak self] in
 			self?.windowWillClose()
@@ -42,47 +46,48 @@ class ViewController: NSViewController {
 		}
 	}
 
-	private func buildToolbar() {
-		self.customToolbar =
-			DSFToolbar.Make(
-				toolbarIdentifier: NSToolbar.Identifier("Core"),
-				allowsUserCustomization: true
-			) {
-				DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
-					.label("New")
-					.image(ProjectAssets.ImageSet.toolbar_new_document.template)
-					.enabled {
-						self.canAddDocument()
-					}
-					.action { _ in
-						self.addDocument()
-					}
+	// Custom toolbar
+	lazy var customToolbar: DSFToolbar = {
+		DSFToolbar.Make(
+			toolbarIdentifier: NSToolbar.Identifier("Core"),
+			allowsUserCustomization: true) {
 
-				DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
-					.label("Edit")
-					.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-					.enabled {
-						self.canEditDocument()
-					}
-					.action { _ in
-						self.editDocument()
-					}
+			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
+				.label("New")
+				.isSelectable(true)
+				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
+				.enabled {
+					self.canAddDocument()
+				}
+				.action { _ in
+					self.addDocument()
+				}
 
-				DSFToolbar.FlexibleSpace()
+			DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
+				.label("Edit")
+				.isSelectable(true)
+				.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
+				.enabled {
+					self.canEditDocument()
+				}
+				.action { _ in
+					self.editDocument()
+				}
 
-				DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
-					.label("Search")
-					.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
-					.bindText(self, keyPath: #keyPath(searchText))
-			}
+			DSFToolbar.FlexibleSpace()
 
-		self.customToolbar?.attachedWindow = self.view.window
-	}
+			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+				.label("Search")
+				.isSelectable(true)
+				.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+				.bindText(self, keyPath: #keyPath(searchText))
+		}
+	}()
 
 	// MARK: Add document
 
 	private func canAddDocument() -> Bool {
-		return false
+		return true
 	}
 
 	private func addDocument() {

@@ -40,7 +40,7 @@ extension DSFToolbar {
 		var _searchField: NSSearchField?
 
 		override var toolbarItem: NSToolbarItem? {
-			return self.searchItem
+			return self.searchToolbarItem
 		}
 
 		public override func close() {
@@ -64,47 +64,9 @@ extension DSFToolbar {
 			Logging.memory("DSFToolbar.Search deinit")
 		}
 
-		lazy var searchItem: NSToolbarItem = {
-			if #available(macOS 11, *) {
-				let si = NSSearchToolbarItem(itemIdentifier: self.identifier)
-				si.searchField.delegate = self._delegate
-				self._searchField = si.searchField
-				return si
-			}
-			else {
-				var ms: NSSize? = nil
-
-				let si = NSSearchField()
-
-				if #available(macOS 10.13, *) {
-					si.translatesAutoresizingMaskIntoConstraints = false
-					si.addConstraint(
-						NSLayoutConstraint(
-							item: si,
-							attribute: .width,
-							relatedBy: .lessThanOrEqual,
-							toItem: nil, attribute: .notAnAttribute,
-							multiplier: 1, constant: self.maxWidth
-						)
-					)
-				}
-				else {
-					ms = NSSize(width: self.maxWidth, height: 20)
-				}
-
-				si.delegate = self._delegate
-				self._searchField = si
-				let a = NSToolbarItem(itemIdentifier: self.identifier)
-				a.view = si
-
-				if let mss = ms {
-					a.minSize = mss
-				}
-
-				return a
-			}
+		lazy private var searchToolbarItem: NSToolbarItem? = {
+			return self.buildSearchItem()
 		}()
-
 
 		/// Create a search field toolbar item
 		/// - Parameters:
@@ -135,7 +97,7 @@ extension DSFToolbar {
 		/// - Parameter action: the action block to be called
 		/// - Returns: self
 		@discardableResult
-		public func searchChange(_ action: @escaping (NSSearchField, String) -> Void) -> Self {
+		public func onSearchTextChange(_ action: @escaping (NSSearchField, String) -> Void) -> Self {
 			self._searchChange = action
 			self._delegate = self
 			self._searchField?.delegate = self
@@ -157,6 +119,8 @@ extension DSFToolbar {
 		/// take effect
 		@discardableResult
 		public func bindText(_ object: AnyObject, keyPath: String) -> Self {
+			self._delegate = self
+			self._searchField?.delegate = self
 			self._searchTextBinding.setup(observable: object, keyPath: keyPath)
 			self._searchTextBinding.bind { [weak self] (newText) in
 				self?._searchField?.stringValue = newText
