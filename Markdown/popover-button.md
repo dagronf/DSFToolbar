@@ -2,17 +2,6 @@
 
 A toolbar item that displays a popover when activated.
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)
-
-## Example
-
-```swift
-DSFToolbar.PopoverButton(NSToolbarItem.Identifier("Popover View"), popoverContentController: self.popovercontent)
-   .label("Popover View")
-   .image(ProjectAssets.ImageSet.toolbar_cog.template)
-   .bindIsEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
-```
-
 ## Properties
 
 [Core properties](core.md)
@@ -30,3 +19,17 @@ DSFToolbar.PopoverButton(NSToolbarItem.Identifier("Popover View"), popoverConten
 ## Bindings
 
 [Core bindings](core.md)
+
+
+# Example
+
+```swift
+DSFToolbar.PopoverButton(
+  NSToolbarItem.Identifier("Popover View"), 
+  popoverContentController: self.popovercontent)
+    .label("Popover View")
+    .image(ProjectAssets.ImageSet.toolbar_cog.template)
+    .bindIsEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)

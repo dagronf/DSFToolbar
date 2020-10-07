@@ -2,8 +2,6 @@
 
 A toolbar item that displays a menu when activated.
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)
-
 ## Properties
 
 [Core properties](core.md)
@@ -22,3 +20,17 @@ A toolbar item that displays a menu when activated.
 ## Bindings
 
 [Core bindings](core.md)
+
+
+# Example
+
+```swift
+DSFToolbar.PopupButton(
+   NSToolbarItem.Identifier("PopupButton"), 
+   menu: self.popupMenu)
+     .label("Popup")
+     .image(ProjectAssets.ImageSet.toolbar_cog.template)
+     .bindIsEnabled(to: self, withKeyPath: #keyPath(popupMenuEnabled))
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)

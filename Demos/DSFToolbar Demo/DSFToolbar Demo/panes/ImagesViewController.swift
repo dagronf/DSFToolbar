@@ -109,8 +109,8 @@ class ImagesViewController: NSViewController {
 				}
 
 		}
-		.selectionChanged { sel in
-			let msg = "Toolbar Selection: \(sel?.rawValue ?? "(none)")"
+		.onSelectionChange { newToolbarSelection in
+			let msg = "Toolbar Selection: \(newToolbarSelection?.rawValue ?? "(none)")"
 			self.selectedToolbarItem = msg
 		}
 	}

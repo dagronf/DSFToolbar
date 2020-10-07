@@ -167,7 +167,7 @@ public class DSFToolbar: NSObject {
 		self.addItems(children)
 
 		if let selChange = selectionDidChange {
-			_ = self.selectionChanged(selChange)
+			_ = self.onSelectionChange(selChange)
 		}
 
 		// Listen for changes in the size mode
@@ -268,7 +268,7 @@ public class DSFToolbar: NSObject {
 	/// Supply a callback block to be called when the selection state of the toolbar changes
 	/// - Parameter action: The block to call
 	/// - Returns: self
-	public func selectionChanged(_ action: @escaping (NSToolbarItem.Identifier?) -> Void) -> DSFToolbar {
+	public func onSelectionChange(_ action: @escaping (NSToolbarItem.Identifier?) -> Void) -> DSFToolbar {
 		self._selectionChanged = action
 
 		self.toolbar.addObserver(

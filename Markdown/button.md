@@ -2,20 +2,6 @@
 
 A toolbar item containing an NSButton. You can supply your own NSButton instance if you want (for example, if you're loading from a XIB)
 
-## Example
-
-```swift
-DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
-   .title("Left")
-   .width(minVal: 70)
-   .image(ProjectAssets.ImageSet.toolbar_button_click.template)
-   .imagePosition(.imageLeft)
-   .imageScaling(.scaleProportionallyDown)
-   .legacySizes(minSize: NSSize(width: 75, height: 27))
-```
-
-[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ButtonViewController.swift)
-
 ## Properties
 
 [Core properties](core.md)
@@ -45,3 +31,17 @@ DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
 | Binding   | Type (default)     |  Description |
 |----------|-------------|-------------|
 | `bindTitle` | `String` | Bind the button's title to a key path
+
+# Example
+
+```swift
+DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
+   .title("Left")
+   .width(minVal: 70)
+   .image(ProjectAssets.ImageSet.toolbar_button_click.template)
+   .imagePosition(.imageLeft)
+   .imageScaling(.scaleProportionallyDown)
+   .legacySizes(minSize: NSSize(width: 75, height: 27))
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ButtonViewController.swift)

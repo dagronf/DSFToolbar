@@ -2,8 +2,6 @@
 
 A toolbar item containing a custom view
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/custom-view/CustomViewController.swift)
-
 ### DSFToolbarViewControllerProtocol
 
 By implementing DSFToolbarViewControllerProtocol in your view controller, you can receive information back from the toolbar indicating state changes.
@@ -19,13 +17,6 @@ func willShow()
 func willClose()
 ```
 
-## Example
-
-```swift
-DSFToolbar.View(NSToolbarItem.Identifier("customview1"), viewController: self.customContent1)
-   .label("Input Levels")
-   .bindIsEnabled(to: self, withKeyPath: #keyPath(customContent1Enabled))
-```
 
 ## Properties
 
@@ -42,3 +33,15 @@ DSFToolbar.View(NSToolbarItem.Identifier("customview1"), viewController: self.cu
 ## Bindings
 
 [Core bindings](core.md)
+
+# Example
+
+```swift
+DSFToolbar.View(
+   NSToolbarItem.Identifier("customview1"), 
+   viewController: self.customViewController)
+     .label("Input Levels")
+     .bindIsEnabled(to: self, withKeyPath: #keyPath(customViewEnabled))
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/custom-view/CustomViewController.swift)

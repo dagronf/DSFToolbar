@@ -2,9 +2,23 @@
 
 A group groups a number of toolbar items together into a single unit.
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ButtonViewController.swift)
+## Properties
 
-## Example
+[Core properties](core.md)
+
+| Property   | Type (default)     |  Description |
+|----------|-------------|------|
+| `selectionMode`  | `SelectionMode`    | the style of the group (momentary, select any, select one) (10.15+ only)
+
+## Actions
+
+[Core actions](core.md)
+
+## Bindings
+
+[Core bindings](core.md)
+
+# Example
 
 ```swift
 DSFToolbar.Group(NSToolbarItem.Identifier("food-grouped"), selectionMode: .selectAny) {
@@ -31,18 +45,4 @@ DSFToolbar.Group(NSToolbarItem.Identifier("food-grouped"), selectionMode: .selec
 }
 ```
 
-## Properties
-
-[Core properties](core.md)
-
-| Property   | Type (default)     |  Description |
-|----------|-------------|------|
-| `selectionMode`  | `SelectionMode`    | the style of the group (momentary, select any, select one) (10.15+ only)
-
-## Actions
-
-[Core actions](core.md)
-
-## Bindings
-
-[Core bindings](core.md)
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ButtonViewController.swift)

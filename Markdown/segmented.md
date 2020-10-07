@@ -4,28 +4,6 @@ Display one or more buttons in a single horizontal group.
 
 A segmented control is built using multiple segment items (see Segment below), each representing a 'section' of the segmented control.  You can attach actions individually to each segment, or to the segmented control as a whole.
 
-[Example Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/SegmentedViewController.swift)
-
-## Example
-
-```swift
-DSFToolbar.Segmented(NSToolbarItem.Identifier("toolbar-styles-2"),
-   type: .Separated,
-   switching: .selectAny,
-   segmentWidths: 32,
-   DSFToolbar.Segmented.Segment()
-      .image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-      .bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
-   DSFToolbar.Segmented.Segment()
-      .image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
-   DSFToolbar.Segmented.Segment()
-      .image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-)
-.action { selected in 
-   Swift.print("Selection is now \(selected)")
-}
-```
-
 ## Properties
 
 [Core propertes](core.md)
@@ -67,3 +45,26 @@ None.
 	
 | Binding   | Type (default)     |  Description |
 | `bindIsEnabled` | `Bool` | Bind the enabled state for the segment
+
+
+# Example
+
+```swift
+DSFToolbar.Segmented(NSToolbarItem.Identifier("toolbar-styles-2"),
+   type: .Separated,
+   switching: .selectAny,
+   segmentWidths: 32,
+   DSFToolbar.Segmented.Segment()
+      .image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+      .bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
+   DSFToolbar.Segmented.Segment()
+      .image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
+   DSFToolbar.Segmented.Segment()
+      .image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
+)
+.action { selected in 
+   Swift.print("Selection is now \(selected)")
+}
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/SegmentedViewController.swift)

@@ -2,19 +2,6 @@
 
 A standard toolbar item type.
 
-## Example
-
-```swift
-DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
-   .label("Watermelon")
-   .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
-   .action { _ in
-      Swift.print("Got grouped watermelon!")
-   }
-```
-
-[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ImagesViewController.swift)
-
 ## Properties
 
 [Core properties](core.md)
@@ -36,3 +23,16 @@ DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
 ## Bindings
 
 [Core bindings](core.md)
+
+# Example
+
+```swift
+DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
+   .label("Watermelon")
+   .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+   .action { _ in
+      Swift.print("Got grouped watermelon!")
+   }
+```
+
+[Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/ImagesViewController.swift)

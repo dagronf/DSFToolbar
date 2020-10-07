@@ -1,6 +1,6 @@
 # DSFToolbar
 
-![](https://img.shields.io/github/v/tag/dagronf/DSFToolbar) ![](https://img.shields.io/badge/platforms-mac | macCatalyst-blue) ![](https://img.shields.io/badge/macOS-10.11+-blueviolet) ![](https://img.shields.io/badge/Swift-5.0+-orange.svg)
+![](https://img.shields.io/github/v/tag/dagronf/DSFToolbar) ![](https://img.shields.io/badge/macOS-10.11+-blueviolet) ![](https://img.shields.io/badge/macCatalyst-10.13+-blueviolet) ![](https://img.shields.io/badge/Swift-5.0+-orange.svg)
 ![](https://img.shields.io/badge/License-MIT-lightgrey) [![](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager)
 
 A SwiftUI-style declarative `NSToolbar` for macOS and Mac Catalyst.
@@ -71,6 +71,10 @@ Add `https://github.com/dagronf/DSFToolbar` to your project.
 
 ## Usage
 
+For the most part, you'll only really need to use [`DSFToolbar.Item`](Markdown/item.md), [`DSFToolbar.Group`](Markdown/group.md) and [`DSFToolbar.Search`](Markdown/search.md) to get 90+% of the toolbar functionality you'll need.
+
+Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a segmented-style control by settings `isBordered(true)`.
+
 There are two targets :-
 
 ### DSFToolbar
@@ -93,6 +97,25 @@ import DSFToolbar_beta
 ```
 
 ## Concepts
+
+### Default items
+
+A toolbar item can be marked with `isDefault` to indicate that the item should appear on the default toolbar.  An item marked as `isDefault(false)` will not appear initially in the toolbar, but will appear in the customization palette to allow to be added.
+
+### Selectable items
+
+A toolbar item marked as `isSelectable` will show a selection marker when pressed. You can detect the toolbar selection change by providing a block for the `onSelectionChange` property.
+
+```swift
+self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("My Toolbar")) {
+      ...
+   }
+   .onSelectionChange { newToolbarSelection in
+      // Do something when the selection changes
+   }
+```
+
+## Interaction
 
 ### Actions
 
@@ -155,7 +178,7 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
 
 | Type | Available | Description |
 |------|:--------:|-------------|
-| [Item](Markdown/item.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc |
+| [Item](Markdown/item.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc.  Most of the time you'll want this. |
 | [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a common unit |
 | [Search](Markdown/search.md) | macOS<br/>macCatalyst | Provides a search text field |
 | [Segmented](Markdown/segmented.md) | macOS<br/>macCatalyst | A simple segmented control |
