@@ -102,39 +102,4 @@ public extension DSFToolbar.Segmented {
 
 #endif
 
-// MARK: - SwiftUI declarative
-
-public extension DSFToolbar {
-	/// Make a new toolbar using SwiftUI declarative style
-	/// - Parameters:
-	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
-	///   - allowsUserCustomization: is the user allowed to customize the toolbar
-	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
-	///   - items: The toolbar items
-	/// - Returns: The created toolbar
-	static func Make(
-		toolbarIdentifier: NSToolbar.Identifier,
-		allowsUserCustomization: Bool = false,
-		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
-		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
-	) -> DSFToolbar {
-		let tb = DSFToolbar(toolbarIdentifier)
-
-		let children = builder()
-
-		tb.toolbar.allowsUserCustomization = allowsUserCustomization
-		if allowsUserCustomization {
-			tb.toolbar.autosavesConfiguration = true
-		}
-
-		tb.addItems(children)
-
-		if let selChange = selectionDidChange {
-			_ = tb.selectionChanged(selChange)
-		}
-
-		return tb // .toolbar
-	}
-}
-
 #endif

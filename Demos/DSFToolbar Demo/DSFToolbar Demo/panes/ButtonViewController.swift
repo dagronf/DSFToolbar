@@ -19,10 +19,33 @@ class ButtonViewController: NSViewController {
 		self.build()
     }
 
+	lazy var colorButton: NSButton = {
+		let b = ColorDropdownButton()
+		b.translatesAutoresizingMaskIntoConstraints = false
+		b.addConstraint(NSLayoutConstraint(item: b, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48))
+
+		b.showDropdownArrow = false
+		b.selectedColor = .black
+
+		b.target = self
+		b.action = #selector(colorPicked(_:))
+
+		return b
+	}()
+
+	@objc func colorPicked(_ sender: ColorDropdownButton) {
+
+		NSColorPanel.shared.color = sender.selectedColor ?? .clear
+
+		NSColorPanel.shared.setTarget(sender)
+		NSColorPanel.shared.setAction(#selector(ColorDropdownButton.colorSelectorChange(_:)))
+		NSColorPanel.shared.orderFront(self)
+	}
+
 	@objc dynamic var topTitle: String = "Top"
 
 	func build() {
-		self.toolbarContainer = DSFToolbar.Make(
+		self.toolbarContainer = DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary-buttons"),
 			allowsUserCustomization: true
 		) {
@@ -39,6 +62,9 @@ class ButtonViewController: NSViewController {
 				.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
 				.imagePosition(.imageOnly)
 				.legacySizes(minSize: NSSize(width: 48, height: 48))
+
+			DSFToolbar.Button(NSToolbarItem.Identifier("nonononononod"), button: colorButton)
+				.title("pck")
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-1")) {
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-2"))
@@ -116,6 +142,9 @@ extension ButtonViewController: DemoContentViewController {
 	}
 
 	func cleanup() {
+		NSColorPanel.shared.setTarget(nil)
+		NSColorPanel.shared.setAction(nil)
+
 		self.toolbarContainer?.close()
 		self.toolbarContainer = nil
 	}

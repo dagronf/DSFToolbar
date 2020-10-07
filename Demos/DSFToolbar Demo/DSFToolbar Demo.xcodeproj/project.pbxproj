@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A7E252C11D5007658F6 /* DSFToolbar-beta */; };
 		23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A82252C11E0007658F6 /* DSFToolbar-beta */; };
+		2335158B252E56A8000B6E46 /* ColorDropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */; };
 		2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF022522A1420098AB2D /* AppDelegate.swift */; };
 		2337AF052522A1430098AB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF042522A1430098AB2D /* Assets.xcassets */; };
 		2337AF082522A1430098AB2D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF062522A1430098AB2D /* MainMenu.xib */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDropdownButton.swift; sourceTree = "<group>"; };
 		2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DSFToolbar Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2337AF022522A1420098AB2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2337AF042522A1430098AB2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				236A7C612524107000255B96 /* DSFDebounce.swift */,
+				2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				23CA2F8E2522CD5B00BF4FA2 /* ImagesViewController.swift in Sources */,
 				236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */,
 				23CA2F922522CD8F00BF4FA2 /* DemoContentContainer.swift in Sources */,
+				2335158B252E56A8000B6E46 /* ColorDropdownButton.swift in Sources */,
 				2337AF4B2522A8350098AB2D /* ProjectAssets.swift in Sources */,
 				23CA2F962522D07600BF4FA2 /* SegmentedViewController.swift in Sources */,
 				2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */,

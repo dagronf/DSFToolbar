@@ -26,7 +26,7 @@ class ImagesViewController: NSViewController {
 
 	func build() {
 
-		self.toolbarContainer = DSFToolbar.Make(
+		self.toolbarContainer = DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary-images"),
 			allowsUserCustomization: true
 		) {

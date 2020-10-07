@@ -44,11 +44,17 @@ public extension DSFToolbar {
 		}
 
 		public init(_ identifier: NSToolbarItem.Identifier,
-			 popoverContentController: NSViewController) {
+					button: NSButton? = nil,
+					popoverContentController: NSViewController) {
 			self._controller = popoverContentController
 			super.init(identifier)
 
-			self.button = buildButton(type: .momentaryChange)
+			if let b = button {
+				self.button = b
+			}
+			else {
+				self.button = buildButton(type: .momentaryChange)
+			}
 
 			self.button?.target = self
 			self.button?.action = #selector(action(_:))
@@ -71,7 +77,13 @@ public extension DSFToolbar {
 			self.buttonToolbarItem?.view = nil
 			self.buttonToolbarItem = nil
 
+			self._controller = nil
+
 			super.close()
+		}
+
+		deinit {
+			Logging.memory("DSFToolbar.PopoverButton deinit")
 		}
 
 		// MARK: - Image

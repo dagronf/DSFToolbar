@@ -42,6 +42,8 @@ internal class BindableAttribute<VALUETYPE>: NSObject {
 			self.bindValueKeyPath != nil
 	}
 
+	private(set) var bindingIsActive: Bool = false
+
 	func setup(observable: AnyObject, keyPath: String) {
 		self.bindValueObserver = observable
 		self.bindValueKeyPath = keyPath
@@ -57,6 +59,13 @@ internal class BindableAttribute<VALUETYPE>: NSObject {
 	}
 
 	func bind(valueChangeCallback: @escaping (VALUETYPE) -> Void) {
+
+		if self.bindingIsActive == true {
+			/// There's already a binding. Replace the callback
+			self.valueChangeCallback = valueChangeCallback
+			return
+		}
+
 		guard let observer = self.bindValueObserver,
 			  let keyPath = self.bindValueKeyPath else {
 			// No binding was set for the attribute
@@ -66,6 +75,7 @@ internal class BindableAttribute<VALUETYPE>: NSObject {
 		self.valueChangeCallback = valueChangeCallback
 
 		observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
+		self.bindingIsActive = true
 
 		// Set the initial value from the binding if we can
 		if let v = observer.value(forKeyPath: keyPath) as? VALUETYPE {
@@ -74,9 +84,14 @@ internal class BindableAttribute<VALUETYPE>: NSObject {
 	}
 
 	func unbind() {
+		if !self.bindingIsActive {
+			return
+		}
+
 		if let observer = self.bindValueObserver,
 		   let keyPath = self.bindValueKeyPath {
 			observer.removeObserver(self, forKeyPath: keyPath)
+			self.bindingIsActive = false
 		}
 	}
 

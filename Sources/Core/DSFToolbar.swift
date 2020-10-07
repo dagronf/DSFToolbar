@@ -46,9 +46,6 @@ public class DSFToolbar: NSObject {
 	}()
 
 	deinit {
-		self.sizeModeDidChange = nil
-		self.toolbar.removeObserver(self, forKeyPath: "sizeMode")
-
 		Logging.memory("DSFToolbar: deinit")
 	}
 
@@ -60,14 +57,44 @@ public class DSFToolbar: NSObject {
 		self.items.append(contentsOf: items)
 	}
 
+	// MARK: - Size mode changes
+
 	/// An observable size mode for the contained toolbar.
 	@objc public dynamic var toolbarSizeMode: NSToolbar.SizeMode = .default
 
 	/// A block to be called when the size mode of the toolbar changes.
-	public var sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)?
+
+	var sizeModeBinding = BindableAttribute<UInt>()
+
+	// Callback block for when the size mode changes for the toolbar
+	private var _sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? {
+		didSet {
+			if self._sizeModeDidChange == nil {
+				// Stop listening for changes
+				self.sizeModeBinding.unbind()
+			}
+			else {
+				// Start listening for changes
+				self.sizeModeBinding.bind { [weak self] newValue in
+					guard let `self` = self else { return }
+					if let sizeMode = NSToolbar.SizeMode(rawValue: newValue) {
+						self.toolbarSizeMode = sizeMode
+						self._sizeModeDidChange?(sizeMode)
+					}
+				}
+			}
+		}
+	}
+
+	/// Supply a callback block that gets called whenever the size mode changes
+	@discardableResult
+	public func onSizeModeChange(_ block: ((NSToolbar.SizeMode) -> Void)?) -> Self {
+		_sizeModeDidChange = block
+		return self
+	}
+
 
 	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
-
 
 	#if os(macOS)
 	public var attachedWindow: NSWindow? {
@@ -94,67 +121,76 @@ public class DSFToolbar: NSObject {
 
 	#endif
 
-	// MARK: - Create and destroy
+	// MARK: - Initialization
 
-	/// Build a new toolbar
+	/// Make a new toolbar using SwiftUI declarative style
 	/// - Parameters:
 	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
 	///   - allowsUserCustomization: is the user allowed to customize the toolbar
 	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
-	///   - items: The toolbar items
+	///   - builder: The builder for the toolbar content
 	/// - Returns: The created toolbar
-	public static func Build(
+	convenience public init(
 		toolbarIdentifier: NSToolbar.Identifier,
 		allowsUserCustomization: Bool = false,
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
-		_ items: DSFToolbar.Core...
-	) -> NSToolbar {
-		let tb = DSFToolbar(toolbarIdentifier)
-
-		tb.toolbar.allowsUserCustomization = allowsUserCustomization
-		if allowsUserCustomization {
-			tb.toolbar.autosavesConfiguration = true
-		}
-
-		items.forEach {
-			// Check for duplicates
-			if tb.items.map({ $0.identifier }).contains($0.identifier) {
-				fatalError("Duplicate toolbar identifier \($0.identifier.rawValue)")
-			}
-
-			tb.items.append($0)
-		}
-
-		if let selChange = selectionDidChange {
-			_ = tb.selectionChanged(selChange)
-		}
-
-		return tb.toolbar
+		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
+	) {
+		self.init(
+			toolbarIdentifier: toolbarIdentifier,
+			allowsUserCustomization: allowsUserCustomization,
+			selectionDidChange: selectionDidChange,
+			children: builder())
 	}
 
-	/// Create a toolbar
-	/// - Parameter toolbarIdentifier: the toolbar identifier. Must be unique within the application.
-	public init(_ toolbarIdentifier: NSToolbar.Identifier) {
+	/// Make a new toolbar using SwiftUI declarative style
+	/// - Parameters:
+	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
+	///   - allowsUserCustomization: is the user allowed to customize the toolbar
+	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
+	///   - children: The toolbar items to add to the toolbar
+	/// - Returns: The created toolbar
+	public init(
+		toolbarIdentifier: NSToolbar.Identifier,
+		allowsUserCustomization: Bool = false,
+		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
+		children: [DSFToolbar.Core]
+	) {
 		self.identifier = toolbarIdentifier
 		super.init()
 
-		self.setup()
+		self.toolbar.allowsUserCustomization = allowsUserCustomization
+		if allowsUserCustomization {
+			self.toolbar.autosavesConfiguration = true
+		}
+
+		self.addItems(children)
+
+		if let selChange = selectionDidChange {
+			_ = self.selectionChanged(selChange)
+		}
+
+		// Listen for changes in the size mode
+		self.sizeModeBinding.setup(observable: self.toolbar,
+								   keyPath: #keyPath(NSToolbar.sizeMode))
 	}
 
-	private func setup() {
-		// Add an observer for changing the size of the toolbar
-		self.toolbar.addObserver(
-			self,
-			forKeyPath: "sizeMode",
-			options: [.new], context: nil
-		)
-	}
+
+	// MARK: - Close and cleanup
+
 
 	/// Close the toolbar
 	///
 	/// You must call `close()` on a DSFToolbar object when you are finished to release any internal stores and/or
 	/// binding observers.
 	public func close() {
+
+		// Stop listening to our size changes
+		self.sizeModeBinding.unbind()
+
+		// Remove the size change block
+		self._sizeModeDidChange = nil
+
 		// Make sure to detach ourselves if we aren't already
 		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
 		#if os(macOS)
@@ -187,7 +223,7 @@ public class DSFToolbar: NSObject {
 	/// Locate an item within the toolbar by its identifier
 	/// - Parameter identifier: The identifier to locate
 	/// - Returns: The toolbar item, or nil if not found (or of mismatching type)
-	public func item<T>(identifier: NSToolbarItem.Identifier) -> T? {
+	public func findItem<T>(identifier: NSToolbarItem.Identifier) -> T? {
 		var items = self.items
 		let groupContent = items.compactMap { ($0 as? DSFToolbar.Group)?.items }
 		items += groupContent.flatMap { $0 }
@@ -285,13 +321,6 @@ extension DSFToolbar {
 			if oldVal != newVal {
 				self._selectionChanged?(newVal)
 			}
-		}
-		else if (object as? NSToolbar) === self.toolbar, keyPath == "sizeMode",
-				let newVal = change?[.newKey] as? UInt,
-				let sizeMode = NSToolbar.SizeMode(rawValue: newVal)
-		{
-			self.toolbarSizeMode = sizeMode
-			self.sizeModeDidChange?(sizeMode)
 		}
 		else {
 			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
