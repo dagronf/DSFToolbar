@@ -82,6 +82,10 @@ public extension DSFToolbar {
 				}
 			}()
 
+			// Hook ourselves up to receive actions so we can reflect through our bindings and actions
+			s.target = self
+			s.action = #selector(itemPressed(_:))
+
 			s.segmentCount = segments.count
 			self.segmented = s
 
@@ -149,8 +153,6 @@ public extension DSFToolbar {
 		/// - Returns: Self
 		public func action(_ action: @escaping (Set<Int>) -> Void) -> Segmented {
 			self._action = action
-			self.segmented?.target = self
-			self.segmented?.action = #selector(itemPressed(_:))
 			return self
 		}
 
@@ -229,6 +231,16 @@ public extension DSFToolbar.Segmented {
 			return self
 		}
 
+		// MARK: - Tooltip
+
+		private var _tooltip: String? = nil
+
+		/// Set a tooltip for the segment
+		public func tooltip(_ msg: String?) -> Segment {
+			_tooltip = msg
+			return self
+		}
+
 		// MARK: - Segment enabled binding
 
 		private let _segmentEnabled = BindableAttribute<Bool>()
@@ -267,6 +279,15 @@ public extension DSFToolbar.Segmented {
 			// Image
 			segmented.setImage(self._image, forSegment: index)
 			segmented.setImageScaling(self._imageScaling, forSegment: index)
+
+			// Tooltip
+			if #available(OSX 10.13, *) {
+				if let t = self._tooltip {
+					segmented.setToolTip(t, forSegment: index)
+				} else {
+					segmented.setToolTip(_title, forSegment: index)
+				}
+			}
 
 			// Segment enable
 			self._segmentEnabled.bind { [weak self] newState in
