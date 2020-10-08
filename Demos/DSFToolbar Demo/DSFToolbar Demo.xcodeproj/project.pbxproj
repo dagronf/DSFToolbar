@@ -6,6 +6,22 @@
 	objectVersion = 52;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		2310CDE1252FD758000B44DE /* Build All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2310CDE2252FD758000B44DE /* Build configuration list for PBXAggregateTarget "Build All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				2310CDEA252FD75E000B44DE /* PBXTargetDependency */,
+				2310CDEC252FD75E000B44DE /* PBXTargetDependency */,
+				2310CDEE252FD75E000B44DE /* PBXTargetDependency */,
+			);
+			name = "Build All";
+			productName = "Build All";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A7E252C11D5007658F6 /* DSFToolbar-beta */; };
 		23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A82252C11E0007658F6 /* DSFToolbar-beta */; };
@@ -57,6 +73,30 @@
 		23E9DA46252BFC9F0010A3AE /* ViewControllerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA45252BFC9F0010A3AE /* ViewControllerToolbar.swift */; };
 		23E9DA4C252BFCBB0010A3AE /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9DA4B252BFCBB0010A3AE /* ProjectAssets.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2310CDE9252FD75E000B44DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2337AEF72522A1420098AB2D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23642E3E252BF9D30063590F;
+			remoteInfo = "DSFToolbar Catalyst Demo";
+		};
+		2310CDEB252FD75E000B44DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2337AEF72522A1420098AB2D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2337AEFE2522A1420098AB2D;
+			remoteInfo = "DSFToolbar Demo";
+		};
+		2310CDED252FD75E000B44DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2337AEF72522A1420098AB2D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23CFC0BD252FBBEB0008211C;
+			remoteInfo = "Simple Documentation Demo";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDropdownButton.swift; sourceTree = "<group>"; };
@@ -354,6 +394,9 @@
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					2310CDE1252FD758000B44DE = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					2337AEFE2522A1420098AB2D = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -383,6 +426,7 @@
 				2337AEFE2522A1420098AB2D /* DSFToolbar Demo */,
 				23642E3E252BF9D30063590F /* DSFToolbar Catalyst Demo */,
 				23CFC0BD252FBBEB0008211C /* Simple Documentation Demo */,
+				2310CDE1252FD758000B44DE /* Build All */,
 			);
 		};
 /* End PBXProject section */
@@ -482,6 +526,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2310CDEA252FD75E000B44DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23642E3E252BF9D30063590F /* DSFToolbar Catalyst Demo */;
+			targetProxy = 2310CDE9252FD75E000B44DE /* PBXContainerItemProxy */;
+		};
+		2310CDEC252FD75E000B44DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2337AEFE2522A1420098AB2D /* DSFToolbar Demo */;
+			targetProxy = 2310CDEB252FD75E000B44DE /* PBXContainerItemProxy */;
+		};
+		2310CDEE252FD75E000B44DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23CFC0BD252FBBEB0008211C /* Simple Documentation Demo */;
+			targetProxy = 2310CDED252FD75E000B44DE /* PBXContainerItemProxy */;
+		};
 		23124A7D252C11D1007658F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 23124A7C252C11D1007658F6 /* DSFToolbar-beta */;
@@ -532,6 +591,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2310CDE3252FD758000B44DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2310CDE4252FD758000B44DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		2337AF0B2522A1430098AB2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -787,6 +864,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2310CDE2252FD758000B44DE /* Build configuration list for PBXAggregateTarget "Build All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2310CDE3252FD758000B44DE /* Debug */,
+				2310CDE4252FD758000B44DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2337AEFA2522A1420098AB2D /* Build configuration list for PBXProject "DSFToolbar Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
