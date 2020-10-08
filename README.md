@@ -7,7 +7,7 @@ A SwiftUI-style declarative `NSToolbar` for macOS and Mac Catalyst.
 
 ## Why?
 
-NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects and I have trouble keeping tabs on all the small components. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount code required for each toolbar.
+NSToolbar has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects and I have trouble keeping tabs on all the individual components. Even moreso if you want to use actions and bindings on the toolbar objects which just increases the amount code required for each toolbar.
 
 Because of this, I tended to find that I wasn't putting toolbars into my (admittedly basic) apps.
 
@@ -29,32 +29,42 @@ If you're familiar with SwiftUI syntax you'll feel comfortable with the declarat
 @objc dynamic var searchEnabled: Bool = true
 @objc dynamic var searchText: String = ""
 ...
-self.customToolbar =
-   DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("Core")) {
+lazy var customToolbar: DSFToolbar = {
+   DSFToolbar(
+      toolbarIdentifier: NSToolbar.Identifier("Core"),
+      allowsUserCustomization: true) {
 
-     DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-document-new"))
-       .label("New")
-       .image(NSImage(named: "toolbar-document-new")!)
-       .enabled { return self.canAddDocument() }
-       .action { _ in
-          self.addDocument()
-      }
+      DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
+         .label("New")
+         .isSelectable(true)
+         .image(ProjectAssets.ImageSet.toolbar_new_document.template)
+         .enabled { [weak self] in
+            self?.canAddDocument() ?? false
+         }
+         .action { [weak self] _ in
+            self?.addDocument()
+         }
 
-     DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-document-edit"))
-       .label("Edit")
-       .image(NSImage(named: "toolbar-document-edit")!)
-       .enabled { return self.canEditDocument() }
-       .action { _ in
-          self.editDocument()
-      }
+      DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
+         .label("Edit")
+         .isSelectable(true)
+         .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
+         .enabled { [weak self] in
+            self?.canEditDocument() ?? false
+         }
+         .action { [weak self] _ in
+            self?.editDocument()
+         }
 
-     DSFToolbar.FlexibleSpace
+      DSFToolbar.FlexibleSpace()
 
-     DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
-       .label("Search")
-       .bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
-       .bindText(self, keyPath: #keyPath(searchText))
+      DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+         .label("Search")
+         .isSelectable(true)
+         .bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
+         .bindText(self, keyPath: #keyPath(searchText))
    }
+}()
 
 // Attaching the window to the toolbar will make the toolbar appear
 self.customToolbar?.attachedWindow = self.window
@@ -96,7 +106,15 @@ The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatib
 import DSFToolbar_beta
 ```
 
-## Concepts
+# Concepts
+
+## Toolbar
+
+### Customization
+
+A toolbar can me marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
+
+## Items
 
 ### Default items
 
@@ -107,7 +125,7 @@ A toolbar item can be marked with `isDefault` to indicate that the item should a
 A toolbar item marked as `isSelectable` will show a selection marker when pressed. You can detect the toolbar selection change by providing a block for the `onSelectionChange` property.
 
 ```swift
-self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("My Toolbar")) {
+self.customToolbar = DSFToolbar(NSToolbar.Identifier("My Toolbar")) {
       ...
    }
    .onSelectionChange { newToolbarSelection in
@@ -115,14 +133,14 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("My Toolbar")) {
    }
 ```
 
-## Interaction
+## Items and Interaction
 
 ### Actions
 
 Items which provide callbacks (for example, responses to clicks) can provide a block action to respond with as part of the declaration.
 
 ```swift
-self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Buttons")) {
+self.customToolbar = DSFToolbar(NSToolbar.Identifier("Buttons")) {
    DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
       .label("Burger")
       .action { _ in
@@ -131,16 +149,20 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Buttons")) {
    }
 ```
 
+Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self within a block
+
 ### Block requests
 
 Some toolbar items can request information. For example, you can pass a block that provides the enabled status of an `Image` item during the declaration.
 
+Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self within a block
+
 ```swift
-self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Enabled-buttons")) {
+self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
    DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
       .label("Burger")
-      .enabled {
-         return self.IsBurgerMenuEnabled()
+      .enabled { [weak self] in
+         return self?.IsBurgerMenuEnabled() ?? false
       }
       .action { _ in
          Swift.print("Clicked burger!")
@@ -159,11 +181,19 @@ A lot of functionality can be hooked up via bindings in order to pass informatio
    }
 }
    ...
-self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
+self.customToolbar = DSFToolbar(NSToolbar.Identifier("Search")) {
    DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
       .label("Search")
       .bindText(self, keyPath: #keyPath(searchText))
    }
+```
+
+### Cleanup
+
+When you are finished with a toolbar, you need to call `close()` on the toolbar object. This will remove any bindings or observers or custom controls that were set up during the creation of the toolbar.
+
+```swift
+self.customToolbar.close()
 ```
 
 ## Available toolbar item types
@@ -179,7 +209,7 @@ self.customToolbar = DSFToolbar.Make(NSToolbar.Identifier("Search")) {
 | Type | Available | Description |
 |------|:--------:|-------------|
 | [Item](Markdown/item.md) | macOS<br/>macCatalyst | Basic toolbar 'image' type. Provides basic image, label, action etc.  Most of the time you'll want this. |
-| [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a common unit |
+| [Group](Markdown/group.md) | macOS<br/>macCatalyst | Group multiple items together to represent a common unit.<br/> This can also be used as a segmented control style (in catalyst and 10.15) by setting `isBordered(true)` on the group. |
 | [Search](Markdown/search.md) | macOS<br/>macCatalyst | Provides a search text field |
 | [Segmented](Markdown/segmented.md) | macOS<br/>macCatalyst | A simple segmented control |
 | [Separator](Markdown/separator.md) | macOS11+<br/>macCatalyst | Hooks into an NSSplitView to track a toolbar separator to a split view separator | 

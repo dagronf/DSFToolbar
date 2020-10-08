@@ -93,7 +93,6 @@ public class DSFToolbar: NSObject {
 		return self
 	}
 
-
 	/// Attach the toolbar to a window.  This makes the toolbar visible in the window
 
 	#if os(macOS)
@@ -130,7 +129,7 @@ public class DSFToolbar: NSObject {
 	///   - selectionDidChange: For toolbars that have selectable items, called when the toolbar selection changes
 	///   - builder: The builder for the toolbar content
 	/// - Returns: The created toolbar
-	convenience public init(
+	public convenience init(
 		toolbarIdentifier: NSToolbar.Identifier,
 		allowsUserCustomization: Bool = false,
 		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
@@ -140,7 +139,8 @@ public class DSFToolbar: NSObject {
 			toolbarIdentifier: toolbarIdentifier,
 			allowsUserCustomization: allowsUserCustomization,
 			selectionDidChange: selectionDidChange,
-			children: builder())
+			children: builder()
+		)
 	}
 
 	/// Make a new toolbar using SwiftUI declarative style
@@ -172,19 +172,16 @@ public class DSFToolbar: NSObject {
 
 		// Listen for changes in the size mode
 		self.sizeModeBinding.setup(observable: self.toolbar,
-								   keyPath: #keyPath(NSToolbar.sizeMode))
+		                           keyPath: #keyPath(NSToolbar.sizeMode))
 	}
 
-
 	// MARK: - Close and cleanup
-
 
 	/// Close the toolbar
 	///
 	/// You must call `close()` on a DSFToolbar object when you are finished to release any internal stores and/or
 	/// binding observers.
 	public func close() {
-
 		// Stop listening to our size changes
 		self.sizeModeBinding.unbind()
 

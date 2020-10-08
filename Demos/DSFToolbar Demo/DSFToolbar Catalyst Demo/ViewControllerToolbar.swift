@@ -29,8 +29,10 @@ class ViewControllerToolbar: NSObject {
 	}
 
 	lazy var customToolbar: DSFToolbar = {
-		DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("primary"),
-						allowsUserCustomization: true) {
+		DSFToolbar(
+			toolbarIdentifier: NSToolbar.Identifier("primary"),
+			allowsUserCustomization: true) {
+			
 			DSFToolbar.Segmented(NSToolbarItem.Identifier("1"),
 								 selectionMode: .selectOne) {
 				DSFToolbar.Segmented.Segment()

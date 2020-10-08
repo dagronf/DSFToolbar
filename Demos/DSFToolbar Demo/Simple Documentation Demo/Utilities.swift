@@ -17,9 +17,6 @@ class WindowCloseNotifier {
 			queue: OperationQueue.main) { _ in
 			block()
 		}
-
-		// Since the window is closing, we no longer need to listen
-		self.windowCloseNotification = nil
 	}
 
 	deinit {
