@@ -11,6 +11,12 @@ import DSFToolbar
 
 class ViewController: NSViewController {
 
+	@objc dynamic var viewModeSelection = NSSet() {
+		didSet {
+			Swift.print("View mode is now \(viewModeSelection)")
+		}
+	}
+
 	@objc dynamic var searchEnabled: Bool = true
 	@objc dynamic var searchText: String = "finding..." {
 		didSet {
@@ -31,6 +37,9 @@ class ViewController: NSViewController {
 
 		// Hook up the toolbar
 		self.customToolbar.attachedWindow = self.view.window
+
+		// Set our view selection to the second group item
+		self.viewModeSelection = NSSet(array: [1])
 
 		// When the window goes away, close the toolbar object
 		self.windowCloseNotifier.observe(self.view.window!) { [weak self] in

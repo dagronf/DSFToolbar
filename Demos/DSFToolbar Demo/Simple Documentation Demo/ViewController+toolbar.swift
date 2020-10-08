@@ -20,7 +20,6 @@ extension ViewController {
 		) {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
 				.label("New")
-				.isSelectable(true)
 				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
 				.enabled { [weak self] in
 					self?.canAddDocument() ?? false
@@ -31,7 +30,6 @@ extension ViewController {
 
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
 				.label("Edit")
-				.isSelectable(true)
 				.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
 				.enabled { [weak self] in
 					self?.canEditDocument() ?? false
@@ -39,6 +37,24 @@ extension ViewController {
 				.action { [weak self] _ in
 					self?.editDocument()
 				}
+
+			DSFToolbar.FixedSpace()
+
+			DSFToolbar.Segmented(NSToolbarItem.Identifier("view-mode"),
+								 type: .Grouped,
+								 switching: .selectOne) {
+				DSFToolbar.Segmented.Segment()
+					.image(ProjectAssets.ImageSet.toolbar_view_regular.template)
+					.tooltip("Print View")
+				DSFToolbar.Segmented.Segment()
+					.image(ProjectAssets.ImageSet.toolbar_view_outline.template)
+					.tooltip("Outline View")
+				DSFToolbar.Segmented.Segment()
+					.image(ProjectAssets.ImageSet.toolbar_view_data.template)
+					.tooltip("Data View")
+			}
+			.label("View")
+			.bindSelection(self, keyPath: #keyPath(viewModeSelection))
 
 			DSFToolbar.FlexibleSpace()
 

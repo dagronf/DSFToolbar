@@ -236,18 +236,18 @@
 		23CA2F842522CCD100BF4FA2 /* panes */ = {
 			isa = PBXGroup;
 			children = (
-				237CD2C62524660A00456FB4 /* custom-view */,
-				237CD2C4252465D700456FB4 /* popover-popup */,
-				23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */,
-				23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */,
-				23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */,
-				23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */,
-				236A7C512523C95E00255B96 /* CoreViewController.swift */,
-				236A7C522523C95E00255B96 /* CoreViewController.xib */,
 				236A7C572523F2FE00255B96 /* ButtonViewController.swift */,
 				236A7C582523F2FE00255B96 /* ButtonViewController.xib */,
+				236A7C512523C95E00255B96 /* CoreViewController.swift */,
+				236A7C522523C95E00255B96 /* CoreViewController.xib */,
+				237CD2C62524660A00456FB4 /* custom-view */,
+				23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */,
+				23CA2F8D2522CD5B00BF4FA2 /* ImagesViewController.xib */,
+				237CD2C4252465D700456FB4 /* popover-popup */,
 				236A7C5C25240A9A00255B96 /* SearchViewController.swift */,
 				236A7C5D25240A9A00255B96 /* SearchViewController.xib */,
+				23CA2F942522D07600BF4FA2 /* SegmentedViewController.swift */,
+				23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */,
 				23BD74D925241BD0008BF743 /* SeparatorViewController.swift */,
 				23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */,
 			);

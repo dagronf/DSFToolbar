@@ -10,7 +10,6 @@ import Cocoa
 import DSFToolbar_beta
 
 class SegmentedViewController: NSViewController {
-
 	var toolbarContainer: DSFToolbar?
 
 	override func viewDidLoad() {
@@ -28,22 +27,21 @@ class SegmentedViewController: NSViewController {
 		}
 	}
 
-	@IBAction func setAll(_ sender: Any) {
+	@IBAction func setAll(_: Any) {
 		self.segmentsEnabled = NSSet(array: [0, 1, 2])
 	}
 
 	func build() {
-
 		self.toolbarContainer = DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary-segmented"),
-			allowsUserCustomization: true) {
-
+			allowsUserCustomization: true
+		) {
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("toolbar-styles-2"),
 				type: .Separated,
 				switching: .selectAny,
-				segmentWidths: 32) {
-
+				segmentWidths: 32
+			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
 					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
@@ -51,11 +49,10 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-
 			}
 			.label("Styles Separated")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
-			.action { (selection) in
+			.action { selection in
 				Swift.print("Styles Separated: New Selection -> \(selection)")
 			}
 
@@ -63,8 +60,8 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles"),
 				type: .Grouped,
 				switching: .selectAny,
-				segmentWidths: 32) {
-
+				segmentWidths: 32
+			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
 					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
@@ -72,12 +69,11 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-
 			}
 			.label("Styles Grouped")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.bindSelection(self, keyPath: "segmentsEnabled")
-			.action { (selection) in
+			.action { selection in
 				Swift.print("Styles Grouped: New Selection -> \(selection)")
 			}
 
@@ -85,8 +81,8 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles-3"),
 				type: .Separated,
 				switching: .selectOne,
-				segmentWidths: 32) {
-
+				segmentWidths: 32
+			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
@@ -95,11 +91,10 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
-
 			}
 			.label("Justify Separate")
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
-			.action { (selection) in
+			.action { selection in
 				Swift.print("Justify Separate: New Selection -> \(selection)")
 			}
 
@@ -107,8 +102,8 @@ class SegmentedViewController: NSViewController {
 				NSToolbarItem.Identifier("toolbar-styles-4"),
 				type: .Grouped,
 				switching: .selectOne,
-				segmentWidths: 32) {
-
+				segmentWidths: 32
+			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
@@ -117,11 +112,10 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
-
 			}
 			.label("Justify Grouped")
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
-			.action { (selection) in
+			.action { selection in
 				Swift.print("Justify Grouped: New Selection -> \(selection)")
 			}
 		}
