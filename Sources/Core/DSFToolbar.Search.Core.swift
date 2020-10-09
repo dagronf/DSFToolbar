@@ -106,7 +106,7 @@ extension DSFToolbar {
 
 		// MARK: - Search text binding
 
-		private let _searchTextBinding = BindableAttribute<String>()
+		private let _searchTextBinding = BindableTypedAttribute<String>()
 
 		/// Bind the label of the item to a key path (String)
 		/// - Parameters:
@@ -118,7 +118,7 @@ extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindText(_ object: AnyObject, keyPath: String) -> Self {
+		public func bindText<TYPE>(_ object: NSObject, keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Self {
 			self._delegate = self
 			self._searchField?.delegate = self
 			self._searchTextBinding.setup(observable: object, keyPath: keyPath)

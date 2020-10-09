@@ -43,7 +43,7 @@ A search field toolbar item.  Uses `NSSearchToolbarItem` for macOS 11+, falls ba
 
 DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
    .label("Search")
-   .bindText(self, keyPath: #keyPath(searchText))
+   .bindText(self, keyPath: \MyViewController.searchText)
 ```
 
 ## Reacting to search field changes

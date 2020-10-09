@@ -64,7 +64,7 @@ public class DSFToolbar: NSObject {
 
 	/// A block to be called when the size mode of the toolbar changes.
 
-	var sizeModeBinding = BindableAttribute<UInt>()
+	var sizeModeBinding = BindableUntypedAttribute<UInt>()
 
 	// Callback block for when the size mode changes for the toolbar
 	private var _sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? {
@@ -76,11 +76,10 @@ public class DSFToolbar: NSObject {
 			else {
 				// Start listening for changes
 				self.sizeModeBinding.bind { [weak self] newValue in
-					guard let `self` = self else { return }
-					if let sizeMode = NSToolbar.SizeMode(rawValue: newValue) {
-						self.toolbarSizeMode = sizeMode
-						self._sizeModeDidChange?(sizeMode)
-					}
+					guard let `self` = self,
+						let sizeMode = NSToolbar.SizeMode(rawValue: newValue) else { return }
+					self.toolbarSizeMode = sizeMode
+					self._sizeModeDidChange?(sizeMode)
 				}
 			}
 		}
@@ -171,8 +170,7 @@ public class DSFToolbar: NSObject {
 		}
 
 		// Listen for changes in the size mode
-		self.sizeModeBinding.setup(observable: self.toolbar,
-		                           keyPath: #keyPath(NSToolbar.sizeMode))
+		self.sizeModeBinding.setup(observable: self.toolbar, keyPath: #keyPath(NSToolbar.sizeMode))
 	}
 
 	// MARK: - Close and cleanup
@@ -204,7 +202,8 @@ public class DSFToolbar: NSObject {
 
 		// If we'd been observing selection changes, make sure we remove the observer
 		if self._selectionChanged != nil {
-			self.toolbar.removeObserver(self, forKeyPath: "selectedItemIdentifier")
+			self.selectionBinding.unbind()
+//			self.toolbar.removeObserver(self, forKeyPath: "selectedItemIdentifier")
 			self._selectionChanged = nil
 		}
 
@@ -260,6 +259,8 @@ public class DSFToolbar: NSObject {
 
 	// MARK: - Selection change block
 
+	let selectionBinding = BindableTypedAttribute<NSToolbarItem.Identifier?>()
+
 	private var _selectionChanged: ((NSToolbarItem.Identifier?) -> Void)?
 
 	/// Supply a callback block to be called when the selection state of the toolbar changes
@@ -268,11 +269,9 @@ public class DSFToolbar: NSObject {
 	public func onSelectionChange(_ action: @escaping (NSToolbarItem.Identifier?) -> Void) -> DSFToolbar {
 		self._selectionChanged = action
 
-		self.toolbar.addObserver(
-			self,
-			forKeyPath: "selectedItemIdentifier",
-			options: [.old, .new], context: nil
-		)
+		// Observe the toolbar's selectedItemIdentifier
+		self.selectionBinding.setup(observable: self.toolbar, keyPath: \NSToolbar.selectedItemIdentifier)
+		self.selectionBinding.bind(valueChangeCallback: action)
 
 		return self
 	}
@@ -305,23 +304,6 @@ extension DSFToolbar: NSToolbarDelegate {
 			return i.toolbarItem
 		}
 		return nil
-	}
-}
-
-// MARK: - Binding observation
-
-extension DSFToolbar {
-	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if keyPath == "selectedItemIdentifier" {
-			let oldVal = change?[.oldKey] as? NSToolbarItem.Identifier
-			let newVal = change?[.newKey] as? NSToolbarItem.Identifier
-			if oldVal != newVal {
-				self._selectionChanged?(newVal)
-			}
-		}
-		else {
-			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-		}
 	}
 }
 

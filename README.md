@@ -26,48 +26,51 @@ This module doesn't contain the full functionality of the `NSToolbar`/`NSToolbar
 If you're familiar with SwiftUI syntax you'll feel comfortable with the declaration style.
 
 ```swift
-@objc dynamic var searchEnabled: Bool = true
-@objc dynamic var searchText: String = ""
-...
-lazy var customToolbar: DSFToolbar = {
-   DSFToolbar(
-      toolbarIdentifier: NSToolbar.Identifier("Core"),
-      allowsUserCustomization: true) {
+class MyViewController: NSViewController {
 
-      DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
-         .label("New")
-         .isSelectable(true)
-         .image(ProjectAssets.ImageSet.toolbar_new_document.template)
-         .enabled { [weak self] in
-            self?.canAddDocument() ?? false
-         }
-         .action { [weak self] _ in
-            self?.addDocument()
-         }
-
-      DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
-         .label("Edit")
-         .isSelectable(true)
-         .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-         .enabled { [weak self] in
-            self?.canEditDocument() ?? false
-         }
-         .action { [weak self] _ in
-            self?.editDocument()
-         }
-
-      DSFToolbar.FlexibleSpace()
-
-      DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
-         .label("Search")
-         .isSelectable(true)
-         .bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
-         .bindText(self, keyPath: #keyPath(searchText))
-   }
-}()
-
-// Attaching the window to the toolbar will make the toolbar appear
-self.customToolbar?.attachedWindow = self.window
+   @objc dynamic var searchEnabled: Bool = true
+   @objc dynamic var searchText: String = ""
+   ...
+   lazy var customToolbar: DSFToolbar = {
+      DSFToolbar(
+         toolbarIdentifier: NSToolbar.Identifier("Core"),
+         allowsUserCustomization: true) {
+   
+         DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
+            .label("New")
+            .isSelectable(true)
+            .image(ProjectAssets.ImageSet.toolbar_new_document.template)
+            .enabled { [weak self] in
+               self?.canAddDocument() ?? false
+            }
+            .action { [weak self] _ in
+               self?.addDocument()
+            }
+   
+         DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
+            .label("Edit")
+            .isSelectable(true)
+            .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
+            .enabled { [weak self] in
+               self?.canEditDocument() ?? false
+            }
+            .action { [weak self] _ in
+               self?.editDocument()
+            }
+   
+         DSFToolbar.FlexibleSpace()
+   
+         DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+            .label("Search")
+            .isSelectable(true)
+            .bindIsEnabled(to: self, withKeyPath: \MyViewController.searchEnabled)
+            .bindText(self, keyPath: \MyViewController.searchText)
+      }
+   }()
+   ...
+   // Attaching the window to the toolbar will make the toolbar appear
+   self.customToolbar.attachedWindow = self.view.window
+}
 ```
 ![](https://github.com/dagronf/dagronf.github.io/blob/master/art/projects/DSFToolbar/sample.png?raw=true)
 
@@ -184,7 +187,7 @@ A lot of functionality can be hooked up via bindings in order to pass informatio
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("Search")) {
    DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
       .label("Search")
-      .bindText(self, keyPath: #keyPath(searchText))
+      .bindText(self, keyPath: \MyViewController.searchText)
    }
 ```
 

@@ -41,7 +41,7 @@ DSFToolbar.View(
    NSToolbarItem.Identifier("customview1"), 
    viewController: self.customViewController)
      .label("Input Levels")
-     .bindIsEnabled(to: self, withKeyPath: #keyPath(customViewEnabled))
+     .bindIsEnabled(to: self, withKeyPath: \MyViewController.customViewEnabled)
 ```
 
 [Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/custom-view/CustomViewController.swift)

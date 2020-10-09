@@ -29,7 +29,7 @@ DSFToolbar.PopoverButton(
   popoverContentController: self.popovercontent)
     .label("Popover View")
     .image(ProjectAssets.ImageSet.toolbar_cog.template)
-    .bindIsEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
+    .bindIsEnabled(to: self, withKeyPath: \MyViewController.popoverViewEnabled)
 ```
 
 [Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)

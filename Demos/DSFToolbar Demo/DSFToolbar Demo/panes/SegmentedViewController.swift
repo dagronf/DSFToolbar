@@ -44,7 +44,7 @@ class SegmentedViewController: NSViewController {
 			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
+					.bindIsEnabled(to: self, withKeyPath: \SegmentedViewController.segmentEnabled)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
@@ -64,7 +64,7 @@ class SegmentedViewController: NSViewController {
 			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-					.bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled))
+					.bindIsEnabled(to: self, withKeyPath: \SegmentedViewController.segmentEnabled)
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
@@ -72,7 +72,7 @@ class SegmentedViewController: NSViewController {
 			}
 			.label("Styles Grouped")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
-			.bindSelection(self, keyPath: "segmentsEnabled")
+			.bindSelection(self, keyPath: \SegmentedViewController.segmentsEnabled)
 			.action { selection in
 				Swift.print("Styles Grouped: New Selection -> \(selection)")
 			}

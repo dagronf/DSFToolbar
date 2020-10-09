@@ -9,6 +9,23 @@ import Cocoa
 
 import DSFToolbar
 
+class Binding<TARGET, VALUE> where TARGET: NSObject {
+	weak var object: TARGET? = nil
+	var keyPath: ReferenceWritableKeyPath<TARGET, VALUE>
+
+	init(o: TARGET, k: ReferenceWritableKeyPath<TARGET, VALUE>) {
+		self.object = o
+		self.keyPath = k
+	}
+
+	func update(_ value: VALUE) {
+		if let o = object {
+			o[keyPath: self.keyPath] = value
+		}
+	}
+
+}
+
 class ViewController: NSViewController {
 
 	@objc dynamic var viewModeSelection = NSSet() {
@@ -16,6 +33,8 @@ class ViewController: NSViewController {
 			Swift.print("View mode is now \(viewModeSelection)")
 		}
 	}
+
+	@objc dynamic var itemName: String = "New"
 
 	@objc dynamic var searchEnabled: Bool = true
 	@objc dynamic var searchText: String = "finding..." {
@@ -32,8 +51,28 @@ class ViewController: NSViewController {
 		makeToolbar()
 	}()
 
+	func bind<T>(object: NSObject, keyPath: ReferenceWritableKeyPath<T, Bool>) {
+		let str = NSExpression(forKeyPath: keyPath).keyPath
+		object.addObserver(self, forKeyPath: str,
+						   options: [.new],
+						   context: nil)
+
+	}
+
 	override func viewDidAppear() {
 		super.viewDidAppear()
+
+
+		self.bind(object: self, keyPath: \ViewController.searchEnabled)
+
+//		var ttt = Binding<ViewController, Bool>()
+//
+//		let o = self
+//		let e = \ViewController.searchEnabled
+//
+//		o[keyPath: e] = false
+
+
 
 		// Hook up the toolbar
 		self.customToolbar.attachedWindow = self.view.window

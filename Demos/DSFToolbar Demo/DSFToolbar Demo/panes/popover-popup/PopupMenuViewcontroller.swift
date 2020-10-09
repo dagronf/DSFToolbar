@@ -41,7 +41,7 @@ class PopupMenuViewcontroller: NSViewController {
 			.label("Color")
 			.image(ProjectAssets.ImageSet.toolbar_cog.template)
 			.legacySizes(minSize: NSSize(width: 48, height: 30))
-			.bindIsEnabled(to: self, withKeyPath: #keyPath(popoverViewEnabled))
+			.bindIsEnabled(to: self, withKeyPath: \PopupMenuViewcontroller.popoverViewEnabled)
 	}()
 
 	func build() {
@@ -60,7 +60,7 @@ class PopupMenuViewcontroller: NSViewController {
 			DSFToolbar.PopupButton(NSToolbarItem.Identifier("PopupButton"), menu: self.popupMenu)
 				.label("Popup")
 				.image(ProjectAssets.ImageSet.toolbar_cog.template)
-				.bindIsEnabled(to: self, withKeyPath: #keyPath(popupMenuEnabled))
+				.bindIsEnabled(to: self, withKeyPath: \PopupMenuViewcontroller.popupMenuEnabled)
 				.legacySizes(minSize: NSSize(width: 48, height: 32))
 				.isSelectable(true)
 			

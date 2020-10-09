@@ -30,7 +30,7 @@ DSFToolbar.PopupButton(
    menu: self.popupMenu)
      .label("Popup")
      .image(ProjectAssets.ImageSet.toolbar_cog.template)
-     .bindIsEnabled(to: self, withKeyPath: #keyPath(popupMenuEnabled))
+     .bindIsEnabled(to: self, withKeyPath: \MyViewController.popupMenuEnabled)
 ```
 
 [Sample Code](../Demos/DSFToolbar%20Demo/DSFToolbar%20Demo/panes/popover-popup/PopupMenuViewcontroller.swift)

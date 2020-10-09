@@ -152,7 +152,7 @@ public extension DSFToolbar {
 
 		// MARK: - Label binding
 
-		let _label = BindableAttribute<String>()
+		let _label = BindableTypedAttribute<String>()
 
 		/// Bind the label of the item to a key path (String)
 		/// - Parameters:
@@ -164,7 +164,7 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindLabel(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+		public func bindLabel<TYPE>(to object: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Self {
 			self._label.setup(observable: object, keyPath: keyPath)
 			self._label.bind { [weak self] newText in
 				self?.label(newText)
@@ -174,7 +174,7 @@ public extension DSFToolbar {
 
 		// MARK: - Enable Binding
 
-		let _enabled = BindableAttribute<Bool>()
+		let _enabled = BindableTypedAttribute<Bool>()
 
 		/// Bind the enabled status of the item to a key path (Bool)
 		/// - Parameters:
@@ -186,7 +186,7 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindIsEnabled(to observable: NSObject, withKeyPath keyPath: String) -> Self {
+		public func bindIsEnabled<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> Self {
 			self._enabled.setup(observable: observable, keyPath: keyPath)
 			self._enabled.bind { [weak self] newEnabledState in
 				self?.toolbarItem?.isEnabled = newEnabledState

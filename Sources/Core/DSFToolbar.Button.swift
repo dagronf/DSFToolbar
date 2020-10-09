@@ -48,7 +48,7 @@ public extension DSFToolbar {
 
 		// Button title
 		private var _title: String = ""
-		private let _titleBinding = BindableAttribute<String>()
+		private let _titleBinding = BindableTypedAttribute<String>()
 
 		// Button image
 		private var _image: NSImage? = nil
@@ -145,7 +145,7 @@ public extension DSFToolbar {
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
 		@discardableResult
-		public func bindTitle(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+		public func bindTitle<TYPE>(to object: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Self {
 			self._titleBinding.setup(observable: object, keyPath: keyPath)
 			self._titleBinding.bind { [weak self] newText in
 				self?.title(newText)

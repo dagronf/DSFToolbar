@@ -56,7 +56,7 @@ DSFToolbar.Segmented(NSToolbarItem.Identifier("toolbar-styles-2"),
    segmentWidths: 32,
    DSFToolbar.Segmented.Segment()
       .image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
-      .bindIsEnabled(to: self, withKeyPath: #keyPath(segmentEnabled)),
+      .bindIsEnabled(to: self, withKeyPath: \MyViewController.segmentEnabled),
    DSFToolbar.Segmented.Segment()
       .image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
    DSFToolbar.Segmented.Segment()

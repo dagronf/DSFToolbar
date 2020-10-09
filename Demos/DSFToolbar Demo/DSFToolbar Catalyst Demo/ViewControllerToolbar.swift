@@ -82,8 +82,8 @@ class ViewControllerToolbar: NSObject {
 			}
 			.label("Styles-alt")
 			.tooltip("This is the alternate style selector")
-			.bindIsEnabled(to: self, withKeyPath: #keyPath(boundEnabled))
-			.bindSelection(self, keyPath: #keyPath(boundSelection))
+			.bindIsEnabled(to: self, withKeyPath: \ViewControllerToolbar.boundEnabled)
+			.bindSelection(self, keyPath: \ViewControllerToolbar.boundSelection)
 
 			DSFToolbar.FlexibleSpace()
 

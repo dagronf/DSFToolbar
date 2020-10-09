@@ -19,7 +19,7 @@ extension ViewController {
 			allowsUserCustomization: true
 		) {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
-				.label("New")
+				.bindLabel(to: self, withKeyPath: \ViewController.itemName)
 				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
 				.enabled { [weak self] in
 					self?.canAddDocument() ?? false
@@ -54,15 +54,15 @@ extension ViewController {
 					.tooltip("Data View")
 			}
 			.label("View")
-			.bindSelection(self, keyPath: #keyPath(viewModeSelection))
+			.bindSelection(self, keyPath: \ViewController.viewModeSelection)
 
 			DSFToolbar.FlexibleSpace()
 
 			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
 				.label("Search")
 				.isSelectable(true)
-				.bindIsEnabled(to: self, withKeyPath: #keyPath(searchEnabled))
-				.bindText(self, keyPath: #keyPath(searchText))
+				.bindIsEnabled(to: self, withKeyPath: \ViewController.searchEnabled)
+				.bindText(self, keyPath: \ViewController.searchText)
 		}
 	}
 }

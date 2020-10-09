@@ -174,7 +174,7 @@ public extension DSFToolbar {
 
 		// MARK: - Selection bindings
 
-		private let _selectionBinding = BindableAttribute<NSSet>()
+		private let _selectionBinding = BindableTypedAttribute<NSSet>()
 
 		/// Bind the selection of the item to a key path (NSSet<Int>)
 		/// - Parameters:
@@ -185,7 +185,7 @@ public extension DSFToolbar {
 		/// Binding the selection to a keypath allows the ability to change the selection dynamically when
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
-		public func bindSelection(_ object: AnyObject, keyPath: String) -> Self {
+		public func bindSelection<TYPE>(_ object: NSObject, keyPath: ReferenceWritableKeyPath<TYPE, NSSet>) -> Self {
 			_selectionBinding.setup(observable: object, keyPath: keyPath)
 			_selectionBinding.bind { [weak self] newValue in
 				self?.setSelection(selectedItems: newValue)
@@ -243,14 +243,14 @@ public extension DSFToolbar.Segmented {
 
 		// MARK: - Segment enabled binding
 
-		private let _segmentEnabled = BindableAttribute<Bool>()
+		private let _segmentEnabled = BindableTypedAttribute<Bool>()
 
 		/// Bind the enabled state for the segment to a member variable
 		/// - Parameters:
 		///   - object: The object to bind to
 		///   - keyPath: The key path for the member variable within 'object' (Bool)
 		/// - Returns: self
-		public func bindIsEnabled(to object: AnyObject, withKeyPath keyPath: String) -> Self {
+		public func bindIsEnabled<TYPE>(to object: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> Self {
 			self._segmentEnabled.setup(observable: object, keyPath: keyPath)
 			return self
 		}
@@ -434,7 +434,7 @@ public extension DSFToolbar {
 
 		// MARK: - Selection bindings
 
-		private let _selectionBinding = BindableAttribute<NSSet>()
+		private let _selectionBinding = BindableTypedAttribute<NSSet>()
 
 		/// Bind the selection of the item to a key path (NSSet<Int>)
 		/// - Parameters:
@@ -445,7 +445,7 @@ public extension DSFToolbar {
 		/// Binding the selection to a keypath allows the ability to change the selection dynamically when
 		/// you need to. Note that (for Swift) you must mark the keyPath object as `@objc dynamic` for the change to
 		/// take effect
-		public func bindSelection(_ object: AnyObject, keyPath: String) -> Self {
+		public func bindSelection<TYPE>(_ object: NSObject, keyPath: ReferenceWritableKeyPath<TYPE, NSSet>) -> Self {
 			_selectionBinding.setup(observable: object, keyPath: keyPath)
 			_selectionBinding.bind { [weak self] newValue in
 				self?.setState(newValue as! Set<Int>)

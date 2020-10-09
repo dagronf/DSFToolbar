@@ -45,14 +45,14 @@ class ImagesViewController: NSViewController {
 				.tooltip("My cat likes watermelon")
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 				.isSelectable(true)
-				.bindIsEnabled(to: self, withKeyPath: #keyPath(toolbar_watermelon_enabled))
+				.bindIsEnabled(to: self, withKeyPath: \ImagesViewController.toolbar_watermelon_enabled)
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
 				.action { _ in
 					Swift.print("Got watermelon!")
 				}
 
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger"))
-				.bindLabel(to: self, withKeyPath: #keyPath(toolbar_burger_label))
+				.bindLabel(to: self, withKeyPath: \ImagesViewController.toolbar_burger_label)
 				.tooltip("I really really want a burger")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isSelectable(true)
@@ -93,7 +93,7 @@ class ImagesViewController: NSViewController {
 			.label("Grouped Foods")
 			.legacySizes(minSize: NSSize(width: 96, height: 32))
 			.isSelectable(true)
-			.bindIsEnabled(to: self, withKeyPath: #keyPath(toolbar_group_enabled))
+			.bindIsEnabled(to: self, withKeyPath: \ImagesViewController.toolbar_group_enabled)
 
 			/// A bordered button (10.15+ only)
 
