@@ -46,17 +46,6 @@ public extension DSFToolbarBuilder {
 	}
 }
 
-// MARK: - Group function builder
-
-public extension DSFToolbar.Group {
-	convenience init(
-		_ identifier: NSToolbarItem.Identifier,
-		selectionMode: SelectionMode = .momentary,
-		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]) {
-		self.init(identifier, children: builder())
-	}
-}
-
 // MARK: - Segment function builder
 
 @_functionBuilder
