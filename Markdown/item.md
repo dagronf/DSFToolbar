@@ -2,6 +2,8 @@
 
 A standard toolbar item type.
 
+If you supply an action for an item object then it will be enabled by default.  You can override this behaviour by providing either a `shouldEnable` block or a `bindEnabled()` to enable or disable an item when required.
+
 ## Properties
 
 [Core properties](core.md)
@@ -18,7 +20,7 @@ A standard toolbar item type.
 | Action    | Description |
 |-----------|---------------------|
 | `action`  | The block to call when the toolbar item is activated (eg. clicked)  |
-| `enabled` | Supply a callback block to be called to determine the enabled state of the item |
+| `shouldEnable` | Supply a callback block to be called to determine the enabled state of the item |
 
 ## Bindings
 
@@ -30,6 +32,9 @@ A standard toolbar item type.
 DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
    .label("Watermelon")
    .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+   .shouldEnable { [weak self] in
+      self?.isWatermelonEnabled() ?? false
+   }
    .action { _ in
       Swift.print("Got grouped watermelon!")
    }

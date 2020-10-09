@@ -40,7 +40,7 @@ class MyViewController: NSViewController {
             .label("New")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_new_document.template)
-            .enabled { [weak self] in
+            .shouldEnable { [weak self] in
                self?.canAddDocument() ?? false
             }
             .action { [weak self] _ in
@@ -51,7 +51,7 @@ class MyViewController: NSViewController {
             .label("Edit")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-            .enabled { [weak self] in
+            .shouldEnable { [weak self] in
                self?.canEditDocument() ?? false
             }
             .action { [weak self] _ in
@@ -164,7 +164,7 @@ Capturing `self` in any block can create retain cycles, so make sure you `[weak 
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
    DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
       .label("Burger")
-      .enabled { [weak self] in
+      .shouldEnable { [weak self] in
          return self?.IsBurgerMenuEnabled() ?? false
       }
       .action { _ in

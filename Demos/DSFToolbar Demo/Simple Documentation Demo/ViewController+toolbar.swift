@@ -21,7 +21,7 @@ extension ViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
 				.bindLabel(to: self, withKeyPath: \ViewController.itemName)
 				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
-				.enabled { [weak self] in
+				.shouldEnable { [weak self] in
 					self?.canAddDocument() ?? false
 				}
 				.action { [weak self] _ in
@@ -31,7 +31,7 @@ extension ViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
 				.label("Edit")
 				.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-				.enabled { [weak self] in
+				.shouldEnable { [weak self] in
 					self?.canEditDocument() ?? false
 				}
 				.action { [weak self] _ in

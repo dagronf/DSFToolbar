@@ -101,7 +101,7 @@ public extension DSFToolbar {
 		/// - Parameter block: The block to call
 		/// - Returns: self
 		@discardableResult
-		public func enabled(_ block: @escaping () -> Bool) -> Item {
+		public func shouldEnable(_ block: @escaping () -> Bool) -> Item {
 			_isEnabled = block
 			return self
 		}
