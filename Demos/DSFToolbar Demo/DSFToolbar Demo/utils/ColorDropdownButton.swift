@@ -125,12 +125,17 @@ class ColorDropdownButton: NSButton {
 
 	func drawCanvas(width: CGFloat, height: CGFloat) {
 
-		self.alphaValue = (self.buttonState == .background) ? 0.3 : 1.0
+		let isInBackground = self.buttonState == .background || !self.isEnabled
+
+		self.alphaValue = isInBackground ? 0.3 : 1.0
 
 		//// background Drawing
 		let backgroundPath = NSBezierPath(roundedRect: NSRect(x: 0, y: 0, width: width, height: height), xRadius: 4, yRadius: 4)
 
-		if self.buttonState == .mouseOver {
+		if isInBackground {
+			NSColor.controlColor.setFill()
+		}
+		else if self.buttonState == .mouseOver {
 			NSColor.secondaryLabelColor.setFill()
 		}
 		else if buttonState == .pressed {
