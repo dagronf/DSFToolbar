@@ -23,8 +23,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A7E252C11D5007658F6 /* DSFToolbar-beta */; };
-		23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */ = {isa = PBXBuildFile; productRef = 23124A82252C11E0007658F6 /* DSFToolbar-beta */; };
 		2335158B252E56A8000B6E46 /* ColorDropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */; };
 		2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF022522A1420098AB2D /* AppDelegate.swift */; };
 		2337AF052522A1430098AB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF042522A1430098AB2D /* Assets.xcassets */; };
@@ -53,6 +51,8 @@
 		237CD2CA2524662B00456FB4 /* CustomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2C82524662B00456FB4 /* CustomViewController.xib */; };
 		237CD2CF2524669500456FB4 /* CustomToolbarItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2CD2524669500456FB4 /* CustomToolbarItemViewController.swift */; };
 		237CD2D02524669500456FB4 /* CustomToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */; };
+		238C5AFE268AC0DB00F64987 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 238C5AFD268AC0DB00F64987 /* DSFToolbar */; };
+		238C5B02268AC15A00F64987 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 238C5B01268AC15A00F64987 /* DSFToolbar */; };
 		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
 		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
 		23CA2F7F2522CBC200BF4FA2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */; };
@@ -162,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23124A7F252C11D5007658F6 /* DSFToolbar-beta in Frameworks */,
+				238C5AFE268AC0DB00F64987 /* DSFToolbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23124A83252C11E0007658F6 /* DSFToolbar-beta in Frameworks */,
+				238C5B02268AC15A00F64987 /* DSFToolbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,11 +333,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				23124A7D252C11D1007658F6 /* PBXTargetDependency */,
+				238C5B00268AC0EA00F64987 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Demo";
 			packageProductDependencies = (
-				23124A7E252C11D5007658F6 /* DSFToolbar-beta */,
+				238C5AFD268AC0DB00F64987 /* DSFToolbar */,
 			);
 			productName = "DSFToolbar Demo";
 			productReference = 2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */;
@@ -354,11 +354,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				23124A81252C11DC007658F6 /* PBXTargetDependency */,
 			);
 			name = "DSFToolbar Catalyst Demo";
 			packageProductDependencies = (
-				23124A82252C11E0007658F6 /* DSFToolbar-beta */,
+				238C5B01268AC15A00F64987 /* DSFToolbar */,
 			);
 			productName = "DSFToolbar Catalyst Demo";
 			productReference = 23642E3F252BF9D30063590F /* DSFToolbar Catalyst Demo.app */;
@@ -541,13 +540,9 @@
 			target = 23CFC0BD252FBBEB0008211C /* Simple Documentation Demo */;
 			targetProxy = 2310CDED252FD75E000B44DE /* PBXContainerItemProxy */;
 		};
-		23124A7D252C11D1007658F6 /* PBXTargetDependency */ = {
+		238C5B00268AC0EA00F64987 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 23124A7C252C11D1007658F6 /* DSFToolbar-beta */;
-		};
-		23124A81252C11DC007658F6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 23124A80252C11DC007658F6 /* DSFToolbar-beta */;
+			productRef = 238C5AFF268AC0EA00F64987 /* DSFToolbar */;
 		};
 		23CFC0DC252FBC5B0008211C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -912,21 +907,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		23124A7C252C11D1007658F6 /* DSFToolbar-beta */ = {
+		238C5AFD268AC0DB00F64987 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-beta";
+			productName = DSFToolbar;
 		};
-		23124A7E252C11D5007658F6 /* DSFToolbar-beta */ = {
+		238C5AFF268AC0EA00F64987 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-beta";
+			productName = DSFToolbar;
 		};
-		23124A80252C11DC007658F6 /* DSFToolbar-beta */ = {
+		238C5B01268AC15A00F64987 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-beta";
-		};
-		23124A82252C11E0007658F6 /* DSFToolbar-beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "DSFToolbar-beta";
+			productName = DSFToolbar;
 		};
 		23CFC0DB252FBC5B0008211C /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;

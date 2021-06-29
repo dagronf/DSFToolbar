@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import DSFToolbar_beta
+import DSFToolbar
 
 class SearchViewController: NSViewController {
 	var toolbarContainer: DSFToolbar?

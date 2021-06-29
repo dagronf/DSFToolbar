@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import DSFToolbar_beta
+import DSFToolbar
 
 class PrimaryViewController: NSViewController {
 	@IBOutlet var scrollView: NSScrollView!

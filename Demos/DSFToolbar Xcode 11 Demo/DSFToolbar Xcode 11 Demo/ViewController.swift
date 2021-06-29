@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import DSFToolbar
+import DSFToolbar_legacy
 
 class ViewController: NSViewController {
 
@@ -25,14 +25,45 @@ class ViewController: NSViewController {
 
 	lazy var customToolbar: DSFToolbar = {
 
-		DSFToolbar.Make(toolbarIdentifier: NSToolbar.Identifier("view-controller"),
-						allowsUserCustomization: true) {
-
-			DSFToolbar.FlexibleSpace()
-
-			DSFToolbar.Search(NSToolbarItem.Identifier("search"))
+		DSFToolbar(
+			toolbarIdentifier: NSToolbar.Identifier("view-controller"),
+			allowsUserCustomization: true) {
+				
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-bold"))
+					.label("Bold")
+					.tooltip("Bold")
+					.image(NSImage(named: "toolbar-bold")!)
+					.isSelectable(true)
+					.legacySizes(minSize: NSSize(width: 16, height: 16))
+					.action { _ in
+						Swift.print("Got bold!")
+					}
+				
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-italic"))
+					.label("Italic")
+					.tooltip("Italic")
+					.image(NSImage(named: "toolbar-italic")!)
+					.isSelectable(true)
+					.legacySizes(minSize: NSSize(width: 16, height: 16))
+					.action { _ in
+						Swift.print("Got italic!")
+					}
+				
+				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-underline"))
+					.label("Underline")
+					.tooltip("Underline")
+					.image(NSImage(named: "toolbar-underline")!)
+					.isSelectable(true)
+					.legacySizes(minSize: NSSize(width: 16, height: 16))
+					.action { _ in
+						Swift.print("Got underline!")
+					}
+				
+				DSFToolbar.FlexibleSpace()
+				
+				DSFToolbar.Search(NSToolbarItem.Identifier("search"))
 		}
-
+		
 	}()
 
 	override func viewDidAppear() {

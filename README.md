@@ -106,7 +106,7 @@ The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatib
 
 ```swift
 // Support for Xcode 12.2 and later
-import DSFToolbar_beta
+import DSFToolbar
 ```
 
 # Concepts
