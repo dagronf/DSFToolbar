@@ -35,10 +35,18 @@ import UIKit
 
 // MARK: - Core function builder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFToolbarBuilder {
 	static func buildBlock() -> [DSFToolbar.Core] { [] }
 }
+#else
+@resultBuilder
+public struct DSFToolbarBuilder {
+	static func buildBlock() -> [DSFToolbar.Core] { [] }
+}
+
+#endif
 
 public extension DSFToolbarBuilder {
 	static func buildBlock(_ settings: DSFToolbar.Core...) -> [DSFToolbar.Core] {
@@ -48,10 +56,17 @@ public extension DSFToolbarBuilder {
 
 // MARK: - Segment function builder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFToolbarSegmentBuilder {
 	static func buildBlock() -> [DSFToolbar.Segmented.Segment] { [] }
 }
+#else
+@resultBuilder
+public struct DSFToolbarSegmentBuilder {
+	static func buildBlock() -> [DSFToolbar.Segmented.Segment] { [] }
+}
+#endif
 
 public extension DSFToolbarSegmentBuilder {
 	static func buildBlock(_ settings: DSFToolbar.Segmented.Segment...) -> [DSFToolbar.Segmented.Segment] {
