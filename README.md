@@ -82,32 +82,35 @@ Use Swift Package Manager.
 
 Add `https://github.com/dagronf/DSFToolbar` to your project.
 
+There are two targets for this library :-
+
+### DSFToolbar (Xcode 12)
+
+The standard project (`DSFToolbar`) for Xcode 12 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur (such as split view tracking)
+
+Backwards compatible back to macOS 10.11.
+
+```swift
+// Support for Xcode 12
+import DSFToolbar_legacy
+```
+
+### DSFToolbar-legacy (Xcode 11)
+
+A target for Xcode 11 for legacy applications that can't move up to Xcode 12 yet. Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12).
+
+Backwards compatible back to macOS 10.11.
+
+```swift
+// Support for Xcode 11
+import DSFToolbar_legacy
+```
+
 ## Usage
 
 For the most part, you'll only really need to use [`DSFToolbar.Item`](Markdown/item.md), [`DSFToolbar.Group`](Markdown/group.md) and [`DSFToolbar.Search`](Markdown/search.md) to get 90+% of the toolbar functionality you'll need.
 
 Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a segmented-style control by settings `isBordered(true)`.
-
-There are two targets :-
-
-### DSFToolbar
-
-A target for Xcode 11 and Xcode 12 (`DSFToolbar-xc11`) for legacy applications that can't move up to Xcode 12.2 yet.  Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12.2+).
-
-Backwards compatible back to macOS 10.11.
-
-```swift
-import DSFToolbar
-```
-
-### DSFToolbar-beta
-
-The standard project (`DSFToolbar`) for Xcode 12.2 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur (such as split view tracking)
-
-```swift
-// Support for Xcode 12.2 and later
-import DSFToolbar
-```
 
 # Concepts
 
@@ -225,15 +228,35 @@ self.customToolbar.close()
 
 You can find pre-made demos under the `Demos` folder
 
-* `DSFToolbar Demo`: Project for Xcode 12.2+ containing targets for macOS and macCatalyst
-* `DSFToolbar Xcode 11 Demo`: A simple project for Xcode release versions (Xcode 12 and lower)
+* `DSFToolbar Demo`: Project for Xcode 12 containing targets for macOS and macCatalyst
+* `DSFToolbar Xcode 11 Demo`: A simple project for Xcode release versions (Xcode 11)
+
+# Releases
+
+### 2.0.0
+
+* Changed Xcode 12 target to `DSFToolbar`  (was originally `DSFToolbar-beta`). 
+
+	Source code imports must change from `import DSFToolbar_beta` to `import DSFToolbar`
+
+* Changed Xcode 11 target to `DSFToolbar-legacy`  (was originally `DSFToolbar`)
+
+	Source code imports must change from `import DSFToolbar` to `import DSFToolbar_legacy`
+
+If you've used then 0.9.6 version of this library, you will need to migrate your projects to use the new targets. Your source code will also need to be updated to `import` the correct library module for the target.
+
+### 0.9.6
+
+* Initial public release
 
 # License
+
+MIT. Use it for anything you want! Let me know if you do use it somewhere, I'd love to hear about it.
 
 ```
 MIT License
 
-Copyright (c) 2020 Darren Ford
+Copyright (c) 2021 Darren Ford
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
