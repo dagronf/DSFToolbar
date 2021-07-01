@@ -92,7 +92,7 @@ Backwards compatible back to macOS 10.11.
 
 ```swift
 // Support for Xcode 12
-import DSFToolbar_legacy
+import DSFToolbar
 ```
 
 ### DSFToolbar-legacy (Xcode 11)
