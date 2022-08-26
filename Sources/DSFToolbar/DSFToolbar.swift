@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -32,6 +31,8 @@ import AppKit
 #elseif targetEnvironment(macCatalyst)
 import UIKit
 #endif
+
+import DSFValueBinders
 
 /// A declarative-style NSToolbar wrapper (styled on SwiftUI)
 public class DSFToolbar: NSObject {
@@ -63,32 +64,34 @@ public class DSFToolbar: NSObject {
 	@objc public dynamic var toolbarSizeMode: NSToolbar.SizeMode = .default
 
 	/// A block to be called when the size mode of the toolbar changes.
+	private lazy var _sizeModeBinding = try! EnumKeyPathBinder(self, keyPath: \.toolbarSizeMode)
 
-	var sizeModeBinding = BindableUntypedAttribute<UInt>()
+	//var sizeModeBinding =  BindableUntypedAttribute<UInt>()
 
-	// Callback block for when the size mode changes for the toolbar
-	private var _sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? {
-		didSet {
-			if self._sizeModeDidChange == nil {
-				// Stop listening for changes
-				self.sizeModeBinding.unbind()
-			}
-			else {
-				// Start listening for changes
-				self.sizeModeBinding.bind { [weak self] newValue in
-					guard let `self` = self,
-						let sizeMode = NSToolbar.SizeMode(rawValue: newValue) else { return }
-					self.toolbarSizeMode = sizeMode
-					self._sizeModeDidChange?(sizeMode)
-				}
-			}
-		}
-	}
+//	// Callback block for when the size mode changes for the toolbar
+//	private var _sizeModeDidChange: ((NSToolbar.SizeMode) -> Void)? {
+//		didSet {
+//			if self._sizeModeDidChange == nil {
+//				// Stop listening for changes
+//				self._sizeModeBinding = nil
+//			}
+//			else {
+//				// Start listening for changes
+//				self._sizeModeBinding
+//				self._sizeModeBinding.bind { [weak self] newValue in
+//					guard let `self` = self,
+//						let sizeMode = NSToolbar.SizeMode(rawValue: newValue) else { return }
+//					self.toolbarSizeMode = sizeMode
+//					self._sizeModeDidChange?(sizeMode)
+//				}
+//			}
+//		}
+//	}
 
 	/// Supply a callback block that gets called whenever the size mode changes
 	@discardableResult
-	public func onSizeModeChange(_ block: ((NSToolbar.SizeMode) -> Void)?) -> Self {
-		_sizeModeDidChange = block
+	public func onSizeModeChange(_ block: @escaping ((NSToolbar.SizeMode) -> Void)) -> Self {
+		_sizeModeBinding.register(self, block)
 		return self
 	}
 
@@ -142,6 +145,20 @@ public class DSFToolbar: NSObject {
 		)
 	}
 
+	public convenience init(
+		_ toolbarIdentifier: String,
+		allowsUserCustomization: Bool = false,
+		selectionDidChange: ((NSToolbarItem.Identifier?) -> Void)? = nil,
+		@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
+	) {
+		self.init(
+			toolbarIdentifier: NSToolbar.Identifier(toolbarIdentifier),
+			allowsUserCustomization: allowsUserCustomization,
+			selectionDidChange: selectionDidChange,
+			children: builder()
+		)
+	}
+
 	/// Make a new toolbar using SwiftUI declarative style
 	/// - Parameters:
 	///   - toolbarIdentifier: The identifier for the toolbar. Should be unique within your application for customization and saving
@@ -170,7 +187,7 @@ public class DSFToolbar: NSObject {
 		}
 
 		// Listen for changes in the size mode
-		self.sizeModeBinding.setup(observable: self.toolbar, keyPath: #keyPath(NSToolbar.sizeMode))
+		_ = self._sizeModeBinding
 	}
 
 	// MARK: - Close and cleanup
@@ -181,10 +198,7 @@ public class DSFToolbar: NSObject {
 	/// binding observers.
 	public func close() {
 		// Stop listening to our size changes
-		self.sizeModeBinding.unbind()
-
-		// Remove the size change block
-		self._sizeModeDidChange = nil
+		self._sizeModeBinding.deregister(self)
 
 		// Make sure to detach ourselves if we aren't already
 		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
@@ -200,12 +214,7 @@ public class DSFToolbar: NSObject {
 		self.attachedScene = nil
 		#endif
 
-		// If we'd been observing selection changes, make sure we remove the observer
-		if self._selectionChanged != nil {
-			self.selectionBinding.unbind()
-//			self.toolbar.removeObserver(self, forKeyPath: "selectedItemIdentifier")
-			self._selectionChanged = nil
-		}
+		self._selectionBinding.deregisterAll()
 
 		// Close each item
 		self.items.forEach { item in
@@ -259,20 +268,15 @@ public class DSFToolbar: NSObject {
 
 	// MARK: - Selection change block
 
-	let selectionBinding = BindableTypedAttribute<NSToolbarItem.Identifier?>()
-
-	private var _selectionChanged: ((NSToolbarItem.Identifier?) -> Void)?
+	// A binder for the selectedItemIdentifier of the control's toolbar
+	private lazy var _selectionBinding = try! KeyPathBinder(self.toolbar, keyPath: \.selectedItemIdentifier)
 
 	/// Supply a callback block to be called when the selection state of the toolbar changes
 	/// - Parameter action: The block to call
 	/// - Returns: self
 	public func onSelectionChange(_ action: @escaping (NSToolbarItem.Identifier?) -> Void) -> DSFToolbar {
-		self._selectionChanged = action
-
 		// Observe the toolbar's selectedItemIdentifier
-		self.selectionBinding.setup(observable: self.toolbar, keyPath: \NSToolbar.selectedItemIdentifier)
-		self.selectionBinding.bind(valueChangeCallback: action)
-
+		self._selectionBinding.register(self, action)
 		return self
 	}
 }

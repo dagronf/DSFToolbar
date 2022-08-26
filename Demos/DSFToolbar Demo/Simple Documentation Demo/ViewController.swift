@@ -8,39 +8,24 @@
 import Cocoa
 
 import DSFToolbar
-
-class Binding<TARGET, VALUE> where TARGET: NSObject {
-	weak var object: TARGET? = nil
-	var keyPath: ReferenceWritableKeyPath<TARGET, VALUE>
-
-	init(o: TARGET, k: ReferenceWritableKeyPath<TARGET, VALUE>) {
-		self.object = o
-		self.keyPath = k
-	}
-
-	func update(_ value: VALUE) {
-		if let o = object {
-			o[keyPath: self.keyPath] = value
-		}
-	}
-
-}
+import DSFValueBinders
 
 class ViewController: NSViewController {
 
-	@objc dynamic var viewModeSelection = NSSet() {
-		didSet {
-			Swift.print("View mode is now \(viewModeSelection)")
-		}
+	let viewModeSelection = ValueBinder<NSSet>(NSSet()) { newValue in
+		Swift.print("View mode is now \(newValue)")
 	}
 
-	@objc dynamic var itemName: String = "New"
+	let itemName = ValueBinder<String>("New") { newValue in
+		Swift.print("Item name is now \(newValue)")
+	}
 
-	@objc dynamic var searchEnabled: Bool = true
-	@objc dynamic var searchText: String = "finding..." {
-		didSet {
-			Swift.print("Search text is now '\(searchText)'")
-		}
+	let searchEnabled = ValueBinder(true) { newValue in
+		Swift.print("Search enabled is now \(newValue)")
+	}
+
+	let searchText = ValueBinder("") { newValue in
+		Swift.print("Search text is now \(newValue)")
 	}
 
 	// A simple helper class to tell us when the window is going away.
@@ -51,34 +36,14 @@ class ViewController: NSViewController {
 		makeToolbar()
 	}()
 
-	func bind<T>(object: NSObject, keyPath: ReferenceWritableKeyPath<T, Bool>) {
-		let str = NSExpression(forKeyPath: keyPath).keyPath
-		object.addObserver(self, forKeyPath: str,
-						   options: [.new],
-						   context: nil)
-
-	}
-
 	override func viewDidAppear() {
 		super.viewDidAppear()
-
-
-		self.bind(object: self, keyPath: \ViewController.searchEnabled)
-
-//		var ttt = Binding<ViewController, Bool>()
-//
-//		let o = self
-//		let e = \ViewController.searchEnabled
-//
-//		o[keyPath: e] = false
-
-
 
 		// Hook up the toolbar
 		self.customToolbar.attachedWindow = self.view.window
 
 		// Set our view selection to the second group item
-		self.viewModeSelection = NSSet(array: [1])
+		self.viewModeSelection.wrappedValue = NSSet(array: [1])
 
 		// When the window goes away, close the toolbar object
 		self.windowCloseNotifier.observe(self.view.window!) { [weak self] in

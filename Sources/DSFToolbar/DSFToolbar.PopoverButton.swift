@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.PopoverButton.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -31,21 +30,22 @@ import AppKit
 
 public extension DSFToolbar {
 	class PopoverButton: Core {
-
 		/// The popover button item
 		public private(set) var button: NSButton?
-		private var buttonToolbarItem: NSToolbarItem? = nil
+		private var buttonToolbarItem: NSToolbarItem?
 		private var _controller: NSViewController?
 
-		private var _popover: NSPopover? = nil
+		private var _popover: NSPopover?
 
 		override var toolbarItem: NSToolbarItem? {
 			return self.buttonToolbarItem
 		}
 
-		public init(_ identifier: NSToolbarItem.Identifier,
-					button: NSButton? = nil,
-					popoverContentController: NSViewController) {
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			button: NSButton? = nil,
+			popoverContentController: NSViewController
+		) {
 			self._controller = popoverContentController
 			super.init(identifier)
 
@@ -57,7 +57,7 @@ public extension DSFToolbar {
 			}
 
 			self.button?.target = self
-			self.button?.action = #selector(action(_:))
+			self.button?.action = #selector(self.action(_:))
 
 			let a = NSToolbarItem(itemIdentifier: self.identifier)
 			a.view = self.button
@@ -65,8 +65,19 @@ public extension DSFToolbar {
 			self.buttonToolbarItem = a
 		}
 
-		override public func close() {
+		public convenience init(
+			_ identifier: String,
+			button: NSButton? = nil,
+			popoverContentController: NSViewController
+		) {
+			self.init(
+				NSToolbarItem.Identifier(identifier),
+				button: button,
+				popoverContentController: popoverContentController
+			)
+		}
 
+		override public func close() {
 			// Make sure the popover is closed
 			self._popover?.close()
 			self._popover = nil
@@ -88,7 +99,7 @@ public extension DSFToolbar {
 
 		// MARK: - Image
 
-		private var _image: NSImage? = nil
+		private var _image: NSImage?
 
 		/// Set the image to display in the item
 		/// - Parameter image: the image
@@ -107,7 +118,7 @@ public extension DSFToolbar {
 		private func showPopover() {
 			if let p = _popover {
 				p.close()
-				_popover = nil
+				self._popover = nil
 			}
 
 			let p = NSPopover()

@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.Group.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -51,17 +50,7 @@ public extension DSFToolbar {
 			/// NSToolbarItemGroup.SelectionMode.momentary
 			case momentary = 2
 		}
-		
-		internal var items: [DSFToolbar.Core] = []
-		
-		override var toolbarItem: NSToolbarItem? {
-			return self.groupToolbarItem
-		}
-		
-		lazy var groupToolbarItem: NSToolbarItemGroup = {
-			AppKit.NSToolbarItemGroup(itemIdentifier: self.identifier)
-		}()
-		
+
 		// MARK: - Creation
 		
 		/// Create a toolbar group
@@ -85,13 +74,33 @@ public extension DSFToolbar {
 		///   - identifier: The identifier for the group
 		///   - selectionMode: How elements within the group select (eg. .selectAny, .selectOne etc)
 		///   - items: The toolbar items to add to the group
-		public convenience init(_ identifier: NSToolbarItem.Identifier,
-								selectionMode: SelectionMode = .momentary,
-								_ items: DSFToolbar.Core...)
+		public convenience init(
+			_ identifier: NSToolbarItem.Identifier,
+			selectionMode: SelectionMode = .momentary,
+			_ items: DSFToolbar.Core...)
 		{
-			self.init(identifier,
-					  selectionMode: selectionMode,
-					  children: items.map { $0 })
+			self.init(
+				identifier,
+				selectionMode: selectionMode,
+				children: items.map { $0 }
+			)
+		}
+
+		/// Create a toolbar group
+		/// - Parameters:
+		///   - identifier: The identifier for the group
+		///   - selectionMode: How elements within the group select (eg. .selectAny, .selectOne etc)
+		///   - items: The toolbar items to add to the group
+		public convenience init(
+			_ identifier: String,
+			selectionMode: SelectionMode = .momentary,
+			_ items: DSFToolbar.Core...)
+		{
+			self.init(
+				NSToolbarItem.Identifier(identifier),
+				selectionMode: selectionMode,
+				children: items.map { $0 }
+			)
 		}
 		
 		/// Create a toolbar group using a function builder
@@ -104,9 +113,28 @@ public extension DSFToolbar {
 			selectionMode: SelectionMode = .momentary,
 			@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
 		) {
-			self.init(identifier,
-					  selectionMode: selectionMode,
-					  children: builder())
+			self.init(
+				identifier,
+				selectionMode: selectionMode,
+				children: builder()
+			)
+		}
+
+		/// Create a toolbar group using a function builder
+		/// - Parameters:
+		///   - identifier: The identifier for the group
+		///   - selectionMode: How elements within the group select (eg. .selectAny, .selectOne etc)
+		///   - builder: The function builder
+		public convenience init(
+			_ identifier: String,
+			selectionMode: SelectionMode = .momentary,
+			@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
+		) {
+			self.init(
+				NSToolbarItem.Identifier(identifier),
+				selectionMode: selectionMode,
+				children: builder()
+			)
 		}
 		
 		// MARK: - Cleanup
@@ -120,7 +148,16 @@ public extension DSFToolbar {
 		deinit {
 			Logging.memory("DSFToolbar.Group deinit")
 		}
-		
+
+		// Private
+		internal var items: [DSFToolbar.Core] = []
+		override var toolbarItem: NSToolbarItem? {
+			return self.groupToolbarItem
+		}
+		lazy var groupToolbarItem: NSToolbarItemGroup = {
+			AppKit.NSToolbarItemGroup(itemIdentifier: self.identifier)
+		}()
+
 		private func mapGroupMode(selectionMode: SelectionMode) {
 			if #available(OSX 10.15, *) {
 				let mode: NSToolbarItemGroup.SelectionMode

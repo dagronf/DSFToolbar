@@ -8,6 +8,7 @@
 import Cocoa
 
 import DSFToolbar
+import DSFValueBinders
 
 class ButtonViewController: NSViewController {
 
@@ -89,7 +90,7 @@ class ButtonViewController: NSViewController {
 
 			DSFToolbar.Group(NSToolbarItem.Identifier("button-group-2")) {
 				DSFToolbar.Button(NSToolbarItem.Identifier("button-4"), buttonType: .pushOnPushOff)
-					.bindTitle(to: self, withKeyPath: \ButtonViewController.topTitle)
+					.bindTitle(try! KeyPathBinder(self, keyPath: \ButtonViewController.topTitle))
 					.bezelStyle(.regularSquare)
 					.width(minVal: 50, maxVal: 100)
 					.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
@@ -108,20 +109,21 @@ class ButtonViewController: NSViewController {
 			}
 			.label("Second button group")
 			.legacySizes(minSize: NSSize(width: 120, height: 60))
-
-
-			// Add a button that isn't part of the default toolbar (you'll need to customize and add it to see it)
-
-			DSFToolbar.Button(NSToolbarItem.Identifier("button-hidden-6"))
-				.title("Hidden")
-				.bezelStyle(.regularSquare)
-				.isDefault(false)
-				.width(minVal: 50)
-				.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
-				.imagePosition(.imageAbove)
-				.imageScaling(.scaleProportionallyDown)
-				.legacySizes(minSize: NSSize(width: 60, height: 60))
-			}
+//
+//
+//			// Add a button that isn't part of the default toolbar (you'll need to customize and add it to see it)
+//
+//			DSFToolbar.Button(NSToolbarItem.Identifier("button-hidden-6"))
+//				.title("Hidden")
+//				.bezelStyle(.regularSquare)
+//				.isDefault(false)
+//				.width(minVal: 50)
+//				.image(ProjectAssets.ImageSet.toolbar_button_person_add.template)
+//				.imagePosition(.imageAbove)
+//				.imageScaling(.scaleProportionallyDown)
+//				.legacySizes(minSize: NSSize(width: 60, height: 60))
+//			}
+		}
 	}
 
 

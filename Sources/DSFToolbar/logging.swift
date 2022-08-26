@@ -1,9 +1,8 @@
 //
 //  logging.swift
-//  DSFToolbar
 //
 //  Basic logging framework for DSFToolbar
-//  Created by Darren Ford on 5/10/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -34,18 +33,14 @@ import os
 
 extension OSLog {
 	private static var subsystem = Bundle.main.bundleIdentifier!
-
-	/// Logs the view cycles like viewDidLoad.
-
-	@available(OSX 10.12, iOS 10.0, *)
+	@available(macOS 10.12, iOS 10.0, *)
 	static let memoryAlloc = OSLog(subsystem: subsystem, category: "memory")
 }
 
 class Logging {
-
 	/// Function for tracking memory and memory related events
 	static func memory(_ msg: StaticString, args: CVarArg...) {
-		if #available(OSX 10.12, iOS 10.0, *) {
+		if #available(macOS 10.12, iOS 10.0, *) {
 			os_log(msg, log: OSLog.memoryAlloc, type: .debug, args)
 		}
 		else {

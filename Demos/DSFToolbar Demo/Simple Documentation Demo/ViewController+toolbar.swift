@@ -19,7 +19,7 @@ extension ViewController {
 			allowsUserCustomization: true
 		) {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
-				.bindLabel(to: self, withKeyPath: \ViewController.itemName)
+				.bindLabel(itemName)
 				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
 				.shouldEnable { [weak self] in
 					self?.canAddDocument() ?? false
@@ -27,6 +27,21 @@ extension ViewController {
 				.action { [weak self] _ in
 					self?.addDocument()
 				}
+
+//			DSFToolbar.Button(NSToolbarItem.Identifier("item-edit"), buttonType: .toggle)
+//				.label("Edit")
+//				.image(NSImage(systemSymbolName: "memorychip", accessibilityDescription: nil)!) // ProjectAssets.ImageSet.toolbar_edit_document.template)
+////				.shouldEnable { [weak self] in
+////					self?.canEditDocument() ?? false
+////				}
+//				.action { [weak self] button in
+//					if button.state == .on {
+//						self?.editDocument()
+//					}
+//					else {
+//						Swift.print("Ended editing")
+//					}
+//				}
 
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
 				.label("Edit")
@@ -40,9 +55,11 @@ extension ViewController {
 
 			DSFToolbar.FixedSpace()
 
-			DSFToolbar.Segmented(NSToolbarItem.Identifier("view-mode"),
-								 type: .Grouped,
-								 switching: .selectOne) {
+			DSFToolbar.Segmented(
+					NSToolbarItem.Identifier("view-mode"),
+					type: .Grouped,
+					switching: .selectOne)
+			{
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_view_regular.template)
 					.tooltip("Print View")
@@ -54,15 +71,24 @@ extension ViewController {
 					.tooltip("Data View")
 			}
 			.label("View")
-			.bindSelection(self, keyPath: \ViewController.viewModeSelection)
+			.bindSelection(viewModeSelection)
 
 			DSFToolbar.FlexibleSpace()
 
-			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
-				.label("Search")
+			DSFToolbar.Button("search-active", buttonType: .onOff)
+				.image(ProjectAssets.ImageSet.toolbar_view_data.template)
+				.alternateImage(ProjectAssets.ImageSet.toolbar_view_outline.template)
+				.bindOnOffState(searchEnabled)
+
+			DSFToolbar.Search("search-field")
+				.label("Search noodle")
+				.placeholderText("Search for stuff…")
 				.isSelectable(true)
-				.bindIsEnabled(to: self, withKeyPath: \ViewController.searchEnabled)
-				.bindText(self, keyPath: \ViewController.searchText)
+				.bindIsEnabled(searchEnabled)
+				.bindSearchText(searchText)
+				.onSearchTextChange { _, val in
+					Swift.print("onSearchTextChange: \(val)")
+				}
 		}
 	}
 }

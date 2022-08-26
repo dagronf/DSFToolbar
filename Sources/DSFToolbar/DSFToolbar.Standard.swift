@@ -1,8 +1,7 @@
 //
-//  utilities.swift
-//  DSFToolbar
+//  DSFToolbar.Standard.swift
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -25,37 +24,32 @@
 //  IN THE SOFTWARE.
 //
 
-import Foundation
+#if os(macOS) || targetEnvironment(macCatalyst)
 
 #if os(macOS)
 import AppKit
-public typealias DSFImage = NSImage
-#else
+#elseif targetEnvironment(macCatalyst)
 import UIKit
-public typealias DSFImage = UIImage
 #endif
 
-internal extension Sequence {
-	/// Return unique elements in an array, given a predicate
-	/// - Parameter includeElement: block determining whether the elements are equivalent
-	func unique(_ predicate: (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element] {
-		var results = [Element]()
-		forEach { (element) in
-			if results.filter( { predicate(element, $0) }).count == 0 {
-				results.append(element)
-			}
-		}
-		return results
-	}
+// MARK: Standard built-in toolbar item types
+
+public extension DSFToolbar {
+	/// An item to display the standard color palette
+	private static let _showColors: Core = { Core(.showColors) }()
+	static func ShowColors() -> Core { return DSFToolbar._showColors }
+
+	/// A fixed space toolbar item
+	private static let _fixedSpace: Core = { Core(.space) }()
+	static func FixedSpace() -> Core { return DSFToolbar._fixedSpace }
+
+	/// A flexible space toolbar item
+	private static let _flexibleSpace: Core = { Core(.flexibleSpace) }()
+	static func FlexibleSpace() -> Core { return DSFToolbar._flexibleSpace }
+
+	/// Print
+	private static let _print: Core = { Core(.print) }()
+	static func Print() -> Core { return DSFToolbar._print }
 }
 
-internal extension Sequence where Element: Equatable {
-	/// Return the unique elements in the array using Equatable as the predicate
-	var unique: [Element] {
-		return self.reduce(into: []) { uniqueElements, element in
-			if !uniqueElements.contains(element) {
-				uniqueElements.append(element)
-			}
-		}
-	}
-}
+#endif

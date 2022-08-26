@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.Search.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -28,13 +27,143 @@
 #if os(macOS)
 
 import AppKit
+import DSFValueBinders
+
+public extension DSFToolbar {
+	/// A toolbar search item.
+	///
+	/// Unavailable in Mac Catalyst
+	class Search: Core {
+		override var toolbarItem: NSToolbarItem? {
+			return self.searchToolbarItem
+		}
+
+		deinit {
+			Logging.memory("DSFToolbar.Search deinit")
+		}
+
+		private lazy var searchToolbarItem: NSToolbarItem? = self.buildSearchItem()
+
+		/// Create a search field toolbar item
+		/// - Parameters:
+		///   - identifier: The identifier for the search field
+		///   - maxWidth: The maximum width allowed for the search field
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			maxWidth: CGFloat = 180
+		) {
+			self.maxWidth = maxWidth
+			super.init(identifier)
+
+			_ = self.searchToolbarItem
+		}
+
+		/// Create a search field toolbar item
+		/// - Parameters:
+		///   - identifier: The identifier for the search field
+		///   - maxWidth: The maximum width allowed for the search field
+		public convenience init(_ identifier: String, maxWidth: CGFloat = 100) {
+			self.init(NSToolbarItem.Identifier(identifier), maxWidth: maxWidth)
+		}
+
+		// Private
+
+		override public func close() {
+			self._searchTextBinding = nil
+			self._searchField = nil
+			self._delegate = nil
+
+			if #available(macOS 11, *) {
+				// No need to do anything
+			}
+			else {
+				self.toolbarItem?.view = nil
+			}
+			super.close()
+		}
+
+		override func isEnabledDidChange(to state: Bool) {
+			self._searchField?.isEnabled = state
+		}
+
+		private let maxWidth: CGFloat
+		private weak var _delegate: NSSearchFieldDelegate?
+		private var _searchField: NSSearchField?
+
+		private var _searchChange: ((NSSearchField, String) -> Void)?
+		private var _searchTextBinding: ValueBinder<String>?
+	}
+}
+
+// MARK: - Modifiers
+
+public extension DSFToolbar.Search {
+	/// Set the placeholder text for the search field
+	func placeholderText(_ text: String) -> Self {
+		self._searchField?.placeholderString = text
+		return self
+	}
+
+	/// Set the delegate for the search field
+	/// - Parameter delegate: The object to act as the search field's delegate
+	/// - Returns: self
+	@discardableResult
+	func delegate(_ delegate: NSSearchFieldDelegate) -> Self {
+		self._delegate = delegate
+		self._searchField?.delegate = delegate
+		return self
+	}
+}
+
+// MARK: - Actions
+
+public extension DSFToolbar.Search {
+	/// Provide a block to be called when the text in the search field changes
+	/// - Parameter action: the action block to be called
+	/// - Returns: self
+	@discardableResult
+	func onSearchTextChange(_ action: @escaping (NSSearchField, String) -> Void) -> Self {
+		self._searchChange = action
+		self._delegate = self
+		self._searchField?.delegate = self
+		return self
+	}
+}
+
+// MARK: - Bindings
+
+public extension DSFToolbar.Search {
+	@discardableResult
+	func bindSearchText(_ searchBinder: ValueBinder<String>) -> Self {
+		_searchTextBinding = searchBinder
+		searchBinder.register(self) { [weak self] newValue in
+			self?._searchField?.stringValue = newValue
+		}
+		self._searchField?.stringValue = searchBinder.wrappedValue
+		self._searchField?.delegate = self
+		return self
+	}
+}
+
+extension DSFToolbar.Search: NSSearchFieldDelegate {
+	public func controlTextDidChange(_ obj: Notification) {
+		if let s = obj.object as? NSSearchField {
+			let text = s.stringValue
+
+			// Call the callback func if it has been set
+			self._searchChange?(s, text)
+
+			// Update the binding if it has been set
+			self._searchTextBinding?.wrappedValue = text
+		}
+	}
+}
 
 extension DSFToolbar.Search {
-
 	/// Build a search item
 	///  - If on macOS 11 (Big Sur) and later, uses the new NSSearchToolbarItem item
 	///  - Otherwise, just uses an NSSearchField embedded in an NSToolbarItem
-	internal func buildSearchItem() -> NSToolbarItem {
+	func buildSearchItem() -> NSToolbarItem {
 		if #available(macOS 11, *) {
 			let si = NSSearchToolbarItem(itemIdentifier: self.identifier)
 			si.searchField.delegate = self._delegate

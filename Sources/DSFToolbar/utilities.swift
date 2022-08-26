@@ -1,8 +1,7 @@
 //
-//  DSFToolbar.Separator.Legacy.swift
-//  DSFToolbar
+//  utilities.swift
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -25,45 +24,37 @@
 //  IN THE SOFTWARE.
 //
 
+import Foundation
+
 #if os(macOS)
-
 import AppKit
+public typealias DSFImage = NSImage
+#else
+import UIKit
+public typealias DSFImage = UIImage
+#endif
 
-public extension DSFToolbar {
-
-	/// A toolbar item representing a separator
-	///
-	/// Note that separators were introduced in macOS 11, for lower versions this item is ignored.
-	///
-	/// Not yet available in Mac Catalyst
-	class Separator: Core {
-
-		override var toolbarItem: NSToolbarItem? {
-			return self.separatorToolbarItem
+internal extension Sequence {
+	/// Return unique elements in an array, given a predicate
+	/// - Parameter includeElement: block determining whether the elements are equivalent
+	func unique(_ predicate: (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element] {
+		var results = [Element]()
+		forEach { (element) in
+			if results.filter( { predicate(element, $0) }).count == 0 {
+				results.append(element)
+			}
 		}
-
-		let separatorToolbarItem: NSToolbarItem? // NSTrackingSeparatorToolbarItem
-
-
-		/// Create a separator item
-		/// - Parameters:
-		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
-		///   - splitView: The split view to track
-		///   - dividerIndex: The divider index index within `splitView` to track
-		public init(_ identifier: NSToolbarItem.Identifier,
-			 splitView: NSSplitView,
-			 dividerIndex: Int) {
-
-			// Do nothing.  Not supported on pre 11 systems
-			self.separatorToolbarItem = nil
-
-			super.init(identifier)
-		}
-
-		deinit {
-			Logging.memory("DSFToolbar.Separator deinit")
-		}
+		return results
 	}
 }
 
-#endif
+internal extension Sequence where Element: Equatable {
+	/// Return the unique elements in the array using Equatable as the predicate
+	var unique: [Element] {
+		return self.reduce(into: []) { uniqueElements, element in
+			if !uniqueElements.contains(element) {
+				uniqueElements.append(element)
+			}
+		}
+	}
+}

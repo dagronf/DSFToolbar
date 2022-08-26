@@ -43,6 +43,7 @@
 		236A7C5E25240A9A00255B96 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C5C25240A9A00255B96 /* SearchViewController.swift */; };
 		236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236A7C5D25240A9A00255B96 /* SearchViewController.xib */; };
 		236A7C622524107000255B96 /* DSFDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236A7C612524107000255B96 /* DSFDebounce.swift */; };
+		236F198F28B88F5800851E75 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 236F198E28B88F5800851E75 /* DSFToolbar */; };
 		237CD2BC25244B4500456FB4 /* PopupMenuViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */; };
 		237CD2BD25244B4500456FB4 /* PopupMenuViewcontroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */; };
 		237CD2C125244E6900456FB4 /* PopoverContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD2BF25244E6900456FB4 /* PopoverContentController.swift */; };
@@ -66,7 +67,6 @@
 		23CFC0C3252FBBEB0008211C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CFC0C2252FBBEB0008211C /* ViewController.swift */; };
 		23CFC0C5252FBBEB0008211C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23CFC0C4252FBBEB0008211C /* Assets.xcassets */; };
 		23CFC0C8252FBBEB0008211C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23CFC0C6252FBBEB0008211C /* Main.storyboard */; };
-		23CFC0DE252FBC610008211C /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 23CFC0DD252FBC610008211C /* DSFToolbar */; };
 		23CFC0E7252FC1200008211C /* ProjectAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CFC0E5252FC1200008211C /* ProjectAssets.swift */; };
 		23CFC0E8252FC1200008211C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CFC0E6252FC1200008211C /* Utilities.swift */; };
 		23CFC0F5252FC1B80008211C /* ViewController+toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CFC0F4252FC1B80008211C /* ViewController+toolbar.swift */; };
@@ -125,6 +125,7 @@
 		236A7C5C25240A9A00255B96 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		236A7C5D25240A9A00255B96 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		236A7C612524107000255B96 /* DSFDebounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSFDebounce.swift; sourceTree = "<group>"; };
+		236F198D28B88F3300851E75 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DSFToolbar; path = ../..; sourceTree = "<group>"; };
 		237CD2BA25244B4500456FB4 /* PopupMenuViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuViewcontroller.swift; sourceTree = "<group>"; };
 		237CD2BB25244B4500456FB4 /* PopupMenuViewcontroller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupMenuViewcontroller.xib; sourceTree = "<group>"; };
 		237CD2BF25244E6900456FB4 /* PopoverContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentController.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 		237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomToolbarItemViewController.xib; sourceTree = "<group>"; };
 		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
 		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
-		23CA2F722522C5E000BF4FA2 /* DSFToolbar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFToolbar; path = ../..; sourceTree = "<group>"; };
 		23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		23CA2F812522CC2C00BF4FA2 /* PropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesViewController.swift; sourceTree = "<group>"; };
 		23CA2F8C2522CD5B00BF4FA2 /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23CFC0DE252FBC610008211C /* DSFToolbar in Frameworks */,
+				236F198F28B88F5800851E75 /* DSFToolbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +188,7 @@
 		2337AEF62522A1420098AB2D = {
 			isa = PBXGroup;
 			children = (
-				23CA2F722522C5E000BF4FA2 /* DSFToolbar */,
+				236F198D28B88F3300851E75 /* DSFToolbar */,
 				2337AF012522A1420098AB2D /* DSFToolbar Demo */,
 				23642E40252BF9D30063590F /* DSFToolbar Catalyst Demo */,
 				23CFC0BF252FBBEB0008211C /* Simple Documentation Demo */,
@@ -378,7 +378,7 @@
 			);
 			name = "Simple Documentation Demo";
 			packageProductDependencies = (
-				23CFC0DD252FBC610008211C /* DSFToolbar */,
+				236F198E28B88F5800851E75 /* DSFToolbar */,
 			);
 			productName = "Simple Documentation Demo";
 			productReference = 23CFC0BE252FBBEB0008211C /* Simple Documentation Demo.app */;
@@ -734,7 +734,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -756,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFToolbar-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -815,6 +815,7 @@
 		23CFC0CB252FBBEB0008211C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Simple Documentation Demo/Simple_Documentation_Demo.entitlements";
@@ -827,7 +828,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.Simple-Documentation-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -837,6 +838,7 @@
 		23CFC0CC252FBBEB0008211C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Simple Documentation Demo/Simple_Documentation_Demo.entitlements";
@@ -849,7 +851,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.Simple-Documentation-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -907,6 +909,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		236F198E28B88F5800851E75 /* DSFToolbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFToolbar;
+		};
 		238C5AFD268AC0DB00F64987 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DSFToolbar;
@@ -920,10 +926,6 @@
 			productName = DSFToolbar;
 		};
 		23CFC0DB252FBC5B0008211C /* DSFToolbar */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DSFToolbar;
-		};
-		23CFC0DD252FBC610008211C /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DSFToolbar;
 		};

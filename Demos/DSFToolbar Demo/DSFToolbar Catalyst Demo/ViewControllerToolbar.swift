@@ -10,6 +10,7 @@ import UIKit
 #if targetEnvironment(macCatalyst)
 
 import DSFToolbar
+import DSFValueBinders
 
 class ViewControllerToolbar: NSObject {
 	func hookToolbar(into scene: UIScene) {
@@ -28,13 +29,18 @@ class ViewControllerToolbar: NSObject {
 		}
 	}
 
+	//private lazy var boundKey = try! KeyPathBinder(self, keyPath: \.boundEnabled)
+
+
 	lazy var customToolbar: DSFToolbar = {
 		DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary"),
 			allowsUserCustomization: true) {
 			
-			DSFToolbar.Segmented(NSToolbarItem.Identifier("1"),
-								 selectionMode: .selectOne) {
+			DSFToolbar.Segmented(
+				NSToolbarItem.Identifier("1"),
+				selectionMode: .selectOne)
+			{
 				DSFToolbar.Segmented.Segment()
 					.label("section1").title("Solver")
 				DSFToolbar.Segmented.Segment()
@@ -82,8 +88,8 @@ class ViewControllerToolbar: NSObject {
 			}
 			.label("Styles-alt")
 			.tooltip("This is the alternate style selector")
-			.bindIsEnabled(to: self, withKeyPath: \ViewControllerToolbar.boundEnabled)
-			.bindSelection(self, keyPath: \ViewControllerToolbar.boundSelection)
+			.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.boundEnabled))
+			.bindSelection(try! KeyPathBinder(self, keyPath: \.boundSelection))
 
 			DSFToolbar.FlexibleSpace()
 

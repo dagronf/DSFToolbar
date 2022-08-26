@@ -28,8 +28,10 @@ If you're familiar with SwiftUI syntax you'll feel comfortable with the declarat
 ```swift
 class MyViewController: NSViewController {
 
-   @objc dynamic var searchEnabled: Bool = true
-   @objc dynamic var searchText: String = ""
+   let searchEnabled = ValueBinder(true)
+   let searchText = ValueBinder("") { newValue in
+      Swift.print("Search text is now \(newValue)")
+   }
    ...
    lazy var customToolbar: DSFToolbar = {
       DSFToolbar(
@@ -63,7 +65,7 @@ class MyViewController: NSViewController {
          DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
             .label("Search")
             .isSelectable(true)
-            .bindIsEnabled(to: self, withKeyPath: \MyViewController.searchEnabled)
+            .bindIsEnabled(searchEnabled)
             .bindText(self, keyPath: \MyViewController.searchText)
       }
    }()

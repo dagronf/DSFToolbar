@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.View.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -47,12 +46,6 @@ public extension DSFToolbar {
 	/// A toolbar item containing an arbitrary view.
 	class View: Core {
 
-		private var viewController: NSViewController? = nil
-
-		private var externalViewController: DSFToolbarViewControllerProtocol? {
-			return self.viewController as? DSFToolbarViewControllerProtocol
-		}
-
 		/// Create a toolbar item containing a custom view
 		/// - Parameters:
 		///   - identifier: The identifier
@@ -65,6 +58,17 @@ public extension DSFToolbar {
 
 			// Tell the view controller that it's view has been added
 			self.externalViewController?.willShow()
+		}
+
+		/// Create a toolbar item containing a custom view
+		/// - Parameters:
+		///   - identifier: The identifier
+		///   - viewController: The view controller for the view to be inserted
+		public convenience init(_ identifier: String, viewController: NSViewController) {
+			self.init(
+				NSToolbarItem.Identifier(identifier),
+				viewController: viewController
+			)
 		}
 
 		/// Called when the enabled binding state changes
@@ -87,6 +91,14 @@ public extension DSFToolbar {
 
 		deinit {
 			Logging.memory("DSFToolbar.View deinit")
+		}
+
+		// Private
+
+		private var viewController: NSViewController? = nil
+
+		private var externalViewController: DSFToolbarViewControllerProtocol? {
+			return self.viewController as? DSFToolbarViewControllerProtocol
 		}
 	}
 }

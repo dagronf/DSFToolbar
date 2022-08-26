@@ -8,6 +8,8 @@
 import Cocoa
 import DSFToolbar
 
+import DSFValueBinders
+
 class SearchViewController: NSViewController {
 	var toolbarContainer: DSFToolbar?
 
@@ -42,7 +44,8 @@ class SearchViewController: NSViewController {
 				.bezelStyle(.regularSquare)
 				.image(ProjectAssets.ImageSet.toolbar_search_enable.image)
 				.imageScaling(.scaleProportionallyDown)
-				.bindLabel(to: self, withKeyPath: \SearchViewController.searchButtonLabel)
+				.bindLabel(try! KeyPathBinder(self, keyPath: \.searchButtonLabel))
+				//.bindLabel(to: self, withKeyPath: \SearchViewController.searchButtonLabel)
 				.legacySizes(minSize: NSSize(width: 80, height: 63))
 
 				.action { [weak self] sender in
@@ -55,29 +58,29 @@ class SearchViewController: NSViewController {
 					self?.searchEnabled.toggle()
 				}
 
-			DSFToolbar.Button(NSToolbarItem.Identifier("hardcode-string"))
-				.width(minVal: 80)
-				.buttonType(.momentaryLight)
-				.bezelStyle(.regularSquare)
-				.image(ProjectAssets.ImageSet.toolbar_search_hardcode.image)
-				.imageScaling(.scaleProportionallyDown)
-				.legacySizes(minSize: NSSize(width: 80, height: 63))
-				.label("Hardcode")
-				.action { [weak self] _ in
-					self?.searchText = "Hardcoded"
-				}
-
-			DSFToolbar.FlexibleSpace()
-
-			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
-				.label("Search for stuff")
-				.bindIsEnabled(to: self, withKeyPath: \SearchViewController.searchEnabled)
-				.bindText(self, keyPath: \SearchViewController.searchText)
-				.onSearchTextChange { [weak self] _, text in
-					self?.searchDebounce.debounce {
-						Swift.print("Search text is now '\(text)'")
-					}
-				}
+//			DSFToolbar.Button(NSToolbarItem.Identifier("hardcode-string"))
+//				.width(minVal: 80)
+//				.buttonType(.momentaryLight)
+//				.bezelStyle(.regularSquare)
+//				.image(ProjectAssets.ImageSet.toolbar_search_hardcode.image)
+//				.imageScaling(.scaleProportionallyDown)
+//				.legacySizes(minSize: NSSize(width: 80, height: 63))
+//				.label("Hardcode")
+//				.action { [weak self] _ in
+//					self?.searchText = "Hardcoded"
+//				}
+//
+//			DSFToolbar.FlexibleSpace()
+//
+//			DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+//				.label("Search for stuff")
+//				.bindIsEnabled(to: self, withKeyPath: \SearchViewController.searchEnabled)
+//				.bindSearchText(self, keyPath: \SearchViewController.searchText)
+//				.onSearchTextChange { [weak self] _, text in
+//					self?.searchDebounce.debounce {
+//						Swift.print("Search text is now '\(text)'")
+//					}
+//				}
 		}
 	}
 }

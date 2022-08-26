@@ -7,6 +7,7 @@
 
 import Cocoa
 import DSFToolbar
+import DSFValueBinders
 
 class CustomViewController: NSViewController {
 
@@ -32,7 +33,8 @@ class CustomViewController: NSViewController {
 		) {
 			DSFToolbar.View(NSToolbarItem.Identifier("customview1"), viewController: self.customContent1)
 				.label("Input Levels")
-				.bindIsEnabled(to: self, withKeyPath: \CustomViewController.customContent1Enabled)
+				.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.customContent1Enabled))
+				//.bindIsEnabled(to: self, withKeyPath: \CustomViewController.customContent1Enabled)
 				.legacySizes(minSize: NSSize(width: 175, height: 20))
 
 			DSFToolbar.View(NSToolbarItem.Identifier("customview2"), viewController: self.customContent2)

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DSFValueBinders",
+        "repositoryURL": "https://github.com/dagronf/DSFValueBinders",
+        "state": {
+          "branch": null,
+          "revision": "d381a886462d2bd1d6ba4a4febe4890c19fa5af2",
+          "version": "0.5.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

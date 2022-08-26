@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.FunctionBuilder.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -35,18 +34,10 @@ import UIKit
 
 // MARK: - Core function builder
 
-#if swift(<5.3)
-@_functionBuilder
-public struct DSFToolbarBuilder {
-	static func buildBlock() -> [DSFToolbar.Core] { [] }
-}
-#else
 @resultBuilder
 public struct DSFToolbarBuilder {
 	static func buildBlock() -> [DSFToolbar.Core] { [] }
 }
-
-#endif
 
 public extension DSFToolbarBuilder {
 	static func buildBlock(_ settings: DSFToolbar.Core...) -> [DSFToolbar.Core] {
@@ -56,17 +47,10 @@ public extension DSFToolbarBuilder {
 
 // MARK: - Segment function builder
 
-#if swift(<5.3)
-@_functionBuilder
-public struct DSFToolbarSegmentBuilder {
-	static func buildBlock() -> [DSFToolbar.Segmented.Segment] { [] }
-}
-#else
 @resultBuilder
 public struct DSFToolbarSegmentBuilder {
 	static func buildBlock() -> [DSFToolbar.Segmented.Segment] { [] }
 }
-#endif
 
 public extension DSFToolbarSegmentBuilder {
 	static func buildBlock(_ settings: DSFToolbar.Segmented.Segment...) -> [DSFToolbar.Segmented.Segment] {
@@ -80,10 +64,24 @@ public extension DSFToolbar.Segmented {
 	convenience init(
 		_ identifier: NSToolbarItem.Identifier,
 		selectionMode: NSToolbarItemGroup.SelectionMode = .momentary,
-		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]) {
-		self.init(identifier,
-				  selectionMode: selectionMode,
-				  children: builder())
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]
+	) {
+		self.init(
+			identifier,
+			selectionMode: selectionMode,
+			children: builder())
+	}
+
+	convenience init(
+		_ identifier: String,
+		selectionMode: NSToolbarItemGroup.SelectionMode = .momentary,
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]
+	) {
+		self.init(
+			NSToolbarItem.Identifier(identifier),
+			selectionMode: selectionMode,
+			children: builder()
+		)
 	}
 }
 
@@ -95,12 +93,31 @@ public extension DSFToolbar.Segmented {
 		type: SegmentedType,
 		switching: NSSegmentedControl.SwitchTracking = .selectAny,
 		segmentWidths: CGFloat? = nil,
-		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]) {
-		self.init(identifier,
-				  type: type,
-				  switching: switching,
-				  segmentWidths: segmentWidths,
-				  segments: builder())
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]
+	) {
+		self.init(
+			identifier,
+			type: type,
+			switching: switching,
+			segmentWidths: segmentWidths,
+			segments: builder()
+		)
+	}
+
+	convenience init(
+		_ identifier: String,
+		type: SegmentedType,
+		switching: NSSegmentedControl.SwitchTracking = .selectAny,
+		segmentWidths: CGFloat? = nil,
+		@DSFToolbarSegmentBuilder builder: () -> [DSFToolbar.Segmented.Segment]
+	) {
+		self.init(
+			NSToolbarItem.Identifier(identifier),
+			type: type,
+			switching: switching,
+			segmentWidths: segmentWidths,
+			segments: builder()
+		)
 	}
 }
 

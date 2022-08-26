@@ -1,8 +1,7 @@
 //
 //  DSFToolbar.Item.swift
-//  DSFToolbar
 //
-//  Created by Darren Ford on 25/9/20.
+//  Copyright © 2022 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -126,7 +125,7 @@ extension DSFToolbar.Item: NSToolbarItemValidation {
 			}
 
 			// If there's a binding, just return the current state
-			if self._enabled.hasBinding {
+			if self.hasEnabledBinding {
 				return item.isEnabled
 			}
 
