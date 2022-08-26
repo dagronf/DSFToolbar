@@ -37,7 +37,7 @@ class SeparatorViewController: NSViewController {
 				.legacySizes(minSize: NSSize(width: 32, height: 28))
 
 			DSFToolbar.Separator(
-				NSToolbarItem.Identifier("primary-separator-sep"),
+				NSToolbarItem.Identifier("primary-separator-sep22"),
 				splitView: self.primarySplit,
 				dividerIndex: 0)
 
@@ -62,9 +62,10 @@ class SeparatorViewController: NSViewController {
 			}
 
 			DSFToolbar.Separator(
-				NSToolbarItem.Identifier("primary-separator-sep-local"),
+				NSToolbarItem.Identifier("primary-separator-sep-local22"),
 				splitView: self.localSplitView,
-				dividerIndex: 0)
+				dividerIndex: 0
+			)
 
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("primary-separator-justification"),

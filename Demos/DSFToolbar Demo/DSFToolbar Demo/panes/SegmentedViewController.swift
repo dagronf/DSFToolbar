@@ -20,22 +20,17 @@ class SegmentedViewController: NSViewController {
 		self.build()
 	}
 
+	// This is also set within IB, so it needs to be accessed using a KeyValueBinding
 	@objc dynamic var segmentEnabled: Bool = false {
 		didSet {
 			Swift.print("Bold segment is now \(segmentEnabled)")
 		}
 	}
 
-	
 	let segmentsEnabled = ValueBinder<NSSet>(NSSet()) { newValue in
 		debugPrint("segmentsEnabled bound variable change: \(newValue)")
 	}
 
-//	@objc dynamic var segmentsEnabled: NSSet = NSSet(array: [2]) {
-//		didSet {
-//			debugPrint("segmentsEnabled bound variable change: \(self.segmentsEnabled)")
-//		}
-//	}
 
 	@IBAction func setAll(_: Any) {
 		self.segmentsEnabled.wrappedValue = NSSet(array: [0, 1, 2])

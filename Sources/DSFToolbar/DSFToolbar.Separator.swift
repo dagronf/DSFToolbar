@@ -29,31 +29,29 @@
 import AppKit
 
 public extension DSFToolbar {
-
 	/// A toolbar item representing a separator
 	///
 	/// Note that separators were introduced in macOS 11, for lower versions this item is ignored.
 	///
 	/// Not yet available in Mac Catalyst
 	class Separator: Core {
-
 		override var toolbarItem: NSToolbarItem? {
 			return self.separatorToolbarItem
 		}
 
 		let separatorToolbarItem: NSToolbarItem? // NSTrackingSeparatorToolbarItem
 
-
 		/// Create a separator item
 		/// - Parameters:
 		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
 		///   - splitView: The split view to track
 		///   - dividerIndex: The divider index index within `splitView` to track
-		public init(_ identifier: NSToolbarItem.Identifier,
-			 splitView: NSSplitView,
-			 dividerIndex: Int) {
-
-			if #available(OSX 11.0, *) {
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			splitView: NSSplitView,
+			dividerIndex: Int
+		) {
+			if #available(macOS 11.0, *) {
 				self.separatorToolbarItem = NSTrackingSeparatorToolbarItem(
 					identifier: identifier,
 					splitView: splitView,
@@ -65,6 +63,23 @@ public extension DSFToolbar {
 			}
 
 			super.init(identifier)
+		}
+
+		/// Create a separator item
+		/// - Parameters:
+		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
+		///   - splitView: The split view to track
+		///   - dividerIndex: The divider index index within `splitView` to track
+		public convenience init(
+			_ identifier: String,
+			splitView: NSSplitView,
+			dividerIndex: Int
+		) {
+			self.init(
+				NSToolbarItem.Identifier(identifier),
+				splitView: splitView,
+				dividerIndex: dividerIndex
+			)
 		}
 
 		deinit {
