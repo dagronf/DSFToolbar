@@ -22,31 +22,30 @@ class ViewControllerToolbar: NSObject {
 		//self.customToolbar.attachedScene = nil
 	}
 
-	@objc dynamic var boundEnabled: Bool = true
-	@objc dynamic var boundSelection: NSSet = NSSet(array: [1, 2]) {
-		didSet {
-			Swift.print("Styles-alt: New selection is \(self.boundSelection)")
-		}
+	let boundEnabled = ValueBinder(true)
+
+	let boundSelection = ValueBinder<NSSet>(NSSet(array: [0])) { newValue in
+		Swift.print("Styles-alt: New selection is \(newValue)")
 	}
-
-	//private lazy var boundKey = try! KeyPathBinder(self, keyPath: \.boundEnabled)
-
 
 	lazy var customToolbar: DSFToolbar = {
 		DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary"),
-			allowsUserCustomization: true) {
-			
+			allowsUserCustomization: true
+		) {
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("1"),
-				selectionMode: .selectOne)
-			{
+				selectionMode: .selectOne
+			) {
 				DSFToolbar.Segmented.Segment()
-					.label("section1").title("Solver")
+					.label("section1")
+					.title("Solver")
 				DSFToolbar.Segmented.Segment()
-					.label("section2").title("Resistance")
+					.label("section2")
+					.title("Resistance")
 				DSFToolbar.Segmented.Segment()
-					.label("section3").title("Settings")
+					.label("section3")
+					.title("Settings")
 			}
 			.label("Type")
 			.setState([1])
@@ -54,17 +53,22 @@ class ViewControllerToolbar: NSObject {
 				Swift.print("New selection is \(selection)")
 			}
 
-			DSFToolbar.Segmented(NSToolbarItem.Identifier("styles"),
-								 selectionMode: .selectAny) {
+			DSFToolbar.Segmented(
+				NSToolbarItem.Identifier("styles"),
+				selectionMode: .selectAny
+			) {
 				DSFToolbar.Segmented.Segment()
 					.label("toolbar-bold")
-					.image(ProjectAssets.ImageSet.toolbar_bold.image)
+					.title("1")
+					//.image(ProjectAssets.ImageSet.toolbar_bold.image)
 				DSFToolbar.Segmented.Segment()
 					.label("toolbar-italic")
-					.image(ProjectAssets.ImageSet.toolbar_italic.image)
+					.title("2")
+					//.image(ProjectAssets.ImageSet.toolbar_italic.image)
 				DSFToolbar.Segmented.Segment()
 					.label("toolbar-underline")
-					.image(ProjectAssets.ImageSet.toolbar_underline.image)
+					.title("3")
+					//.image(ProjectAssets.ImageSet.toolbar_underline.image)
 			}
 			.label("Styles")
 			.setState([1, 2])
@@ -74,8 +78,10 @@ class ViewControllerToolbar: NSObject {
 
 			DSFToolbar.FixedSpace()
 
-			DSFToolbar.Segmented(NSToolbarItem.Identifier("styles22"),
-								 selectionMode: .selectAny) {
+			DSFToolbar.Segmented(
+				NSToolbarItem.Identifier("styles22"),
+				selectionMode: .selectAny
+			) {
 				DSFToolbar.Segmented.Segment()
 					.label("toolbar-bold-22")
 					.image(ProjectAssets.ImageSet.toolbar_bold.image)
@@ -88,8 +94,8 @@ class ViewControllerToolbar: NSObject {
 			}
 			.label("Styles-alt")
 			.tooltip("This is the alternate style selector")
-			.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.boundEnabled))
-			.bindSelection(try! KeyPathBinder(self, keyPath: \.boundSelection))
+			.bindIsEnabled(boundEnabled)
+			.bindSelection(boundSelection)
 
 			DSFToolbar.FlexibleSpace()
 

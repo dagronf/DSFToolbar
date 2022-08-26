@@ -35,9 +35,10 @@ import UIKit
 import DSFValueBinders
 
 public extension DSFToolbar {
+	/// The common base for all toolbar items
 	class Core: NSObject {
 		let identifier: NSToolbarItem.Identifier
-		init(_ identifier: NSToolbarItem.Identifier) {
+		internal init(_ identifier: NSToolbarItem.Identifier) {
 			self.identifier = identifier
 		}
 
@@ -74,7 +75,7 @@ public extension DSFToolbar {
 	}
 }
 
-// MARK: Common Modifiers
+// MARK: - Common Modifiers
 
 extension DSFToolbar.Core {
 	/// Mark the toolbar item as being selectable or not selectable (default: not selectable)
@@ -108,8 +109,6 @@ extension DSFToolbar.Core {
 		self.isDefaultItem = isDefault
 		return self
 	}
-
-	// MARK: - Label and palette label
 
 	/// Set the label for the item.
 	/// - Parameter label: The label to present to the user
@@ -145,15 +144,13 @@ extension DSFToolbar.Core {
 		return self
 	}
 
-	// MARK: - Border
-
 	/// When set on an item without a custom view, the button produced will have a bordered style.
 	/// - Parameter state: the border state
 	/// - Returns: self
 	///
 	/// Only available on 10.15 and later, however will silently be ignored on earlier versions to allow backwards
 	/// compatibility
-	public func isBordered(_ state: Bool) -> Self {
+	@objc public func isBordered(_ state: Bool) -> Self {
 		if #available(macOS 10.15, *) {
 			self.toolbarItem?.isBordered = state
 		}

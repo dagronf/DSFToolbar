@@ -37,14 +37,6 @@ public extension DSFToolbar {
 	///
 	/// See [documentation](https://developer.apple.com/documentation/appkit/nstoolbaritem)
 	class Item: Core {
-		lazy var imageToolbarItem: NSToolbarItem = {
-			NSToolbarItem(itemIdentifier: self.identifier)
-		}()
-
-		override var toolbarItem: NSToolbarItem? {
-			return self.imageToolbarItem
-		}
-
 		/// Create an image item
 		override public init(_ identifier: NSToolbarItem.Identifier) {
 			super.init(identifier)
@@ -61,54 +53,75 @@ public extension DSFToolbar {
 			Logging.memory("DSFToolbar.Item deinit")
 		}
 
-		// MARK: - Image
-
-		/// Set the image to display in the item
-		/// - Parameter image: the image
-		/// - Returns: self
-		@discardableResult
-		public func image(_ image: DSFImage) -> Self {
-			self.toolbarItem?.image = image
-			return self
-		}
-
-		// MARK: - Action
+		// private
 
 		private var _action: ((Item) -> Void)?
-
-		/// Supply a callback block to be called when the item is activated (eg. clicked by the user)
-		/// - Parameter action: The action block to call
-		/// - Returns: self
-		public func action(_ action: @escaping (Item) -> Void) -> Self {
-			self._action = action
-
-			self.toolbarItem?.target = self
-			self.toolbarItem?.action = #selector(itemPressed(_:))
-
-			return self
-		}
-
-		@objc private func itemPressed(_: Any) {
-			self._action?(self)
-		}
-
-		// MARK: - Enabled state
-
 		private var _isEnabled: (() -> Bool)?
 
-		/// Supply a callback block to be called to determine the enabled state of the item
-		/// - Parameter block: The block to call
-		/// - Returns: self
-		@discardableResult
-		public func shouldEnable(_ block: @escaping () -> Bool) -> Item {
-			_isEnabled = block
-			return self
+		lazy var imageToolbarItem: NSToolbarItem = {
+			NSToolbarItem(itemIdentifier: self.identifier)
+		}()
+
+		override var toolbarItem: NSToolbarItem? {
+			return self.imageToolbarItem
 		}
 
-		/// Called when the enabled binding state changes
-		override func isEnabledDidChange(to _: Bool) {
+		// Called when the enabled binding state changes
+		override func isEnabledDidChange(to enabled: Bool) {
 			// Called when the enabled binding state changes
 		}
+	}
+}
+
+// MARK: - Modifiers
+
+extension DSFToolbar.Item {
+	/// Set the image to display in the item
+	/// - Parameter image: the image
+	/// - Returns: self
+	@discardableResult
+	public func title(_ title: String) -> Self {
+		if #available(macOS 10.15, *) {
+			self.toolbarItem?.title = title
+		}
+		return self
+	}
+
+	/// Set the image to display in the item
+	/// - Parameter image: the image
+	/// - Returns: self
+	@discardableResult
+	public func image(_ image: DSFImage) -> Self {
+		self.toolbarItem?.image = image
+		return self
+	}
+}
+
+// MARK: - Actions
+
+extension DSFToolbar.Item {
+	/// Supply a callback block to be called when the item is activated (eg. clicked by the user)
+	/// - Parameter action: The action block to call
+	/// - Returns: self
+	public func action(_ action: @escaping (DSFToolbar.Item) -> Void) -> Self {
+		self._action = action
+		self.toolbarItem?.target = self
+		self.toolbarItem?.action = #selector(itemPressed(_:))
+		return self
+	}
+
+	@objc private func itemPressed(_: Any) {
+		self._action?(self)
+	}
+
+	// MARK: - Enabled state
+	/// Supply a callback block to be called to determine the enabled state of the item
+	/// - Parameter block: The block to call
+	/// - Returns: self
+	@discardableResult
+	public func shouldEnable(_ block: @escaping () -> Bool) -> DSFToolbar.Item {
+		_isEnabled = block
+		return self
 	}
 }
 

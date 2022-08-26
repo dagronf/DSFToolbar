@@ -20,6 +20,8 @@ class ImagesViewController: NSViewController {
 		self.build()
 	}
 
+	// Use dynamic binding so we can set via interface builder
+
 	@objc dynamic var toolbar_watermelon_enabled: Bool = false
 	@objc dynamic var toolbar_group_enabled: Bool = true
 	@objc dynamic var toolbar_burger_label: String = "Burger"
@@ -28,7 +30,7 @@ class ImagesViewController: NSViewController {
 	func build() {
 
 		self.toolbarContainer = DSFToolbar(
-			toolbarIdentifier: NSToolbar.Identifier("primary-images"),
+			toolbarIdentifier: "primary-images",
 			allowsUserCustomization: true
 		) {
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-egg"))
@@ -47,7 +49,6 @@ class ImagesViewController: NSViewController {
 				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
 				.isSelectable(true)
 				.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.toolbar_watermelon_enabled))
-				//.bindIsEnabled(to: self, withKeyPath: \ImagesViewController.toolbar_watermelon_enabled)
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
 				.action { _ in
 					Swift.print("Got watermelon!")
@@ -55,7 +56,6 @@ class ImagesViewController: NSViewController {
 
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger"))
 				.bindLabel(try! KeyPathBinder(self, keyPath: \.toolbar_burger_label))
-				//.bindLabel(to: self, withKeyPath: \ImagesViewController.toolbar_burger_label)
 				.tooltip("I really really want a burger")
 				.image(ProjectAssets.ImageSet.toolbar_burger.image)
 				.isSelectable(true)
@@ -97,7 +97,6 @@ class ImagesViewController: NSViewController {
 			.legacySizes(minSize: NSSize(width: 96, height: 32))
 			.isSelectable(true)
 			.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.toolbar_group_enabled))
-			//.bindIsEnabled(to: self, withKeyPath: \ImagesViewController.toolbar_group_enabled)
 
 			/// A bordered button (10.15+ only)
 

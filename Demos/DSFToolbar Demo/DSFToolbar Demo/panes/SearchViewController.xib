@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21219" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21219"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
                     <rect key="frame" x="20" y="231" width="448" height="21"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ILc-5F-p4v">
-                            <rect key="frame" x="-2" y="2" width="91" height="16"/>
+                            <rect key="frame" x="-2" y="2" width="90" height="16"/>
                             <textFieldCell key="cell" lineBreakMode="clipping" title="Search text is:" id="fp1-c2-M4l">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -29,7 +29,7 @@
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fya-UU-zRS">
-                            <rect key="frame" x="95" y="0.0" width="353" height="21"/>
+                            <rect key="frame" x="94" y="0.0" width="354" height="21"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xff-Qq-CZL">
                                 <font key="font" usesAppearanceFont="YES"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
