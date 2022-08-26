@@ -80,7 +80,7 @@ public extension DSFToolbar {
 
 		/// Called when the control is being destroyed
 		override public func close() {
-			self._action = nil
+			self._actionBlock = nil
 
 			self.segments = []
 			self.segmentedItem = nil
@@ -99,14 +99,14 @@ public extension DSFToolbar {
 
 		// MARK: - Callback action block
 
-		private var _action: ((Set<Int>) -> Void)?
+		private var _actionBlock: ((Set<Int>) -> Void)?
 
 		/// Define the action to call when the selection within the segmented control changes
 		/// - Parameter actionBlock: The block to call, passing the selected segment indexes
 		/// - Returns: Self
 		@discardableResult
 		public func action(_ actionBlock: @escaping (Set<Int>) -> Void) -> Segmented {
-			self._action = actionBlock
+			self._actionBlock = actionBlock
 			return self
 		}
 
@@ -118,7 +118,7 @@ public extension DSFToolbar {
 
 			self._selectionBinding?.wrappedValue = NSSet(array: selIndexes)
 
-			self._action?(Set(selIndexes))
+			self._actionBlock?(Set(selIndexes))
 		}
 
 		// MARK: - Selection handling

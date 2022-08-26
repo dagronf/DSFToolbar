@@ -85,7 +85,7 @@ public extension DSFToolbar {
 			self._titleBinding = nil
 			self._stateBinder = nil
 			self._stateOnOffBinder = nil
-			self._action = nil
+			self._actionBlock = nil
 			self._targetAction = nil
 			self._image = nil
 			self._alternateImage = nil
@@ -108,7 +108,7 @@ public extension DSFToolbar {
 		// Bindings and actions
 
 		// Button press action
-		private var _action: ((NSButton) -> Void)?
+		private var _actionBlock: ((NSButton) -> Void)?
 		private var _targetAction: (AnyObject, Selector)?
 
 		// Embedded button styles
@@ -317,7 +317,7 @@ public extension DSFToolbar.Button {
 	/// - Returns: self
 	@discardableResult
 	func action(_ action: @escaping (NSButton) -> Void) -> Self {
-		self._action = action
+		self._actionBlock = action
 		return self
 	}
 
@@ -336,7 +336,7 @@ public extension DSFToolbar.Button {
 		if let b = self.button {
 			self._stateBinder?.wrappedValue = b.state
 			self._stateOnOffBinder?.wrappedValue = (b.state != .off)
-			self._action?(b)
+			self._actionBlock?(b)
 			if let custom = _targetAction {
 				_ = custom.0.perform(custom.1)
 			}

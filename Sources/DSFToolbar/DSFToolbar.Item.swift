@@ -44,8 +44,8 @@ public extension DSFToolbar {
 
 		/// Called when the item is being closed
 		override public func close() {
-			self._action = nil
-			self._isEnabled = nil
+			self._actionBlock = nil
+			self._isEnabledBlock = nil
 			super.close()
 		}
 
@@ -55,8 +55,8 @@ public extension DSFToolbar {
 
 		// private
 
-		private var _action: ((Item) -> Void)?
-		private var _isEnabled: (() -> Bool)?
+		private var _actionBlock: ((Item) -> Void)?
+		private var _isEnabledBlock: (() -> Bool)?
 
 		lazy var imageToolbarItem: NSToolbarItem = {
 			NSToolbarItem(itemIdentifier: self.identifier)
@@ -104,14 +104,14 @@ extension DSFToolbar.Item {
 	/// - Parameter action: The action block to call
 	/// - Returns: self
 	public func action(_ action: @escaping (DSFToolbar.Item) -> Void) -> Self {
-		self._action = action
+		self._actionBlock = action
 		self.toolbarItem?.target = self
 		self.toolbarItem?.action = #selector(itemPressed(_:))
 		return self
 	}
 
 	@objc private func itemPressed(_: Any) {
-		self._action?(self)
+		self._actionBlock?(self)
 	}
 
 	// MARK: - Enabled state
@@ -120,7 +120,7 @@ extension DSFToolbar.Item {
 	/// - Returns: self
 	@discardableResult
 	public func shouldEnable(_ block: @escaping () -> Bool) -> DSFToolbar.Item {
-		_isEnabled = block
+		_isEnabledBlock = block
 		return self
 	}
 }
@@ -133,7 +133,7 @@ extension DSFToolbar.Item: NSToolbarItemValidation {
 	public func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
 		let newState: Bool = {
 			// If there's no action, then the item is always disabled
-			if self._action == nil {
+			if self._actionBlock == nil {
 				return false
 			}
 
@@ -142,7 +142,7 @@ extension DSFToolbar.Item: NSToolbarItemValidation {
 				return item.isEnabled
 			}
 
-			if let block = self._isEnabled {
+			if let block = self._isEnabledBlock {
 				return block()
 			}
 

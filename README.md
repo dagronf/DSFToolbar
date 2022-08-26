@@ -27,8 +27,9 @@ If you're familiar with SwiftUI syntax you'll feel comfortable with the declarat
 
 ```swift
 class MyViewController: NSViewController {
-
+   // A binder to enable/disable the search field
    let searchEnabled = ValueBinder(true)
+   // The search text binding to the content of the search toolbar item
    let searchText = ValueBinder("") { newValue in
       Swift.print("Search text is now \(newValue)")
    }
@@ -37,7 +38,7 @@ class MyViewController: NSViewController {
       DSFToolbar(
          toolbarIdentifier: NSToolbar.Identifier("Core"),
          allowsUserCustomization: true) {
-   
+
          DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
             .label("New")
             .isSelectable(true)
@@ -48,7 +49,7 @@ class MyViewController: NSViewController {
             .action { [weak self] _ in
                self?.addDocument()
             }
-   
+
          DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
             .label("Edit")
             .isSelectable(true)
@@ -59,14 +60,14 @@ class MyViewController: NSViewController {
             .action { [weak self] _ in
                self?.editDocument()
             }
-   
+
          DSFToolbar.FlexibleSpace()
-   
+
          DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
             .label("Search")
             .isSelectable(true)
             .bindIsEnabled(searchEnabled)
-            .bindText(self, keyPath: \MyViewController.searchText)
+            .bindText(self.searchText)
       }
    }()
    ...
