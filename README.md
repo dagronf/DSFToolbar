@@ -78,36 +78,6 @@ class MyViewController: NSViewController {
 
 And thats it!
 
-## Installation
-
-Use Swift Package Manager.
-
-Add `https://github.com/dagronf/DSFToolbar` to your project.
-
-There are two targets for this library :-
-
-### DSFToolbar (Xcode 12)
-
-The standard project (`DSFToolbar`) for Xcode 12 and later. Backwards compatible back to macOS 10.11 and supporting new features in macOS 11 Big Sur (such as split view tracking)
-
-Backwards compatible back to macOS 10.11.
-
-```swift
-// Support for Xcode 12
-import DSFToolbar
-```
-
-### DSFToolbar-legacy (Xcode 11)
-
-A target for Xcode 11 for legacy applications that can't move up to Xcode 12 yet. Supports all functionlity _except_ for the new separator toolbar types introduced in macOS 11.  You can actually define the separator in your toolbar definition, it just won't have any effect (to aid migration later to Xcode 12).
-
-Backwards compatible back to macOS 10.11.
-
-```swift
-// Support for Xcode 11
-import DSFToolbar_legacy
-```
-
 ## Usage
 
 For the most part, you'll only really need to use [`DSFToolbar.Item`](Markdown/item.md), [`DSFToolbar.Group`](Markdown/group.md) and [`DSFToolbar.Search`](Markdown/search.md) to get 90+% of the toolbar functionality you'll need.
@@ -120,7 +90,7 @@ Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a se
 
 ### Customization
 
-A toolbar can me marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
+A toolbar can be marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
 
 ## Items
 
@@ -182,17 +152,17 @@ self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
 
 A lot of functionality can be hooked up via bindings in order to pass information to and from a toolbar item. For example, you can hook the content of the Search item to a class variable to observe when the content of the search field changes.
 
+This library uses [DSFValueBinders](https://github.com/dagronf/DSFValueBinders) to provide two-way bindings between local properties and toolbar items.
+
 ```swift
-@objc dynamic var searchText: String = "" {
-   didSet {
-      // Update the search with the new string
-   }
+let searchText = ValueBinder("") {
+   // Update the search with the new string
 }
    ...
-self.customToolbar = DSFToolbar(NSToolbar.Identifier("Search")) {
-   DSFToolbar.Search(NSToolbarItem.Identifier("toolbar-search-field"))
+self.customToolbar = DSFToolbar("Search") {
+   DSFToolbar.Search("toolbar-search-field")
       .label("Search")
-      .bindText(self, keyPath: \MyViewController.searchText)
+      .bindSearchText(self.searchText)
    }
 ```
 
@@ -234,6 +204,11 @@ You can find pre-made demos under the `Demos` folder
 * `DSFToolbar Xcode 11 Demo`: A simple project for Xcode release versions (Xcode 11)
 
 # Releases
+
+### 3.0.0
+
+* Dropped legacy support for older Xcode versions to reduce complexity
+* Move to using [DSFValueBinders](https://github.com/dagronf/DSFValueBinders) to provide two-way binding. 
 
 ### 2.0.0
 
