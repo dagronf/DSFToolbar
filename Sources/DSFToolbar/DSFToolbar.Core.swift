@@ -156,6 +156,25 @@ extension DSFToolbar.Core {
 		}
 		return self
 	}
+
+	/// The display priority associated with the toolbar item.
+	/// - Parameter priority: The priority
+	/// - Returns: self
+	@discardableResult
+	public func visibilityPriority(_ priority: NSToolbarItem.VisibilityPriority) -> Self {
+		self.toolbarItem?.visibilityPriority = priority
+		return self
+	}
+
+	/// Execute a block passing the underlying toolbar item
+	/// - Parameter block: The block to execute, passing the underlying toolbar item
+	/// - Returns: self
+	@discardableResult
+	public func usingAppKitToolbarItem(_ block: (NSToolbarItem) -> Void) -> Self {
+		guard let item = self.toolbarItem else { fatalError() }
+		block(item)
+		return self
+	}
 }
 
 // MARK: - Common Bindings

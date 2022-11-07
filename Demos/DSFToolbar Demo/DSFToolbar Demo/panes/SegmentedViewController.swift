@@ -56,6 +56,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			}
 			.label("Styles Separated")
+			.bindSelection(segmentsEnabled)
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { selection in
 				Swift.print("Styles Separated: New Selection -> \(selection)")
