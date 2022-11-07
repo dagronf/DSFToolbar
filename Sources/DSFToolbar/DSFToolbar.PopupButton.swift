@@ -107,12 +107,14 @@ public extension DSFToolbar {
 	}
 }
 
-public extension DSFToolbar.PopupButton {
+// MARK: - Modifier(s)
+
+extension DSFToolbar.PopupButton {
 	/// Set the title for the popup button
 	/// - Parameter title: The title
 	/// - Returns: Self
 	@discardableResult
-	func title(_ title: String) -> Self {
+	public func title(_ title: String) -> Self {
 		self._title = title
 		self.updateDisplay()
 		return self
@@ -122,7 +124,7 @@ public extension DSFToolbar.PopupButton {
 	/// - Parameter image: The image
 	/// - Returns: Self
 	@discardableResult
-	func image(_ image: NSImage) -> Self {
+	public func image(_ image: NSImage) -> Self {
 		self._image = image
 		self.updateDisplay()
 		return self
@@ -132,7 +134,7 @@ public extension DSFToolbar.PopupButton {
 	/// - Parameter position: The image position
 	/// - Returns: Self
 	@discardableResult
-	func imagePosition(_ position: NSControl.ImagePosition) -> Self {
+	public func imagePosition(_ position: NSControl.ImagePosition) -> Self {
 		self._imagePosition = position
 		self.updateDisplay()
 		return self

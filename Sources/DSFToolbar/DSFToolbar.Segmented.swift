@@ -172,61 +172,65 @@ public extension DSFToolbar {
 			Logging.memory("DSFToolbar.Segmented deinit")
 		}
 
-		// MARK: - Segment Action
-
 		private var _actionBlock: ((Set<Int>) -> Void)?
-
-		/// Define the action to call when the selection within the segmented control changes
-		/// - Parameter block: The block to call, passing the selected segment indexes
-		/// - Returns: Self
-		public func action(_ action: @escaping (Set<Int>) -> Void) -> Segmented {
-			self._actionBlock = action
-			return self
-		}
-
-		@objc private func itemPressed(_: Any) {
-			guard let s = self.segmented else { return }
-			let selected: [Int] = self.segments.enumerated().compactMap { segment in
-				if s.isSelected(forSegment: segment.offset) {
-					return segment.offset
-				}
-				return nil
-			}
-
-			// Update the value in the binding if one has been set
-			self._selectionBinding?.wrappedValue = NSSet(array: selected)
-
-			// If the action callback block has been set, call it
-			self._actionBlock?(Set(selected))
-		}
-
-		// MARK: - Selection bindings
-
 		private var _selectionBinding: ValueBinder<NSSet>?
+	}
+}
 
-		/// Bind the selection of the item to a key path (NSSet<Int>)
-		/// - Parameters:
-		///   - binder: The binding object to connect
-		/// - Returns: self
-		public func bindSelection(_ selectionBinder: ValueBinder<NSSet>) -> Self {
-			self._selectionBinding = selectionBinder
-			selectionBinder.register(self) { [weak self] newValue in
-				self?.setSelection(selectedItems: newValue)
+// MARK: - Action(s)
+
+extension DSFToolbar.Segmented {
+	/// Define the action to call when the selection within the segmented control changes
+	/// - Parameter block: The block to call, passing the newly selected segment indexes
+	/// - Returns: Self
+	public func action(_ action: @escaping (Set<Int>) -> Void) -> Self {
+		self._actionBlock = action
+		return self
+	}
+
+	@objc private func itemPressed(_: Any) {
+		guard let s = self.segmented else { return }
+		let selected: [Int] = self.segments.enumerated().compactMap { segment in
+			if s.isSelected(forSegment: segment.offset) {
+				return segment.offset
 			}
-			self.setSelection(selectedItems: selectionBinder.wrappedValue)
-			return self
+			return nil
 		}
 
-		private func setSelection(selectedItems: NSSet) {
-			guard let s = self.segmented,
-					let sels = selectedItems as? Set<Int>
-			else {
-				fatalError()
-			}
+		// Update the value in the binding if one has been set
+		self._selectionBinding?.wrappedValue = NSSet(array: selected)
 
-			self.segments.enumerated().forEach { segment in
-				s.setSelected(sels.contains(segment.offset), forSegment: segment.offset)
-			}
+		// If the action callback block has been set, call it
+		self._actionBlock?(Set(selected))
+	}
+}
+
+
+// MARK: - Selection bindings
+
+extension DSFToolbar.Segmented {
+	/// Bind the current selection of the segmented control (NSSet<Int>)
+	/// - Parameters:
+	///   - binder: The binding object to connect
+	/// - Returns: self
+	public func bindSelection(_ selectionBinder: ValueBinder<NSSet>) -> Self {
+		self._selectionBinding = selectionBinder
+		selectionBinder.register(self) { [weak self] newValue in
+			self?.setSelection(selectedItems: newValue)
+		}
+		self.setSelection(selectedItems: selectionBinder.wrappedValue)
+		return self
+	}
+
+	private func setSelection(selectedItems: NSSet) {
+		guard let s = self.segmented,
+				let sels = selectedItems as? Set<Int>
+		else {
+			fatalError()
+		}
+
+		self.segments.enumerated().forEach { segment in
+			s.setSelected(sels.contains(segment.offset), forSegment: segment.offset)
 		}
 	}
 }

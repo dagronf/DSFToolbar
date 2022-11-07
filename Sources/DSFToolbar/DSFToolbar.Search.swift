@@ -133,6 +133,9 @@ public extension DSFToolbar.Search {
 // MARK: - Bindings
 
 public extension DSFToolbar.Search {
+	/// Bind the content of the search field to a value binder
+	/// - Parameter searchBinder: The binding object
+	/// - Returns: self
 	@discardableResult
 	func bindSearchText(_ searchBinder: ValueBinder<String>) -> Self {
 		_searchTextBinding = searchBinder

@@ -202,30 +202,6 @@ self.customToolbar.close()
 You can find pre-made demos under the `Demos` folder
 
 * `DSFToolbar Demo`: Project for Xcode 12 containing targets for macOS and macCatalyst
-* `DSFToolbar Xcode 11 Demo`: A simple project for Xcode release versions (Xcode 11)
-
-# Releases
-
-### 3.0.0
-
-* Dropped legacy support for older Xcode versions to reduce complexity
-* Move to using [DSFValueBinders](https://github.com/dagronf/DSFValueBinders) to provide two-way binding. 
-
-### 2.0.0
-
-* Changed Xcode 12 target to `DSFToolbar`  (was originally `DSFToolbar-beta`). 
-
-	Source code imports must change from `import DSFToolbar_beta` to `import DSFToolbar`
-
-* Changed Xcode 11 target to `DSFToolbar-legacy`  (was originally `DSFToolbar`)
-
-	Source code imports must change from `import DSFToolbar` to `import DSFToolbar_legacy`
-
-If you've used then 0.9.6 version of this library, you will need to migrate your projects to use the new targets. Your source code will also need to be updated to `import` the correct library module for the target.
-
-### 0.9.6
-
-* Initial public release
 
 # License
 
@@ -234,7 +210,7 @@ MIT. Use it for anything you want! Let me know if you do use it somewhere, I'd l
 ```
 MIT License
 
-Copyright (c) 2021 Darren Ford
+Copyright (c) 2022 Darren Ford
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

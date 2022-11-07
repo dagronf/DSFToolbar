@@ -58,9 +58,10 @@ public extension DSFToolbar {
 		///   - identifier: The identifier for the group
 		///   - selectionMode: How elements within the group select (eg. .selectAny, .selectOne etc)
 		///   - children: The toolbar items to add to the group
-		public init(_ identifier: NSToolbarItem.Identifier,
-					selectionMode: SelectionMode = .momentary,
-					children: [DSFToolbar.Core])
+		public init(
+			_ identifier: NSToolbarItem.Identifier,
+			selectionMode: SelectionMode = .momentary,
+			children: [DSFToolbar.Core])
 		{
 			super.init(identifier)
 			self.items = children
