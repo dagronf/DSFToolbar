@@ -229,7 +229,7 @@ extension DSFToolbar.Core {
 	/// Setting a legacy size will only affect layouts pre 10.13 (High Sierra) - newer systems
 	/// will just ignore these if they are set.
 	public func legacySizes(minSize: NSSize? = nil, maxSize: NSSize? = nil) -> Self {
-		if #available(macOS 10.13, *) {
+		if #available(macOS 10.14, *) {
 			return self
 		}
 

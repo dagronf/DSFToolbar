@@ -101,6 +101,14 @@ public extension DSFToolbar {
 	}
 }
 
+internal extension DSFToolbar.PopupMenu {
+	override func changeToUseLegacySizing() {
+		// If we're using legacy sizing, we have to remove the constraints first
+		_popupButton.translatesAutoresizingMaskIntoConstraints = true
+		_popupButton.removeConstraints(_popupButton.constraints)
+	}
+}
+
 // MARK: - Bindings
 
 public extension DSFToolbar.PopupMenu {

@@ -44,14 +44,13 @@ public extension DSFToolbar {
 
 			self.reconfigureMenu()
 
-			let button = NSPopUpButton(frame: .zero, pullsDown: true)
+			let button = self._popupButton
 			button.translatesAutoresizingMaskIntoConstraints = true
 			button.bezelStyle = .texturedRounded
 
 			button.imagePosition = .imageOnly
 			button.imageScaling = .scaleProportionallyDown
 			(button.cell as? NSPopUpButtonCell)?.arrowPosition = .arrowAtBottom
-			self._popupButton = button
 
 			button.menu = self._popupMenu
 
@@ -74,7 +73,7 @@ public extension DSFToolbar {
 
 		// Private
 
-		private var _popupButton: NSButton?
+		private var _popupButton = NSPopUpButton(frame: .zero, pullsDown: true)
 		private var _popupMenu: NSMenu?
 		private var _popupButtonItem: NSToolbarItem?
 
@@ -84,11 +83,10 @@ public extension DSFToolbar {
 
 		override func isEnabledDidChange(to state: Bool) {
 			self._popupButtonItem?.isEnabled = state
-			self._popupButton?.isEnabled = state
+			self._popupButton.isEnabled = state
 		}
 
 		override public func close() {
-			self._popupButton = nil
 			self._popupMenu = nil
 			self._popupButtonItem = nil
 
@@ -97,6 +95,12 @@ public extension DSFToolbar {
 
 		deinit {
 			Logging.memory("DSFToolbar.PopupButton deinit")
+		}
+
+		override func changeToUseLegacySizing() {
+			// If we're using legacy sizing, we have to remove the constraints first
+			_popupButton.translatesAutoresizingMaskIntoConstraints = true
+			_popupButton.removeConstraints(_popupButton.constraints)
 		}
 
 		private var _title = ""
@@ -158,13 +162,13 @@ extension DSFToolbar.PopupButton {
 
 		// If there's an image and no title, set the state to imageOnly
 		if self._title.count == 0, self._image != nil {
-			self._popupButton?.imagePosition = .imageOnly
+			self._popupButton.imagePosition = .imageOnly
 		}
 		else if self._title.count > 0, self._image == nil {
-			self._popupButton?.imagePosition = .noImage
+			self._popupButton.imagePosition = .noImage
 		}
 		else {
-			self._popupButton?.imagePosition = self._imagePosition
+			self._popupButton.imagePosition = self._imagePosition
 		}
 	}
 

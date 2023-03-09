@@ -68,7 +68,7 @@ class PopupMenuViewcontroller: NSViewController {
 			menu: self.popupMenuItemMenu
 		)
 		.label("Scale")
-		//.legacySizes(minSize: NSSize(width: 48, height: 30))
+		.legacySizes(minSize: NSSize(width: 80, height: 30))
 		.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.popupMenuItemEnabled))
 		.bindSelectedIndex(self.popupMenuItemMenuSelectionIndex)
 	}()
@@ -86,7 +86,7 @@ class PopupMenuViewcontroller: NSViewController {
 		)
 		.label("Color")
 		.image(ProjectAssets.ImageSet.toolbar_cog.template)
-		.legacySizes(minSize: NSSize(width: 48, height: 30))
+		.legacySizes(minSize: NSSize(width: 80, height: 30))
 		.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.popoverViewEnabled))
 		//.bindIsEnabled(to: self, withKeyPath: \PopupMenuViewcontroller.popoverViewEnabled)
 	}()
