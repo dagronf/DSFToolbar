@@ -1,7 +1,7 @@
 //
-//  DSFToolbar.PopupButton.swift
+//  DSFToolbar.PopupMenu.swift
 //
-//  Copyright © 2022 Darren Ford. All rights reserved.
+//  Copyright © 2023 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
@@ -27,9 +27,11 @@
 #if os(macOS)
 
 import AppKit
+import DSFValueBinders
 
 public extension DSFToolbar {
-	class PopupButton: Core {
+	/// A convenience for a toolbar item that provides a menu with selectable items
+	class PopupMenu: Core {
 		/// Create a popup button with the specified identifier and menu to display
 		/// - Parameters:
 		///   - identifier: The toolbar item's identifier
@@ -42,17 +44,10 @@ public extension DSFToolbar {
 
 			super.init(identifier)
 
-			self.reconfigureMenu()
-
-			let button = NSPopUpButton(frame: .zero, pullsDown: true)
-			button.translatesAutoresizingMaskIntoConstraints = true
+			let button = self._popupButton
+			button.translatesAutoresizingMaskIntoConstraints = false
 			button.bezelStyle = .texturedRounded
-
-			button.imagePosition = .imageOnly
-			button.imageScaling = .scaleProportionallyDown
-			(button.cell as? NSPopUpButtonCell)?.arrowPosition = .arrowAtBottom
-			self._popupButton = button
-
+			button.imagePosition = .noImage
 			button.menu = self._popupMenu
 
 			let a = NSToolbarItem(itemIdentifier: self.identifier)
@@ -60,8 +55,6 @@ public extension DSFToolbar {
 			a.target = self
 			a.action = #selector(self.dummyTargetSelector(_:))
 			self._popupButtonItem = a
-
-			self.updateDisplay()
 		}
 
 		/// Create a popup button with the specified identifier and menu to display
@@ -72,11 +65,18 @@ public extension DSFToolbar {
 			self.init(NSToolbarItem.Identifier(identifier), menu: menu)
 		}
 
+		deinit {
+			self.close()
+			Logging.memory("DSFToolbar.PopupMenu deinit")
+		}
+
 		// Private
 
-		private var _popupButton: NSButton?
-		private var _popupMenu: NSMenu?
+		private let _popupButton = NSPopUpButton(frame: .zero, pullsDown: false)
+		private let _popupMenu: NSMenu
 		private var _popupButtonItem: NSToolbarItem?
+		private var _indexObserver: NSObjectProtocol?
+		private var _selectedIndexBinder: ValueBinder<Int>?
 
 		override var toolbarItem: NSToolbarItem? {
 			return self._popupButtonItem
@@ -84,19 +84,13 @@ public extension DSFToolbar {
 
 		override func isEnabledDidChange(to state: Bool) {
 			self._popupButtonItem?.isEnabled = state
-			self._popupButton?.isEnabled = state
+			self._popupButton.isEnabled = state
 		}
 
 		override public func close() {
-			self._popupButton = nil
-			self._popupMenu = nil
+			self._indexObserver = nil
 			self._popupButtonItem = nil
-
 			super.close()
-		}
-
-		deinit {
-			Logging.memory("DSFToolbar.PopupButton deinit")
 		}
 
 		private var _title = ""
@@ -107,71 +101,30 @@ public extension DSFToolbar {
 	}
 }
 
-// MARK: - Modifier(s)
+// MARK: - Bindings
 
-extension DSFToolbar.PopupButton {
-	/// Set the title for the popup button
-	/// - Parameter title: The title
-	/// - Returns: Self
-	@discardableResult
-	public func title(_ title: String) -> Self {
-		self._title = title
-		self.updateDisplay()
+public extension DSFToolbar.PopupMenu {
+	/// Bind a valuebinder to the selected item's index in the menu
+	func bindSelectedIndex(_ binder: ValueBinder<Int>) -> Self {
+		self._selectedIndexBinder = binder
+		binder.register(self) { [weak self] newValue in
+			self?._popupButton.selectItem(at: newValue)
+		}
+
+		// Add an observer for the menu selections so we can update appropriately
+		self._indexObserver = NotificationCenter.default.addObserver(
+			forName: NSMenu.didSendActionNotification,
+			object: self._popupMenu,
+			queue: .main,
+			using: { [weak self] notification in
+				guard let `self` = self else { return }
+				let index = self._popupButton.indexOfSelectedItem
+				Swift.print(index)
+				self._selectedIndexBinder?.wrappedValue = index
+			}
+		)
+
 		return self
-	}
-
-	/// Set the image for the popup button
-	/// - Parameter image: The image
-	/// - Returns: Self
-	@discardableResult
-	public func image(_ image: NSImage) -> Self {
-		self._image = image
-		self.updateDisplay()
-		return self
-	}
-
-	/// Set the image position for the popup button
-	/// - Parameter position: The image position
-	/// - Returns: Self
-	@discardableResult
-	public func imagePosition(_ position: NSControl.ImagePosition) -> Self {
-		self._imagePosition = position
-		self.updateDisplay()
-		return self
-	}
-}
-
-extension DSFToolbar.PopupButton {
-	private func updateDisplay() {
-		guard let p = self._popupMenu,
-				p.items.count > 0,
-				p.items[0].tag == -5201
-		else {
-			fatalError()
-		}
-
-		p.items[0].title = self._title
-
-		if let i = self._image {
-			p.items[0].image = i
-		}
-
-		// If there's an image and no title, set the state to imageOnly
-		if self._title.count == 0, self._image != nil {
-			self._popupButton?.imagePosition = .imageOnly
-		}
-		else if self._title.count > 0, self._image == nil {
-			self._popupButton?.imagePosition = .noImage
-		}
-		else {
-			self._popupButton?.imagePosition = self._imagePosition
-		}
-	}
-
-	private func reconfigureMenu() {
-		let newI = NSMenuItem()
-		newI.tag = -5201
-		self._popupMenu?.insertItem(newI, at: 0)
 	}
 }
 

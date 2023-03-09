@@ -23,6 +23,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2300ABF629B95AA000726074 /* DSFMenuBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 2300ABF529B95AA000726074 /* DSFMenuBuilder */; };
 		2335158B252E56A8000B6E46 /* ColorDropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335158A252E56A8000B6E46 /* ColorDropdownButton.swift */; };
 		2337AF032522A1420098AB2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2337AF022522A1420098AB2D /* AppDelegate.swift */; };
 		2337AF052522A1430098AB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2337AF042522A1430098AB2D /* Assets.xcassets */; };
@@ -163,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				238C5AFE268AC0DB00F64987 /* DSFToolbar in Frameworks */,
+				2300ABF629B95AA000726074 /* DSFMenuBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +340,7 @@
 			name = "DSFToolbar Demo";
 			packageProductDependencies = (
 				238C5AFD268AC0DB00F64987 /* DSFToolbar */,
+				2300ABF529B95AA000726074 /* DSFMenuBuilder */,
 			);
 			productName = "DSFToolbar Demo";
 			productReference = 2337AEFF2522A1420098AB2D /* DSFToolbar Demo.app */;
@@ -417,6 +420,7 @@
 			);
 			mainGroup = 2337AEF62522A1420098AB2D;
 			packageReferences = (
+				2300ABF429B95AA000726074 /* XCRemoteSwiftPackageReference "DSFMenuBuilder" */,
 			);
 			productRefGroup = 2337AF002522A1420098AB2D /* Products */;
 			projectDirPath = "";
@@ -908,7 +912,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		2300ABF429B95AA000726074 /* XCRemoteSwiftPackageReference "DSFMenuBuilder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/DSFMenuBuilder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		2300ABF529B95AA000726074 /* DSFMenuBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2300ABF429B95AA000726074 /* XCRemoteSwiftPackageReference "DSFMenuBuilder" */;
+			productName = DSFMenuBuilder;
+		};
 		236F198E28B88F5800851E75 /* DSFToolbar */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DSFToolbar;

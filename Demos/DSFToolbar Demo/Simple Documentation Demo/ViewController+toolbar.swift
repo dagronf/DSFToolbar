@@ -27,9 +27,6 @@ extension ViewController {
 				.action { [weak self] _ in
 					self?.addDocument()
 				}
-				.withAppKitToolbarItem { item in
-					item.tag = 1000
-				}
 
 //			DSFToolbar.Button(NSToolbarItem.Identifier("item-edit"), buttonType: .toggle)
 //				.label("Edit")

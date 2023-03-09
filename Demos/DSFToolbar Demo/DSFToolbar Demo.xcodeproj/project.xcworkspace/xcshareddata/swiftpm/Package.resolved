@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "DSFMenuBuilder",
+        "repositoryURL": "https://github.com/dagronf/DSFMenuBuilder",
+        "state": {
+          "branch": null,
+          "revision": "7f8f8ee0c5fb7ee6c06d057cd5ada0f99e3d3190",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "DSFValueBinders",
         "repositoryURL": "https://github.com/dagronf/DSFValueBinders",
         "state": {

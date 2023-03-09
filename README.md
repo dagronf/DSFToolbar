@@ -195,6 +195,7 @@ self.customToolbar.close()
 | [Button](Markdown/button.md) | macOS | A toolbar item containing an `NSButton` |
 | [PopupButton](Markdown/popup-button.md) | macOS | A toolbar item that displays a menu when activated |
 | [PopoverButton](Markdown/popover-button.md) | macOS | A toolbar item that displays a popover when activated |
+| PopupMenu | macOS | A toolbar item that displays a selectable menu item |
 | [View](Markdown/view.md) | macOS | A toolbar item containing a custom view |
 
 # Demos

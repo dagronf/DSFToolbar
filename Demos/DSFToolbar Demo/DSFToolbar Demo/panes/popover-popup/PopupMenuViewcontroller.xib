@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,32 +15,84 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="121"/>
             <subviews>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zuz-el-pqm">
-                    <rect key="frame" x="18" y="236" width="164" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Popup menu is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a3N-Ne-lsv">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="self.popupMenuEnabled" id="2mR-kI-PeO"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PW9-Rr-Ncl">
-                    <rect key="frame" x="18" y="216" width="170" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Popover View is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gb3-CY-yOS">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="self.popoverViewEnabled" id="73N-NT-Yok"/>
-                    </connections>
-                </button>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YsS-eg-1zE">
+                    <rect key="frame" x="20" y="41" width="440" height="60"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zuz-el-pqm">
+                            <rect key="frame" x="-2" y="43" width="168" height="18"/>
+                            <buttonCell key="cell" type="check" title="Popup menu is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a3N-Ne-lsv">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="self.popupMenuEnabled" id="2mR-kI-PeO"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PW9-Rr-Ncl">
+                            <rect key="frame" x="-2" y="21" width="174" height="18"/>
+                            <buttonCell key="cell" type="check" title="Popover View is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gb3-CY-yOS">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="self.popoverViewEnabled" id="73N-NT-Yok"/>
+                            </connections>
+                        </button>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4uV-SV-5yR">
+                            <rect key="frame" x="0.0" y="0.0" width="331" height="16"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IdX-i2-oiK">
+                                    <rect key="frame" x="-2" y="-1" width="215" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Popover Scale menu is enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ja2-ub-RzN">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="-2" name="value" keyPath="self.popupMenuItemEnabled" id="Jg1-qD-4cg"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HHd-iY-14a">
+                                    <rect key="frame" x="218" y="-4" width="116" height="23"/>
+                                    <buttonCell key="cell" type="bevel" title="Reset Scale Menu" bezelStyle="regularSquare" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YMN-aY-Lhb">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="ResetScaleMenu:" target="-2" id="W6I-t7-sG9"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
-            <point key="canvasLocation" x="-193" y="164"/>
+            <constraints>
+                <constraint firstItem="YsS-eg-1zE" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="3Vx-OO-g3p"/>
+                <constraint firstAttribute="trailing" secondItem="YsS-eg-1zE" secondAttribute="trailing" constant="20" symbolic="YES" id="K6T-ek-tdY"/>
+                <constraint firstItem="YsS-eg-1zE" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="Z68-8f-K49"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YsS-eg-1zE" secondAttribute="bottom" constant="20" symbolic="YES" id="rRu-MW-WIU"/>
+            </constraints>
+            <point key="canvasLocation" x="-193" y="174.5"/>
         </customView>
         <menu id="379-UW-zIv">
             <items>
