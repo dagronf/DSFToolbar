@@ -127,7 +127,6 @@ public extension DSFToolbar.PopupMenu {
 			using: { [weak self] notification in
 				guard let `self` = self else { return }
 				let index = self._popupButton.indexOfSelectedItem
-				Swift.print(index)
 				self._selectedIndexBinder?.wrappedValue = index
 			}
 		)
