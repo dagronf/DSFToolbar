@@ -36,6 +36,8 @@ class ViewController: NSViewController {
 		makeToolbar()
 	}()
 
+	let displayMode = ValueBinder<NSToolbar.DisplayMode>(.iconAndLabel)
+
 	override func viewDidAppear() {
 		super.viewDidAppear()
 
@@ -51,6 +53,9 @@ class ViewController: NSViewController {
 			// Need to call close on the toolbar to make sure that any bindings and controls have been released
 			self?.customToolbar.close()
 		}
+
+		// Set the display mode so that the icon and label are presented by default
+		self.customToolbar.displayMode(.iconAndLabel)
 	}
 
 	override var representedObject: Any? {

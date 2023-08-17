@@ -28,6 +28,8 @@ class ViewControllerToolbar: NSObject {
 		Swift.print("Styles-alt: New selection is \(newValue)")
 	}
 
+	let displayMode = ValueBinder(NSToolbar.DisplayMode.iconOnly)
+
 	lazy var customToolbar: DSFToolbar = {
 		DSFToolbar(
 			toolbarIdentifier: NSToolbar.Identifier("primary"),
@@ -112,6 +114,7 @@ class ViewControllerToolbar: NSObject {
 					Swift.print("Pressed second")
 				}
 		}
+		.displayMode(.iconAndLabel)
 	}()
 }
 

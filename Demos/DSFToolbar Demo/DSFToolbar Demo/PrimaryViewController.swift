@@ -8,11 +8,19 @@
 import Cocoa
 
 import DSFToolbar
+import DSFValueBinders
 
 class PrimaryViewController: NSViewController {
 	@IBOutlet var scrollView: NSScrollView!
 
 	@IBOutlet var propertiesViewController: PropertiesViewController!
+
+	@IBOutlet weak var displayModePopup: NSPopUpButton!
+
+	lazy var displayModeBinder = ValueBinder<NSToolbar.DisplayMode>(.default) { newValue in
+		// Reflect the change in the popup button
+		self.displayModePopup.selectItem(withTag: Int(newValue.rawValue))
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -121,5 +129,15 @@ class PrimaryViewController: NSViewController {
 				fatalError()
 			}
 		}
+	}
+
+	@IBAction func displayModeChanged(_ sender: NSPopUpButton) {
+		guard
+			let tag = sender.selectedItem?.tag,
+			let displayMode = NSToolbar.DisplayMode(rawValue: UInt(tag)) else
+		{
+			return
+		}
+		self.displayModeBinder.wrappedValue = displayMode
 	}
 }

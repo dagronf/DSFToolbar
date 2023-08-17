@@ -8,6 +8,7 @@
 import Cocoa
 
 import DSFToolbar
+import DSFValueBinders
 
 class PropertiesViewController: NSViewController {
 
@@ -62,6 +63,7 @@ class PropertiesViewController: NSViewController {
 			c.customToolbar?.onSizeModeChange { newMode in
 				Swift.print("Size mode changed -> \(newMode.rawValue)")
 			}
+			try! c.customToolbar?.bindDisplayMode(self.primaryViewController.displayModeBinder)
 		}
 
 		self.updateOffsets()
