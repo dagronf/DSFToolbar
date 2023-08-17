@@ -13,7 +13,7 @@ let package = Package(
 		.library(name: "DSFToolbar-shared", type: .dynamic, targets: ["DSFToolbar"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/dagronf/DSFValueBinders", from: "0.7.3")
+		.package(url: "https://github.com/dagronf/DSFValueBinders", from: "0.11.0")
 	],
 	targets: [
 		.target(

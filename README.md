@@ -1,7 +1,12 @@
 # DSFToolbar
 
-![](https://img.shields.io/github/v/tag/dagronf/DSFToolbar) ![](https://img.shields.io/badge/macOS-10.11+-blueviolet) ![](https://img.shields.io/badge/macCatalyst-10.13+-blueviolet) ![](https://img.shields.io/badge/Swift-5.0+-orange.svg)
-![](https://img.shields.io/badge/License-MIT-lightgrey) [![](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager)
+![tag](https://img.shields.io/github/v/tag/dagronf/DSFToolbar)
+![Swift](https://img.shields.io/badge/Swift-5.4-orange.svg)
+[![License MIT](https://img.shields.io/badge/license-MIT-magenta.svg)](https://github.com/dagronf/ColorPaletteCodable/blob/master/LICENSE) 
+![SPM](https://img.shields.io/badge/spm-compatible-maroon.svg)
+
+![macOS](https://img.shields.io/badge/macOS-10.13+-darkblue)
+![macCatalyst](https://img.shields.io/badge/macCatalyst-2+-orangered)
 
 A SwiftUI-style declarative `NSToolbar` for macOS and Mac Catalyst.
 
@@ -93,7 +98,7 @@ Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a se
 
 A toolbar can be marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
 
-Additionally you can set or bind to the toolbar's display mode (eg. `.iconAndLabel`, `.labelOnly`) by calling `displayMode()` or binding using `bindDisplayMode()`. 
+Additionally you can set or bind to the toolbar's display mode (eg. `.iconAndLabel`, `.labelOnly`) by calling `displayMode()` or binding using `bindDisplayMode()` on your `DSFToolbar` instance.
 
 ## Items
 
