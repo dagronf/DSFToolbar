@@ -200,6 +200,10 @@ public class DSFToolbar: NSObject {
 		// Stop listening to our size changes
 		self._sizeModeBinding.deregister(self)
 
+		// Detach display mode binders if they were set
+		self.displayModeBinder?.deregister(self)
+		self._displayModeBinder?.deregister(self)
+
 		// Make sure to detach ourselves if we aren't already
 		// Our toolbar may have already been replaced by another, so we shouldn't just set it to nil
 		#if os(macOS)
@@ -279,6 +283,43 @@ public class DSFToolbar: NSObject {
 		self._selectionBinding.register(self, action)
 		return self
 	}
+
+	// MARK: - Display mode binding
+
+	/// Set toolbar's display mode
+	@discardableResult
+	public func displayMode(_ displayMode: NSToolbar.DisplayMode) -> Self {
+		DispatchQueue.main.async { [weak self] in
+			self?.toolbar.displayMode = displayMode
+		}
+		return self
+	}
+
+	/// Bind the toolbar's display mode
+	/// - Parameters:
+	///   - displayModeBinder: The binding object to connect the display mode to
+	/// - Returns: self
+	@discardableResult
+	public func bindDisplayMode(_ displayModeBinder: ValueBinder<NSToolbar.DisplayMode>) throws -> Self {
+		self.displayModeBinder = displayModeBinder
+
+		// Create a keypath binder for the display mode.
+		self._displayModeBinder = try EnumKeyPathBinder(self.toolbar, keyPath: \.displayMode) { [weak self] newValue in
+			// Reflect the new value to the wrapping ValueBinder
+			self?.displayModeBinder?.wrappedValue = newValue
+		}
+
+		displayModeBinder.register(self) { [weak self] newValue in
+			// Pass the value through to the enum keypath binder for displaymode
+			self?._displayModeBinder?.wrappedValue = newValue
+		}
+		return self
+	}
+
+	// The display mode ValueBinder
+	// Wrap an enum keypath binder within a standard value binder to keep the public interface simpler
+	private var displayModeBinder: ValueBinder<NSToolbar.DisplayMode>?
+	private var _displayModeBinder: EnumKeyPathBinder<NSToolbar, NSToolbar.DisplayMode>?
 }
 
 // MARK: - Toolbar delegate

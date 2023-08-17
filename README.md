@@ -37,8 +37,8 @@ class MyViewController: NSViewController {
    lazy var customToolbar: DSFToolbar = {
       DSFToolbar(
          toolbarIdentifier: NSToolbar.Identifier("Core"),
-         allowsUserCustomization: true) {
-
+         allowsUserCustomization: true
+      ) {
          DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
             .label("New")
             .isSelectable(true)
@@ -92,6 +92,8 @@ Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a se
 ### Customization
 
 A toolbar can be marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
+
+Additionally you can set or bind to the toolbar's display mode (eg. `.iconAndLabel`, `.labelOnly`) by calling `displayMode()` or binding using `bindDisplayMode()`. 
 
 ## Items
 
@@ -211,7 +213,7 @@ MIT. Use it for anything you want! Let me know if you do use it somewhere, I'd l
 ```
 MIT License
 
-Copyright (c) 2022 Darren Ford
+Copyright (c) 2023 Darren Ford
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

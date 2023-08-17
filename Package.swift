@@ -1,11 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version: 5.4
 
 import PackageDescription
 
 let package = Package(
 	name: "DSFToolbar",
 	platforms: [
-		.macOS(.v10_12)
+		.macOS(.v10_13)
 	],
 	products: [
 		.library(name: "DSFToolbar", targets: ["DSFToolbar"]),
