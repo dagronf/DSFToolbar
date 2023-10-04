@@ -43,6 +43,8 @@ public extension DSFToolbar {
 
 		var segments: [Segment]
 
+		private var _segmentEnabledBinding: ValueBinder<IndexSet>?
+
 		public init(
 			_ identifier: NSToolbarItem.Identifier,
 			selectionMode: NSToolbarItemGroup.SelectionMode,
@@ -89,7 +91,10 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			Logging.memory("DSFToolbar.Segmented deinit")
+			self._selectionBinding?.deregister(self)
+			self._segmentEnabledBinding?.deregister(self)
+			self._actionBlock = nil
+			Logging.memory("DSFToolbar.Segmented(%@) deinit", args: self.identifier.rawValue)
 		}
 
 		override public func isBordered(_ state: Bool) -> Self {
@@ -166,6 +171,28 @@ public extension DSFToolbar {
 			item.subitems.enumerated().forEach {
 				$0.element.isEnabled = state
 			}
+		}
+	}
+}
+
+public extension DSFToolbar.Segmented {
+	/// Bind the current selection of the segmented control (NSSet<Int>)
+	/// - Parameters:
+	///   - binder: The binding object to connect
+	/// - Returns: self
+	func bindSegmentEnabled(_ segmentEnabledBinding: ValueBinder<IndexSet>) -> Self {
+		self._segmentEnabledBinding = segmentEnabledBinding
+		segmentEnabledBinding.register(self) { [weak self] newValue in
+			self?.setSegmentEnabledState(newValue)
+		}
+		self.setSegmentEnabledState(segmentEnabledBinding.wrappedValue)
+		return self
+	}
+
+	private func setSegmentEnabledState(_ indexes: IndexSet) {
+		guard let item = self.segmentedItem else { fatalError() }
+		item.subitems.enumerated().forEach {
+			$0.element.isEnabled = indexes.contains($0.offset)
 		}
 	}
 }

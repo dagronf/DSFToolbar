@@ -195,7 +195,7 @@ extension DSFToolbar.Core {
 		return self
 	}
 
-	/// Bind the enabled status of the item to a key path (Bool)
+	/// Bind the enabled status of the entire toolbar item
 	/// - Parameters:
 	///   - binder: The binding object to connect
 	/// - Returns: self

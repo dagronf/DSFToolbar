@@ -169,11 +169,15 @@ public extension DSFToolbar {
 		}
 
 		deinit {
-			Logging.memory("DSFToolbar.Segmented deinit")
+			self._actionBlock = nil
+			self._selectionBinding?.deregister(self)
+			self._segmentEnabledBinding?.deregister(self)
+			Logging.memory("DSFToolbar.Segmented [%@] deinit", args: self.identifier.rawValue)
 		}
 
 		private var _actionBlock: ((Set<Int>) -> Void)?
 		private var _selectionBinding: ValueBinder<NSSet>?
+		private var _segmentEnabledBinding: ValueBinder<IndexSet>?
 	}
 }
 
@@ -205,7 +209,6 @@ extension DSFToolbar.Segmented {
 	}
 }
 
-
 // MARK: - Selection bindings
 
 extension DSFToolbar.Segmented {
@@ -231,6 +234,30 @@ extension DSFToolbar.Segmented {
 
 		self.segments.enumerated().forEach { segment in
 			s.setSelected(sels.contains(segment.offset), forSegment: segment.offset)
+		}
+	}
+}
+
+// MARK: - Segment enable bindings
+
+extension DSFToolbar.Segmented {
+	/// A binding for enabling or disabling elements within the segmented control
+	/// - Parameter segmentEnabledBinding: A set of indexes within the segmented control which should be enabled
+	/// - Returns: self
+	public func bindSegmentEnabled(_ segmentEnabledBinding: ValueBinder<IndexSet>) -> Self {
+		self._segmentEnabledBinding = segmentEnabledBinding
+		segmentEnabledBinding.register(self) { [weak self] newValue in
+			self?.setEnabled(newValue)
+		}
+		self.setEnabled(segmentEnabledBinding.wrappedValue)
+		return self
+	}
+
+	private func setEnabled(_ which: IndexSet) {
+		guard let s = self.segmented else { return }
+		self.segments.enumerated().forEach { item in
+			let newValue = which.contains(item.offset)
+			s.setEnabled(newValue, forSegment: item.offset)
 		}
 	}
 }
@@ -275,6 +302,7 @@ public extension DSFToolbar.Segmented {
 
 		// MARK: - Segment enabled binding
 
+		/// Individual segment binding
 		private var _segmentEnabled: ValueBinder<Bool>?
 
 		/// Bind the enabled state for the segment to a member variable

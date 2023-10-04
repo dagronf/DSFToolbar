@@ -13,6 +13,8 @@ import DSFValueBinders
 class SegmentedViewController: NSViewController {
 	var toolbarContainer: DSFToolbar?
 
+	@IBOutlet weak var styleSelector: NSSegmentedControl!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do view setup here.
@@ -27,14 +29,30 @@ class SegmentedViewController: NSViewController {
 		}
 	}
 
-	let segmentsEnabled = ValueBinder<NSSet>(NSSet()) { newValue in
-		debugPrint("segmentsEnabled bound variable change: \(newValue)")
+	// The binding for the styles selection
+	let styleSelectedBinding = ValueBinder<NSSet>(NSSet()) { newValue in
+		debugPrint("segmentsSelected bound variable change: \(newValue)")
 	}
 
+	// This is the binder for the toolbar justification segment enabling
+	let justificationEnabledBinding = ValueBinder(IndexSet([0, 1, 2, 3])) { newValue in
+		debugPrint("justificationEnabledBinding changed: \(newValue.map { $0 })")
+	}
 
 	@IBAction func setAll(_: Any) {
-		self.segmentsEnabled.wrappedValue = NSSet(array: [0, 1, 2])
+		self.styleSelectedBinding.wrappedValue = NSSet(array: [0, 1, 2])
 	}
+
+	@IBAction func styleEnableChanged(_ sender: NSSegmentedControl) {
+		var enabled = IndexSet()
+		(0 ..< sender.segmentCount).forEach { index in
+			if sender.isSelected(forSegment: index) {
+				enabled.insert(index)
+			}
+		}
+		self.justificationEnabledBinding.wrappedValue = enabled
+	}
+	
 
 	func build() {
 		self.toolbarContainer = DSFToolbar(
@@ -42,7 +60,7 @@ class SegmentedViewController: NSViewController {
 			allowsUserCustomization: true
 		) {
 			DSFToolbar.Segmented(
-				"toolbar-styles-2",
+				"toolbar-text-style",
 				type: .Separated,
 				switching: .selectAny,
 				segmentWidths: 32
@@ -56,7 +74,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
 			}
 			.label("Styles Separated")
-			.bindSelection(segmentsEnabled)
+			.bindSelection(styleSelectedBinding)
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { selection in
 				Swift.print("Styles Separated: New Selection -> \(selection)")
@@ -65,7 +83,7 @@ class SegmentedViewController: NSViewController {
 			DSFToolbar.FixedSpace()
 
 			DSFToolbar.Segmented(
-				NSToolbarItem.Identifier("toolbar-styles-3"),
+				NSToolbarItem.Identifier("toolbar-text-justification"),
 				type: .Separated,
 				switching: .selectOne,
 				segmentWidths: 32
@@ -80,6 +98,7 @@ class SegmentedViewController: NSViewController {
 					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			}
 			.label("Justify Separate")
+			.bindSegmentEnabled(self.justificationEnabledBinding)
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { selection in
 				Swift.print("Justify Separate: New Selection -> \(selection)")
