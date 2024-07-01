@@ -183,8 +183,6 @@ extension DSFToolbar.Core {
 		binder.register(self) { [weak self] newValue in
 			self?.label(newValue)
 		}
-		// Initialize the bound object to the valuebinder
-		self.label(binder.wrappedValue)
 		return self
 	}
 
@@ -199,8 +197,6 @@ extension DSFToolbar.Core {
 			self?.toolbarItem?.isEnabled = newEnabledState
 			self?.isEnabledDidChange(to: newEnabledState)
 		}
-		self.toolbarItem?.isEnabled = isEnabledBinder.wrappedValue
-		self.isEnabledDidChange(to: isEnabledBinder.wrappedValue)
 		return self
 	}
 }

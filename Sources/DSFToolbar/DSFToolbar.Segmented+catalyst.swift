@@ -157,7 +157,6 @@ public extension DSFToolbar {
 			selectionBinding.register(self) { [weak self] newValue in
 				self?.setState(newValue)
 			}
-			self.setState(selectionBinding.wrappedValue)
 			return self
 		}
 
@@ -192,7 +191,6 @@ public extension DSFToolbar.Segmented {
 		segmentEnabledBinding.register(self) { [weak self] newValue in
 			self?.setSegmentEnabledState(newValue)
 		}
-		self.setSegmentEnabledState(segmentEnabledBinding.wrappedValue)
 		return self
 	}
 

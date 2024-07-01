@@ -232,7 +232,6 @@ extension DSFToolbar.Segmented {
 		selectionBinder.register(self) { [weak self] newValue in
 			self?.setSelection(selectedItems: newValue)
 		}
-		self.setSelection(selectedItems: selectionBinder.wrappedValue)
 		return self
 	}
 
@@ -258,7 +257,6 @@ extension DSFToolbar.Segmented {
 		segmentEnabledBinding.register(self) { [weak self] newValue in
 			self?.setEnabled(newValue)
 		}
-		self.setEnabled(segmentEnabledBinding.wrappedValue)
 		return self
 	}
 
@@ -323,7 +321,6 @@ public extension DSFToolbar.Segmented {
 			segmentEnabledBinder.register(self) { [weak self] newValue in
 				self?.updateIsEnabled(newValue)
 			}
-			self.updateIsEnabled(segmentEnabledBinder.wrappedValue)
 			return self
 		}
 

@@ -51,11 +51,3 @@ internal extension Sequence where Element: Equatable {
 		}
 	}
 }
-
-//extension NSToolbarItem.Identifier {
-//	/// A convenience for creating an NSToolbarItem identifier
-//	@inlinable @inline(__always)
-//	public static func id(_ text: String) -> NSToolbarItem.Identifier {
-//		NSToolbarItem.Identifier(rawValue: text)
-//	}
-//}

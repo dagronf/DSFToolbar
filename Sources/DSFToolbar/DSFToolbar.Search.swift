@@ -132,11 +132,11 @@ public extension DSFToolbar.Search {
 	@discardableResult
 	func bindSearchText(_ searchBinder: ValueBinder<String>) -> Self {
 		_searchTextBinding = searchBinder
+		self._searchField?.delegate = self
+
 		searchBinder.register(self) { [weak self] newValue in
 			self?._searchField?.stringValue = newValue
 		}
-		self._searchField?.stringValue = searchBinder.wrappedValue
-		self._searchField?.delegate = self
 		return self
 	}
 }

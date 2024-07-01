@@ -158,7 +158,6 @@ public extension DSFToolbar.Button {
 		titleBinder.register(self) { [weak self] newValue in
 			self?.title(newValue)
 		}
-		self.title(titleBinder.wrappedValue)
 		return self
 	}
 
@@ -175,7 +174,6 @@ public extension DSFToolbar.Button {
 		stateBinder.register(self) { [weak self] newValue in
 			self?.button?.state = newValue
 		}
-		self.button?.state = stateBinder.wrappedValue
 		return self
 	}
 
@@ -192,7 +190,6 @@ public extension DSFToolbar.Button {
 		stateOnOffBinder.register(self) { [weak self] newValue in
 			self?.button?.state = newValue ? .on : .off
 		}
-		self.button?.state = stateOnOffBinder.wrappedValue ? .on : .off
 		return self
 	}
 }

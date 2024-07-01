@@ -293,11 +293,11 @@ public class DSFToolbar: NSObject {
 	///   - displayModeBinder: The binding object to connect the display mode to
 	/// - Returns: self
 	@discardableResult
-	public func bindDisplayMode(_ displayModeBinder: ValueBinder<NSToolbar.DisplayMode>) throws -> Self {
+	public func bindDisplayMode(_ displayModeBinder: ValueBinder<NSToolbar.DisplayMode>) -> Self {
 		self.displayModeBinder = displayModeBinder
 
 		// Create a keypath binder for the display mode.
-		self._displayModeBinder = try EnumKeyPathBinder(self.toolbar, keyPath: \.displayMode) { [weak self] newValue in
+		self._displayModeBinder = try! EnumKeyPathBinder(self.toolbar, keyPath: \.displayMode) { [weak self] newValue in
 			// Reflect the new value to the wrapping ValueBinder
 			self?.displayModeBinder?.wrappedValue = newValue
 		}
