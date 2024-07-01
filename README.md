@@ -48,7 +48,7 @@ class MyViewController: NSViewController {
             .label("New")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_new_document.template)
-            .shouldEnable { [weak self] in
+            .willEnable { [weak self] in
                self?.canAddDocument() ?? false
             }
             .action { [weak self] _ in
@@ -59,7 +59,7 @@ class MyViewController: NSViewController {
             .label("Edit")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-            .shouldEnable { [weak self] in
+            .willEnable { [weak self] in
                self?.canEditDocument() ?? false
             }
             .action { [weak self] _ in
@@ -147,7 +147,7 @@ Capturing `self` in any block can create retain cycles, so make sure you `[weak 
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
    DSFToolbar.Image(NSToolbarItem.Identifier("toolbar-image-bordered"))
       .label("Burger")
-      .shouldEnable { [weak self] in
+      .willEnable { [weak self] in
          return self?.IsBurgerMenuEnabled() ?? false
       }
       .action { _ in
@@ -218,23 +218,20 @@ MIT. Use it for anything you want! Let me know if you do use it somewhere, I'd l
 ```
 MIT License
 
-Copyright (c) 2023 Darren Ford
+Copyright (c) 2024 Darren Ford
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to 
+the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```

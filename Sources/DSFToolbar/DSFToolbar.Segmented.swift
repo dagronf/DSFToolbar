@@ -1,27 +1,20 @@
 //
-//  DSFToolbar.Segmented.swift
-//
-//  Copyright © 2022 Darren Ford. All rights reserved.
+//  Copyright © 2024 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to
-//  deal in the Software without restriction, including without limitation the
-//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-//  sell copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+//  documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in all copies or substantial
+//  portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-//  IN THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+//  OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+//  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 import DSFValueBinders
@@ -32,20 +25,29 @@ import Foundation
 import AppKit
 
 public extension DSFToolbar {
+	/// A segmented toolbar item
+	///
+	/// ```swift
+	/// DSFToolbar.Segmented("toolbar-styles-2",
+	///    type: .Separated,
+	///    switching: .selectAny,
+	///    segmentWidths: 32
+	/// ) {
+	///    DSFToolbar.Segmented.Segment()
+	///       .image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+	///       .bindIsEnabled(to: self, withKeyPath: \MyViewController.segmentEnabled),
+	///    DSFToolbar.Segmented.Segment()
+	///       .image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown),
+	///    DSFToolbar.Segmented.Segment()
+	///       .image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
+	/// }
+	/// ```
 	class Segmented: Core {
+		/// The types of segmented control
 		public enum SegmentedType {
 			case Separated
 			case Grouped
 		}
-
-		private var segmented: NSSegmentedControl?
-		private var segmentedItem: NSToolbarItem?
-
-		override var toolbarItem: NSToolbarItem? {
-			return self.segmentedItem
-		}
-
-		var segments: [Segment]
 
 		/// Create a Segmented Control toolbar item
 		/// - Parameters:
@@ -68,6 +70,23 @@ public extension DSFToolbar {
 				segmentWidths: segmentWidths,
 				segments: segments
 			)
+		}
+
+		/// Create a Segmented Control toolbar item
+		/// - Parameters:
+		///   - identifier: The unique identifier for the item.  Must be unique within the items in the toolbar
+		///   - type: Segmented or Grouped
+		///   - switching: The type of tracking behavior a segmented control exhibits
+		///   - segmentWidths: (optional) set a fixed width for all segments. If not provided, size to fit content
+		///   - segments: The segments to add
+		public convenience init(
+			_ identifier: NSToolbarItem.Identifier,
+			type: SegmentedType,
+			switching: NSSegmentedControl.SwitchTracking = .selectAny,
+			segmentWidths: CGFloat? = nil,
+			segments: Segment...
+		) {
+			self.init(identifier, type: type, switching: switching, segments: segments.map { $0 })
 		}
 
 		/// Create a Segmented Control toolbar item
@@ -127,27 +146,6 @@ public extension DSFToolbar {
 			self.segmentedItem = a
 		}
 
-		/// Create a Segmented Control toolbar item
-		/// - Parameters:
-		///   - identifier: The unique identifier for the item.  Must be unique within the items in the toolbar
-		///   - type: Segmented or Grouped
-		///   - switching: The type of tracking behavior a segmented control exhibits
-		///   - segmentWidths: (optional) set a fixed width for all segments. If not provided, size to fit content
-		///   - segments: The segments to add
-		public convenience init(
-			_ identifier: NSToolbarItem.Identifier,
-			type: SegmentedType,
-			switching: NSSegmentedControl.SwitchTracking = .selectAny,
-			segmentWidths _: CGFloat? = nil,
-			segments: Segment...
-		) {
-			self.init(
-				identifier,
-				type: type,
-				switching: switching,
-				segments: segments.map { $0 })
-		}
-
 		/// Called when the toolbar is being closed
 		override public func close() {
 			self._actionBlock = nil
@@ -174,6 +172,17 @@ public extension DSFToolbar {
 			self._segmentEnabledBinding?.deregister(self)
 			Logging.memory("DSFToolbar.Segmented [%@] deinit", args: self.identifier.rawValue)
 		}
+
+		// private
+
+		private var segmented: NSSegmentedControl?
+		private var segmentedItem: NSToolbarItem?
+
+		override var toolbarItem: NSToolbarItem? {
+			return self.segmentedItem
+		}
+
+		var segments: [Segment]
 
 		private var _actionBlock: ((Set<Int>) -> Void)?
 		private var _selectionBinding: ValueBinder<NSSet>?
@@ -227,7 +236,7 @@ extension DSFToolbar.Segmented {
 
 	private func setSelection(selectedItems: NSSet) {
 		guard let s = self.segmented,
-				let sels = selectedItems as? Set<Int>
+		      let sels = selectedItems as? Set<Int>
 		else {
 			fatalError()
 		}

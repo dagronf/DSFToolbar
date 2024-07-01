@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -731,7 +731,7 @@
 				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Demo/DSFToolbar_Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "DSFToolbar Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -753,7 +753,7 @@
 				CODE_SIGN_ENTITLEMENTS = "DSFToolbar Demo/DSFToolbar_Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "DSFToolbar Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,27 +1,20 @@
 //
-//  DSFToolbar.Group.swift
-//
-//  Copyright © 2022 Darren Ford. All rights reserved.
+//  Copyright © 2024 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to
-//  deal in the Software without restriction, including without limitation the
-//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-//  sell copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+//  documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in all copies or substantial
+//  portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-//  IN THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+//  OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+//  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #if os(macOS) || targetEnvironment(macCatalyst)
@@ -33,10 +26,37 @@ import UIKit
 #endif
 
 public extension DSFToolbar {
-	
 	/// A group toolbar item.
 	///
 	/// A group of subitems in a toolbar item.
+	///
+	/// Example:
+	///
+	/// ```swift
+	///
+	/// DSFToolbar.Group("food-grouped", selectionMode: .selectAny) {
+	///   DSFToolbar.Image("toolbar-egg-2")
+	///      .label("Egg")
+	///      .image(ProjectAssets.ImageSet.toolbar_egg.image)
+	///      .action { _ in
+	///         Swift.print("Got grouped egg!")
+	///      }
+	///
+	///   DSFToolbar.Image("toolbar-watermelon-2")
+	///      .label("Watermelon")
+	///      .image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+	///      .action { _ in
+	///         Swift.print("Got grouped watermelon!")
+	///      }
+	///
+	///   DSFToolbar.Image("toolbar-burger-2")
+	///      .label("Burger")
+	///      .image(ProjectAssets.ImageSet.toolbar_burger.image)
+	///      .action { _ in
+	///         Swift.print("Got grouped burger!")
+	///      }
+	///   }
+	/// ```
 	class Group: Core {
 		/// The selection mode for a group.
 		///
@@ -52,7 +72,7 @@ public extension DSFToolbar {
 		}
 
 		// MARK: - Creation
-		
+
 		/// Create a toolbar group
 		/// - Parameters:
 		///   - identifier: The identifier for the group
@@ -61,15 +81,15 @@ public extension DSFToolbar {
 		public init(
 			_ identifier: NSToolbarItem.Identifier,
 			selectionMode: SelectionMode = .momentary,
-			children: [DSFToolbar.Core])
-		{
+			children: [DSFToolbar.Core]
+		) {
 			super.init(identifier)
 			self.items = children
-			let its = items.compactMap { $0.toolbarItem }
+			let its = self.items.compactMap { $0.toolbarItem }
 			self.groupToolbarItem.subitems = its
 			self.mapGroupMode(selectionMode: selectionMode)
 		}
-		
+
 		/// Create a toolbar group
 		/// - Parameters:
 		///   - identifier: The identifier for the group
@@ -78,13 +98,9 @@ public extension DSFToolbar {
 		public convenience init(
 			_ identifier: NSToolbarItem.Identifier,
 			selectionMode: SelectionMode = .momentary,
-			_ items: DSFToolbar.Core...)
-		{
-			self.init(
-				identifier,
-				selectionMode: selectionMode,
-				children: items.map { $0 }
-			)
+			_ items: DSFToolbar.Core...
+		) {
+			self.init(identifier, selectionMode: selectionMode, children: items.map { $0 })
 		}
 
 		/// Create a toolbar group
@@ -95,15 +111,11 @@ public extension DSFToolbar {
 		public convenience init(
 			_ identifier: String,
 			selectionMode: SelectionMode = .momentary,
-			_ items: DSFToolbar.Core...)
-		{
-			self.init(
-				NSToolbarItem.Identifier(identifier),
-				selectionMode: selectionMode,
-				children: items.map { $0 }
-			)
+			_ items: DSFToolbar.Core...
+		) {
+			self.init(NSToolbarItem.Identifier(identifier), selectionMode: selectionMode, children: items.map { $0 })
 		}
-		
+
 		/// Create a toolbar group using a function builder
 		/// - Parameters:
 		///   - identifier: The identifier for the group
@@ -114,11 +126,7 @@ public extension DSFToolbar {
 			selectionMode: SelectionMode = .momentary,
 			@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
 		) {
-			self.init(
-				identifier,
-				selectionMode: selectionMode,
-				children: builder()
-			)
+			self.init(identifier, selectionMode: selectionMode, children: builder())
 		}
 
 		/// Create a toolbar group using a function builder
@@ -131,33 +139,29 @@ public extension DSFToolbar {
 			selectionMode: SelectionMode = .momentary,
 			@DSFToolbarBuilder builder: () -> [DSFToolbar.Core]
 		) {
-			self.init(
-				NSToolbarItem.Identifier(identifier),
-				selectionMode: selectionMode,
-				children: builder()
-			)
+			self.init(NSToolbarItem.Identifier(identifier), selectionMode: selectionMode, children: builder())
 		}
-		
+
 		// MARK: - Cleanup
-		
+
 		/// Close and cleanup
 		override public func close() {
 			self.items.forEach { $0.close() }
 			super.close()
 		}
-		
+
 		deinit {
 			Logging.memory("DSFToolbar.Group deinit")
 		}
 
 		// Private
+		
 		internal var items: [DSFToolbar.Core] = []
 		override var toolbarItem: NSToolbarItem? {
 			return self.groupToolbarItem
 		}
-		lazy var groupToolbarItem: NSToolbarItemGroup = {
-			AppKit.NSToolbarItemGroup(itemIdentifier: self.identifier)
-		}()
+
+		lazy var groupToolbarItem: NSToolbarItemGroup = AppKit.NSToolbarItemGroup(itemIdentifier: self.identifier)
 
 		private func mapGroupMode(selectionMode: SelectionMode) {
 			if #available(OSX 10.15, *) {

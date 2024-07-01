@@ -21,7 +21,7 @@ extension ViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
 				.bindLabel(itemName)
 				.image(ProjectAssets.ImageSet.toolbar_new_document.template)
-				.shouldEnable { [weak self] in
+				.willEnable { [weak self] in
 					self?.canAddDocument() ?? false
 				}
 				.action { [weak self] _ in
@@ -31,7 +31,7 @@ extension ViewController {
 //			DSFToolbar.Button(NSToolbarItem.Identifier("item-edit"), buttonType: .toggle)
 //				.label("Edit")
 //				.image(NSImage(systemSymbolName: "memorychip", accessibilityDescription: nil)!) // ProjectAssets.ImageSet.toolbar_edit_document.template)
-////				.shouldEnable { [weak self] in
+////				.willEnable { [weak self] in
 ////					self?.canEditDocument() ?? false
 ////				}
 //				.action { [weak self] button in
@@ -46,7 +46,7 @@ extension ViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
 				.label("Edit")
 				.image(ProjectAssets.ImageSet.toolbar_edit_document.template)
-				.shouldEnable { [weak self] in
+				.willEnable { [weak self] in
 					self?.canEditDocument() ?? false
 				}
 				.action { [weak self] _ in
@@ -58,8 +58,8 @@ extension ViewController {
 			DSFToolbar.Segmented(
 					NSToolbarItem.Identifier("view-mode"),
 					type: .Grouped,
-					switching: .selectOne)
-			{
+					switching: .selectOne
+			) {
 				DSFToolbar.Segmented.Segment()
 					.image(ProjectAssets.ImageSet.toolbar_view_regular.template)
 					.tooltip("Print View")

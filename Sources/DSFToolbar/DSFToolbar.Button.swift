@@ -1,27 +1,20 @@
 //
-//  DSFToolbar.Button.swift
-//
-//  Copyright © 2022 Darren Ford. All rights reserved.
+//  Copyright © 2024 Darren Ford. All rights reserved.
 //
 //  MIT license
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to
-//  deal in the Software without restriction, including without limitation the
-//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-//  sell copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+//  documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in all copies or substantial
+//  portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-//  IN THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+//  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+//  OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+//  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #if os(macOS)
@@ -30,12 +23,25 @@ import AppKit
 import DSFValueBinders
 
 public extension DSFToolbar {
-	/// A standard toolbar item containing an NSButton
+	/// A standard toolbar item *containing* an NSButton
+	///
+	/// Example:
+	///
+	/// ```swift
+	/// DSFToolbar.Button("justify-left")
+	///    .title("Left")
+	///    .width(minVal: 70)
+	///    .image(justifyLeftImage)
+	///    .imagePosition(.imageLeft)
+	///    .imageScaling(.scaleProportionallyDown)
+	///    .legacySizes(minSize: NSSize(width: 75, height: 27))
+	/// ```
 	class Button: Core {
-		public init(
-			_ identifier: NSToolbarItem.Identifier,
-			buttonType: NSButton.ButtonType = .momentaryLight
-		) {
+		/// Create a toolbar button
+		/// - Parameters:
+		///   - identifier: The button's identifier
+		///   - buttonType: The NSButton type
+		public init(_ identifier: NSToolbarItem.Identifier, buttonType: NSButton.ButtonType = .momentaryLight) {
 			super.init(identifier)
 
 			let button = buildButton(type: buttonType)
@@ -49,18 +55,12 @@ public extension DSFToolbar {
 			self.button = button
 		}
 
-		/// Create a search field toolbar item
+		/// Create a toolbar button
 		/// - Parameters:
-		///   - identifier: The identifier for the search field
+		///   - identifier: The toolbar button's identifier
 		///   - buttonType: The type of button for the toolbar item
-		public convenience init(
-			_ identifier: String,
-			buttonType: NSButton.ButtonType = .momentaryLight
-		) {
-			self.init(
-				NSToolbarItem.Identifier(identifier),
-				buttonType: buttonType
-			)
+		public convenience init(_ identifier: String, buttonType: NSButton.ButtonType = .momentaryLight) {
+			self.init(NSToolbarItem.Identifier(identifier), buttonType: buttonType)
 		}
 
 		/// Create a toolbar button item using a pre-existing button item
@@ -74,6 +74,14 @@ public extension DSFToolbar {
 			let a = NSToolbarItem(itemIdentifier: self.identifier)
 			a.view = self.button
 			self.buttonToolbarItem = a
+		}
+
+		/// Create a toolbar button item using a pre-existing button item
+		/// - Parameters:
+		///   - identifier: the toolbar item identifier (must be unique within the toolbar)
+		///   - button: The button to add to the toolbar item
+		public convenience init(_ identifier: String, button: NSButton) {
+			self.init(NSToolbarItem.Identifier(identifier), button: button)
 		}
 
 		// private
