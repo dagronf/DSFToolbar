@@ -25,6 +25,8 @@ import AppKit
 import UIKit
 #endif
 
+import DSFValueBinders
+
 public extension DSFToolbar {
 	/// A standard toolbar item. Supports images and labels.
 	///
@@ -38,10 +40,10 @@ public extension DSFToolbar {
 	///      .image(watermelonImage)
 	///      .willEnable { [weak self] in
 	///         self?.isWatermelonEnabled() ?? false
-	///   }
-	///   .action { _ in
-	///      Swift.print("Got grouped watermelon!")
-	///   }
+	///      }
+	///      .action { _ in
+	///         Swift.print("Got grouped watermelon!")
+	///      }
 	/// ```
 	class Item: Core {
 		/// Create an image item
@@ -64,12 +66,15 @@ public extension DSFToolbar {
 
 		deinit {
 			Logging.memory("DSFToolbar.Item deinit")
+			_imageBinder?.deregister(self)
 		}
 
 		// private
 
 		private var _actionBlock: ((Item) -> Void)?
 		private var _isEnabledBlock: (() -> Bool)?
+
+		private var _imageBinder: ValueBinder<DSFImage>?
 
 		lazy var imageToolbarItem: NSToolbarItem = {
 			NSToolbarItem(itemIdentifier: self.identifier)
@@ -106,6 +111,22 @@ extension DSFToolbar.Item {
 	@discardableResult
 	public func image(_ image: DSFImage) -> Self {
 		self.toolbarItem?.image = image
+		return self
+	}
+}
+
+// MARK: - Bindings
+
+extension DSFToolbar.Item {
+	/// Bind to the toolbar's image
+	/// - Parameter image: The image binder
+	/// - Returns: self
+	@discardableResult
+	public func bindImage(_ imageBinder: ValueBinder<DSFImage>) -> Self {
+		self._imageBinder = imageBinder
+		imageBinder.register(self) { [weak self] newImage in
+			self?.toolbarItem?.image = newImage
+		}
 		return self
 	}
 }

@@ -44,7 +44,7 @@ class MyViewController: NSViewController {
          toolbarIdentifier: NSToolbar.Identifier("Core"),
          allowsUserCustomization: true
       ) {
-         DSFToolbar.Item(NSToolbarItem.Identifier("item-new"))
+         DSFToolbar.Item("item-new")
             .label("New")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_new_document.template)
@@ -55,7 +55,7 @@ class MyViewController: NSViewController {
                self?.addDocument()
             }
 
-         DSFToolbar.Item(NSToolbarItem.Identifier("item-edit"))
+         DSFToolbar.Item("item-edit")
             .label("Edit")
             .isSelectable(true)
             .image(ProjectAssets.ImageSet.toolbar_edit_document.template)
@@ -68,7 +68,7 @@ class MyViewController: NSViewController {
 
          DSFToolbar.FlexibleSpace()
 
-         DSFToolbar.Search(NSToolbarItem.Identifier("search-field"))
+         DSFToolbar.Search("search-field")
             .label("Search")
             .isSelectable(true)
             .bindIsEnabled(searchEnabled)
@@ -88,7 +88,8 @@ And thats it!
 
 For the most part, you'll only really need to use [`DSFToolbar.Item`](Markdown/item.md), [`DSFToolbar.Group`](Markdown/group.md) and [`DSFToolbar.Search`](Markdown/search.md) to get 90+% of the toolbar functionality you'll need.
 
-Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a segmented-style control by settings `isBordered(true)`.
+Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a segmented-style control by settings 
+`isBordered(true)`.
 
 # Concepts
 
@@ -98,17 +99,21 @@ Even moreso if you target 10.15 or later, you can use `DSFToolbar.Group` as a se
 
 A toolbar can be marked as customisable by settings `allowsUserCustomization: true` in the constructor of the toolbar.
 
-Additionally you can set or bind to the toolbar's display mode (eg. `.iconAndLabel`, `.labelOnly`) by calling `displayMode()` or binding using `bindDisplayMode()` on your `DSFToolbar` instance.
+Additionally you can set or bind to the toolbar's display mode (eg. `.iconAndLabel`, `.labelOnly`) by calling
+`displayMode()` or binding using `bindDisplayMode()` on your `DSFToolbar` instance.
 
 ## Items
 
 ### Default items
 
-A toolbar item can be marked with `isDefault` to indicate that the item should appear on the default toolbar.  An item marked as `isDefault(false)` will not appear initially in the toolbar, but will appear in the customization palette to allow to be added.
+A toolbar item can be marked with `isDefault` to indicate that the item should appear on the default toolbar.
+An item marked as `isDefault(false)` will not appear initially in the toolbar, but will appear in the customization
+palette to allow to be added.
 
 ### Selectable items
 
-A toolbar item marked as `isSelectable` will show a selection marker when pressed. You can detect the toolbar selection change by providing a block for the `onSelectionChange` property.
+A toolbar item marked as `isSelectable` will show a selection marker when pressed. You can detect the toolbar selection
+change by providing a block for the `onSelectionChange` property.
 
 ```swift
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("My Toolbar")) {
@@ -123,7 +128,8 @@ self.customToolbar = DSFToolbar(NSToolbar.Identifier("My Toolbar")) {
 
 ### Actions
 
-Items which provide callbacks (for example, responses to clicks) can provide a block action to respond with as part of the declaration.
+Items which provide callbacks (for example, responses to clicks) can provide a block action to respond with as part of
+the declaration.
 
 ```swift
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("Buttons")) {
@@ -135,13 +141,16 @@ self.customToolbar = DSFToolbar(NSToolbar.Identifier("Buttons")) {
    }
 ```
 
-Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self within a block
+Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self
+within a block
 
 ### Block requests
 
-Some toolbar items can request information. For example, you can pass a block that provides the enabled status of an `Image` item during the declaration.
+Some toolbar items can request information. For example, you can pass a block that provides the enabled status of an 
+`Image` item during the declaration.
 
-Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self within a block
+Capturing `self` in any block can create retain cycles, so make sure you `[weak self]` if you need to capture self
+within a block
 
 ```swift
 self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
@@ -158,9 +167,12 @@ self.customToolbar = DSFToolbar(NSToolbar.Identifier("Enabled-buttons")) {
 
 ### Bindings
 
-A lot of functionality can be hooked up via bindings in order to pass information to and from a toolbar item. For example, you can hook the content of the Search item to a class variable to observe when the content of the search field changes.
+A lot of functionality can be hooked up via bindings in order to pass information to and from a toolbar item. 
+For example, you can hook the content of the Search item to a class variable to observe when the content of the 
+search field changes.
 
-This library uses [DSFValueBinders](https://github.com/dagronf/DSFValueBinders) to provide two-way bindings between local properties and toolbar items.
+This library uses [DSFValueBinders](https://github.com/dagronf/DSFValueBinders) to provide two-way bindings between 
+local properties and toolbar items.
 
 ```swift
 let searchText = ValueBinder("") {

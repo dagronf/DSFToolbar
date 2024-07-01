@@ -27,6 +27,12 @@ providing either a `willEnable` block or a `bindEnabled()` to enable or disable 
 
 [Core bindings](core.md)
 
+## Bindings
+
+| Binding     | Type (default)  | Description                             |
+|:------------|:----------------|:----------------------------------------|
+| `bindImage` | `DSFImage`      | Bind the image for the toolbar item     |
+
 # Example
 
 ```swift

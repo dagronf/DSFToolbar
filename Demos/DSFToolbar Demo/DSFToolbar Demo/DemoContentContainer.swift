@@ -48,6 +48,7 @@ class DemoContentContainer {
 		self.add(SeparatorViewController.self)
 		self.add(PopupMenuViewcontroller.self)
 		self.add(CustomViewController.self)
+		self.add(SampleViewController.self)
 
 		self.allContent.sort { (l1, r1) -> Bool in
 			return l1.0 < r1.0

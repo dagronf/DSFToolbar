@@ -24,8 +24,8 @@ class ViewControllerToolbar: NSObject {
 
 	let boundEnabled = ValueBinder(true)
 
-	let boundSelection = ValueBinder<NSSet>(NSSet(array: [0])) { newValue in
-		Swift.print("Styles-alt: New selection is \(newValue)")
+	let style_alt_selection = ValueBinder(IndexSet([2])) { newValue in
+		Swift.print("Styles-alt: New selection is \(newValue.map { $0 })")
 	}
 
 	let displayMode = ValueBinder(NSToolbar.DisplayMode.iconOnly)
@@ -52,7 +52,7 @@ class ViewControllerToolbar: NSObject {
 			.label("Type")
 			.setState([1])
 			.action { selection in
-				Swift.print("New selection is \(selection)")
+				Swift.print("Type: New selection is \(selection.map { $0 })")
 			}
 
 			DSFToolbar.Segmented(
@@ -75,7 +75,7 @@ class ViewControllerToolbar: NSObject {
 			.label("Styles")
 			.setState([1, 2])
 			.action { selection in
-				Swift.print("New selection is \(selection)")
+				Swift.print("styles: New selection is \(selection.map { $0 })")
 			}
 
 			DSFToolbar.FixedSpace()
@@ -97,7 +97,7 @@ class ViewControllerToolbar: NSObject {
 			.label("Styles-alt")
 			.tooltip("This is the alternate style selector")
 			.bindIsEnabled(boundEnabled)
-			.bindSelection(boundSelection)
+			.bindSelection(style_alt_selection)
 
 			DSFToolbar.FlexibleSpace()
 

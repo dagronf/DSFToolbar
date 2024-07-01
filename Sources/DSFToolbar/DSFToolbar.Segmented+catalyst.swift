@@ -38,6 +38,11 @@ public extension DSFToolbar {
 
 		private var _segmentEnabledBinding: ValueBinder<IndexSet>?
 
+		/// Create a segmented toolbar item
+		/// - Parameters:
+		///   - identifier: The item identifier
+		///   - selectionMode: The selection mode for the segmented item
+		///   - children: The segments
 		public init(
 			_ identifier: NSToolbarItem.Identifier,
 			selectionMode: NSToolbarItemGroup.SelectionMode,
@@ -97,26 +102,36 @@ public extension DSFToolbar {
 
 		// MARK: - Callback action block
 
-		private var _actionBlock: ((Set<Int>) -> Void)?
+		private var _actionBlock: ((IndexSet) -> Void)?
 
 		/// Define the action to call when the selection within the segmented control changes
 		/// - Parameter actionBlock: The block to call, passing the selected segment indexes
 		/// - Returns: Self
 		@discardableResult
-		public func action(_ actionBlock: @escaping (Set<Int>) -> Void) -> Segmented {
+		public func action(_ actionBlock: @escaping (IndexSet) -> Void) -> Segmented {
 			self._actionBlock = actionBlock
 			return self
 		}
 
+		/// The control's selected items
+		fileprivate func selected() -> IndexSet {
+			guard let segs = self.segmentedItem else { return IndexSet() }
+			let sels = segs.subitems.enumerated()
+				.compactMap { segs.isSelected(at: $0.offset) ? $0.offset : nil }
+			return IndexSet(sels)
+		}
+
+		// MARK: - Selection change
+
+		/// Called when the segmented control selection changes
 		@objc private func groupSelectionChange(_: Any) {
-			guard let segs = self.segmentedItem else { return }
+			// The currently selected indexes
+			let indexes = self.selected()
 
-			let selections = segs.subitems.enumerated().map { segs.isSelected(at: $0.offset) }
-			let selIndexes = selections.enumerated().compactMap { $0.element == true ? $0.offset : nil }
-
-			self._selectionBinding?.wrappedValue = NSSet(array: selIndexes)
-
-			self._actionBlock?(Set(selIndexes))
+			// Update the selection binding if it exists
+			self._selectionBinding?.wrappedValue = indexes
+			// Call the action block if it exists
+			self._actionBlock?(indexes)
 		}
 
 		// MARK: - Selection handling
@@ -131,18 +146,18 @@ public extension DSFToolbar {
 
 		// MARK: - Selection bindings
 
-		private var _selectionBinding: ValueBinder<NSSet>?
+		private var _selectionBinding: ValueBinder<IndexSet>?
 
-		/// Bind the selection of the item to a key path (NSSet<Int>)
+		/// Bind the selection of the item to a key path (IndexSet)
 		/// - Parameters:
 		///   - binder: The binding object to connect
 		/// - Returns: self
-		public func bindSelection(_ selectionBinding: ValueBinder<NSSet>) -> Self {
+		public func bindSelection(_ selectionBinding: ValueBinder<IndexSet>) -> Self {
 			self._selectionBinding = selectionBinding
 			selectionBinding.register(self) { [weak self] newValue in
-				self?.setState(newValue as! Set<Int>)
+				self?.setState(newValue)
 			}
-			self.setState(selectionBinding.wrappedValue as! Set<Int>)
+			self.setState(selectionBinding.wrappedValue)
 			return self
 		}
 
@@ -150,11 +165,10 @@ public extension DSFToolbar {
 		/// - Parameter state: An array containing the indexes of items to select
 		/// - Returns: Self
 		@discardableResult
-		public func setState(_ state: Set<Int>) -> Self {
+		public func setState(_ state: IndexSet) -> Self {
 			guard let item = self.segmentedItem else { fatalError() }
 			item.subitems.enumerated().forEach {
-				item.setSelected(state.contains($0.offset),
-									  at: $0.offset)
+				item.setSelected(state.contains($0.offset), at: $0.offset)
 			}
 			return self
 		}
@@ -169,7 +183,7 @@ public extension DSFToolbar {
 }
 
 public extension DSFToolbar.Segmented {
-	/// Bind the current selection of the segmented control (NSSet<Int>)
+	/// Bind the current selection of the segmented control (IndexSet)
 	/// - Parameters:
 	///   - binder: The binding object to connect
 	/// - Returns: self

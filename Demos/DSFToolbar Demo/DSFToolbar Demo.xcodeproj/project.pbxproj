@@ -55,6 +55,8 @@
 		237CD2D02524669500456FB4 /* CustomToolbarItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */; };
 		238C5AFE268AC0DB00F64987 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 238C5AFD268AC0DB00F64987 /* DSFToolbar */; };
 		238C5B02268AC15A00F64987 /* DSFToolbar in Frameworks */ = {isa = PBXBuildFile; productRef = 238C5B01268AC15A00F64987 /* DSFToolbar */; };
+		239A6D472C3245AB00C0AB0B /* SampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 239A6D462C3245AB00C0AB0B /* SampleViewController.xib */; };
+		239A6D482C3245AB00C0AB0B /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239A6D452C3245AB00C0AB0B /* SampleViewController.swift */; };
 		23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BD74D925241BD0008BF743 /* SeparatorViewController.swift */; };
 		23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */; };
 		23CA2F7F2522CBC200BF4FA2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */; };
@@ -135,6 +137,8 @@
 		237CD2C82524662B00456FB4 /* CustomViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewController.xib; sourceTree = "<group>"; };
 		237CD2CD2524669500456FB4 /* CustomToolbarItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbarItemViewController.swift; sourceTree = "<group>"; };
 		237CD2CE2524669500456FB4 /* CustomToolbarItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomToolbarItemViewController.xib; sourceTree = "<group>"; };
+		239A6D452C3245AB00C0AB0B /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		239A6D462C3245AB00C0AB0B /* SampleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SampleViewController.xib; sourceTree = "<group>"; };
 		23BD74D925241BD0008BF743 /* SeparatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewController.swift; sourceTree = "<group>"; };
 		23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorViewController.xib; sourceTree = "<group>"; };
 		23CA2F7E2522CBC200BF4FA2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 				23CA2F952522D07600BF4FA2 /* SegmentedViewController.xib */,
 				23BD74D925241BD0008BF743 /* SeparatorViewController.swift */,
 				23BD74DA25241BD0008BF743 /* SeparatorViewController.xib */,
+				239A6D452C3245AB00C0AB0B /* SampleViewController.swift */,
+				239A6D462C3245AB00C0AB0B /* SampleViewController.xib */,
 			);
 			path = panes;
 			sourceTree = "<group>";
@@ -449,6 +455,7 @@
 				23CA2F8F2522CD5B00BF4FA2 /* ImagesViewController.xib in Resources */,
 				237CD2CA2524662B00456FB4 /* CustomViewController.xib in Resources */,
 				2337AF082522A1430098AB2D /* MainMenu.xib in Resources */,
+				239A6D472C3245AB00C0AB0B /* SampleViewController.xib in Resources */,
 				236A7C5F25240A9A00255B96 /* SearchViewController.xib in Resources */,
 				23BD74DC25241BD0008BF743 /* SeparatorViewController.xib in Resources */,
 				236A7C542523C95E00255B96 /* CoreViewController.xib in Resources */,
@@ -497,6 +504,7 @@
 				236A7C592523F2FE00255B96 /* ButtonViewController.swift in Sources */,
 				236A7C532523C95E00255B96 /* CoreViewController.swift in Sources */,
 				23BD74DB25241BD0008BF743 /* SeparatorViewController.swift in Sources */,
+				239A6D482C3245AB00C0AB0B /* SampleViewController.swift in Sources */,
 				237CD2CF2524669500456FB4 /* CustomToolbarItemViewController.swift in Sources */,
 				237CD2C92524662B00456FB4 /* CustomViewController.swift in Sources */,
 			);

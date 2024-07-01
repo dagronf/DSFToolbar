@@ -12,8 +12,8 @@ import DSFValueBinders
 
 class ViewController: NSViewController {
 
-	let viewModeSelection = ValueBinder<NSSet>(NSSet()) { newValue in
-		Swift.print("View mode is now \(newValue)")
+	let viewModeSelection = ValueBinder(IndexSet()) { newValue in
+		Swift.print("View mode is now \(newValue.map { $0 })")
 	}
 
 	let itemName = ValueBinder<String>("New") { newValue in
@@ -45,7 +45,7 @@ class ViewController: NSViewController {
 		self.customToolbar.attachedWindow = self.view.window
 
 		// Set our view selection to the second group item
-		self.viewModeSelection.wrappedValue = NSSet(array: [1])
+		self.viewModeSelection.wrappedValue = IndexSet([1])
 
 		// When the window goes away, close the toolbar object
 		self.windowCloseNotifier.observe(self.view.window!) { [weak self] in

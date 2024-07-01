@@ -30,7 +30,7 @@ class SegmentedViewController: NSViewController {
 	}
 
 	// The binding for the styles selection
-	let styleSelectedBinding = ValueBinder<NSSet>(NSSet()) { newValue in
+	let styleSelectedBinding = ValueBinder<IndexSet>(IndexSet()) { newValue in
 		debugPrint("segmentsSelected bound variable change: \(newValue)")
 	}
 
@@ -40,7 +40,7 @@ class SegmentedViewController: NSViewController {
 	}
 
 	@IBAction func setAll(_: Any) {
-		self.styleSelectedBinding.wrappedValue = NSSet(array: [0, 1, 2])
+		self.styleSelectedBinding.wrappedValue = IndexSet([0, 1, 2])
 	}
 
 	@IBAction func styleEnableChanged(_ sender: NSSegmentedControl) {
