@@ -36,7 +36,7 @@ class ImagesViewController: NSViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-egg"))
 				.label("Egg")
 				.tooltip("This is the egg")
-				.image(ProjectAssets.ImageSet.toolbar_egg.image)
+				.image(ProjectAssets.Image.toolbar_egg.image)
 				.isSelectable(true)
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
 				.action { _ in
@@ -46,7 +46,7 @@ class ImagesViewController: NSViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon"))
 				.label("Watermelon")
 				.tooltip("My cat likes watermelon")
-				.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+				.image(ProjectAssets.Image.toolbar_watermelon.image)
 				.isSelectable(true)
 				.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.toolbar_watermelon_enabled))
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
@@ -57,7 +57,7 @@ class ImagesViewController: NSViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger"))
 				.bindLabel(try! KeyPathBinder(self, keyPath: \.toolbar_burger_label))
 				.tooltip("I really really want a burger")
-				.image(ProjectAssets.ImageSet.toolbar_burger.image)
+				.image(ProjectAssets.Image.toolbar_burger.image)
 				.isSelectable(true)
 				.legacySizes(minSize: NSSize(width: 32, height: 32))
 				.action { _ in
@@ -71,7 +71,7 @@ class ImagesViewController: NSViewController {
 			DSFToolbar.Group(NSToolbarItem.Identifier("food-grouped"), selectionMode: .selectAny) {
 				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-egg-2"))
 					.label("Egg")
-					.image(ProjectAssets.ImageSet.toolbar_egg.image)
+					.image(ProjectAssets.Image.toolbar_egg.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
 					.action { _ in
 						Swift.print("Got grouped egg!")
@@ -79,7 +79,7 @@ class ImagesViewController: NSViewController {
 				
 				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-watermelon-2"))
 					.label("Watermelon")
-					.image(ProjectAssets.ImageSet.toolbar_watermelon.image)
+					.image(ProjectAssets.Image.toolbar_watermelon.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
 					.action { _ in
 						Swift.print("Got grouped watermelon!")
@@ -87,7 +87,7 @@ class ImagesViewController: NSViewController {
 				
 				DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-burger-2"))
 					.label("Burger")
-					.image(ProjectAssets.ImageSet.toolbar_burger.image)
+					.image(ProjectAssets.Image.toolbar_burger.image)
 					.legacySizes(minSize: NSSize(width: 32, height: 32))
 					.action { _ in
 						Swift.print("Got grouped burger!")
@@ -103,7 +103,7 @@ class ImagesViewController: NSViewController {
 			DSFToolbar.Item(NSToolbarItem.Identifier("toolbar-image-bordered"))
 				.label("Boxed Burger")
 				.tooltip("My burger is in a box!")
-				.image(ProjectAssets.ImageSet.toolbar_burger.image)
+				.image(ProjectAssets.Image.toolbar_burger.image)
 				.isSelectable(true)
 				.isBordered(true)
 				.legacySizes(minSize: NSSize(width: 32, height: 32))

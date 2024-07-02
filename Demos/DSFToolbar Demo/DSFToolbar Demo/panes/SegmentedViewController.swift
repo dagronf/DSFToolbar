@@ -53,54 +53,120 @@ class SegmentedViewController: NSViewController {
 		self.justificationEnabledBinding.wrappedValue = enabled
 	}
 
+	var imageIndex = 0
+
+	@IBAction func rotate(_ sender: Any) {
+		imageIndex += 1
+		if imageIndex == images.count {
+			imageIndex = 0
+		}
+
+		image1Binder.wrappedValue = images[imageIndex % 4]
+		image2Binder.wrappedValue = images[(imageIndex + 1) % 4]
+		image3Binder.wrappedValue = images[(imageIndex + 2) % 4]
+		image4Binder.wrappedValue = images[(imageIndex + 3) % 4]
+	}
+	
+
+	let images = [
+		ProjectAssets.Image.i1.withRenderingMode(.alwaysTemplate),
+		ProjectAssets.Image.i2.withRenderingMode(.alwaysTemplate),
+		ProjectAssets.Image.i3.withRenderingMode(.alwaysTemplate),
+		ProjectAssets.Image.i4.withRenderingMode(.alwaysTemplate),
+	]
+
+	private lazy var image1Binder = ValueBinder<DSFImage?>(images[imageIndex % 4])
+	private lazy var image2Binder = ValueBinder<DSFImage?>(images[(imageIndex + 1) % 4])
+	private lazy var image3Binder = ValueBinder<DSFImage?>(images[(imageIndex + 2) % 4])
+	private lazy var image4Binder = ValueBinder<DSFImage?>(images[(imageIndex + 3) % 4])
+
+	private let titleSelection = ValueBinder(IndexSet(integer: 0)) { newValue in
+		debugPrint("Title selection changed -> is now \(newValue.map { $0 })")
+	}
+
 	func build() {
 		self.toolbarContainer = DSFToolbar(
 			"primary-segmented",
 			allowsUserCustomization: true
 		) {
 			DSFToolbar.Segmented(
+				"toolbar-titled",
+				type: .grouped,
+				switching: .selectOne
+			) {
+				DSFToolbar.Segmented.Segment()
+					.title("left")
+				DSFToolbar.Segmented.Segment()
+					.title("center")
+				DSFToolbar.Segmented.Segment()
+					.title("right")
+			}
+			.label("Text titles")
+			.bindSelection(titleSelection)
+
+			DSFToolbar.FixedSpace()
+
+			DSFToolbar.Segmented(
+				"toolbar-images",
+				type: .grouped,
+				switching: .selectAny
+			) {
+				DSFToolbar.Segmented.Segment()
+					.bindImage(image1Binder)
+				DSFToolbar.Segmented.Segment()
+					.bindImage(image2Binder)
+				DSFToolbar.Segmented.Segment()
+					.bindImage(image3Binder)
+				DSFToolbar.Segmented.Segment()
+					.bindImage(image4Binder)
+			}
+			.label("image binding")
+
+			DSFToolbar.FixedSpace()
+
+			DSFToolbar.Segmented(
 				"toolbar-text-style",
-				type: .Separated,
+				type: .separated,
 				switching: .selectAny,
 				segmentWidths: 32
 			) {
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_bold.withRenderingMode(.alwaysTemplate), scaling: .scaleProportionallyDown)
 					.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.segmentEnabled))
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_italic.withRenderingMode(.alwaysTemplate), scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_underline.withRenderingMode(.alwaysTemplate), scaling: .scaleProportionallyDown)
 			}
 			.label("Styles Separated")
 			.bindSelection(styleSelectedBinding)
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
 			.action { selection in
-				Swift.print("Styles Separated: New Selection -> \(selection)")
+				debugPrint("Styles Separated: New Selection -> \(selection)")
 			}
 
 			DSFToolbar.FixedSpace()
 
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("toolbar-text-justification"),
-				type: .Separated,
+				type: .separated,
 				switching: .selectOne,
 				segmentWidths: 32
 			) {
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_justify_left.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_justify_centre.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_justify_right.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			}
 			.label("Justify Separate")
 			.bindSegmentEnabled(self.justificationEnabledBinding)
 			.legacySizes(minSize: NSSize(width: 140, height: 27))
 			.action { selection in
-				Swift.print("Justify Separate: New Selection -> \(selection)")
+				debugPrint("Justify Separate: New Selection -> \(selection)")
 			}
 		}
 	}

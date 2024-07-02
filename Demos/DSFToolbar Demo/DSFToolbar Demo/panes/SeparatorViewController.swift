@@ -32,7 +32,7 @@ class SeparatorViewController: NSViewController {
 		) {
 
 			DSFToolbar.Item(NSToolbarItem.Identifier("enabler"))
-				.image(ProjectAssets.ImageSet.toolbar_burger.image)
+				.image(ProjectAssets.Image.toolbar_burger.image)
 				.isBordered(true)
 				.legacySizes(minSize: NSSize(width: 32, height: 28))
 
@@ -43,17 +43,17 @@ class SeparatorViewController: NSViewController {
 
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("primary-separator-styles"),
-				type: .Grouped,
+				type: .grouped,
 				switching: .selectAny,
 				segmentWidths: 32) {
 
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_bold.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_bold.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_italic.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_italic.template, scaling: .scaleProportionallyDown)
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_underline.template, scaling: .scaleProportionallyDown)
-				
+					.image(ProjectAssets.Image.toolbar_underline.template, scaling: .scaleProportionallyDown)
+
 			}
 			.label("Styles Grouped")
 			.legacySizes(minSize: NSSize(width: 105, height: 27))
@@ -69,17 +69,17 @@ class SeparatorViewController: NSViewController {
 
 			DSFToolbar.Segmented(
 				NSToolbarItem.Identifier("primary-separator-justification"),
-				type: .Grouped,
+				type: .grouped,
 				switching: .selectOne,
 				segmentWidths: 32,
 				segments: DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_left.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.Image.toolbar_justify_left.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_centre.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.Image.toolbar_justify_centre.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_right.template, scaling: .scaleProportionallyDown),
+					.image(ProjectAssets.Image.toolbar_justify_right.template, scaling: .scaleProportionallyDown),
 				DSFToolbar.Segmented.Segment()
-					.image(ProjectAssets.ImageSet.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
+					.image(ProjectAssets.Image.toolbar_justify_full.template, scaling: .scaleProportionallyDown)
 			)
 			.label("Justify Grouped")
 			.legacySizes(minSize: NSSize(width: 140, height: 27))

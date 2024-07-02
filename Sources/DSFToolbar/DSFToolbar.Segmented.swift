@@ -46,9 +46,9 @@ public extension DSFToolbar {
 		/// The types of segmented control
 		public enum SegmentedType {
 			/// Individual segment elements
-			case Separated
+			case separated
 			/// Grouped segments
-			case Grouped
+			case grouped
 		}
 
 		/// Create a Segmented Control toolbar item
@@ -123,8 +123,8 @@ public extension DSFToolbar {
 
 			s.segmentStyle = {
 				switch type {
-				case .Grouped: return .capsule
-				case .Separated: return .separated
+				case .grouped: return .capsule
+				case .separated: return .separated
 				}
 			}()
 
@@ -276,9 +276,10 @@ public extension DSFToolbar.Segmented {
 		private weak var parent: DSFToolbar.Segmented?
 
 		// A work-around for enabled bindings not passing the initial value through.
-		private var preCreateValue: Bool?
+		private var initialEnabledValue: Bool?
+		private var initialImageValue: DSFImage?
 
-		private var _title = ""
+		private var _title: String?
 
 		/// Set the title for the segment
 		public func title(_ string: String) -> Segment {
@@ -312,6 +313,8 @@ public extension DSFToolbar.Segmented {
 
 		/// Individual segment binding
 		private var _segmentEnabled: ValueBinder<Bool>?
+		/// Individual segment image
+		private var _segmentImageBinder: ValueBinder<DSFImage?>?
 
 		/// Bind the enabled state for the segment to a member variable
 		/// - Parameters:
@@ -331,13 +334,33 @@ public extension DSFToolbar.Segmented {
 				parent.segmented.setEnabled(newValue, forSegment: self.index)
 			}
 			else {
-				self.preCreateValue = newValue
+				self.initialEnabledValue = newValue
+			}
+		}
+
+		/// Bind the segment's image
+		/// - Parameter imageBinder: The image binding
+		/// - Returns: self
+		public func bindImage(_ imageBinder: ValueBinder<DSFImage?>) -> Self {
+			self._segmentImageBinder = imageBinder
+			imageBinder.register(self) { [weak self] newValue in
+				self?.updateImage(newValue)
+			}
+			return self
+		}
+
+		private func updateImage(_ image: DSFImage?) {
+			if let parent = self.parent {
+				parent.segmented.setImage(image, forSegment: self.index)
+			}
+			else {
+				self.initialImageValue = image
 			}
 		}
 
 		/// Create a segment
 		/// - Parameter title: The segment title
-		public init(title: String = "") {
+		public init(title: String? = nil) {
 			self._title = title
 			super.init()
 		}
@@ -354,14 +377,18 @@ public extension DSFToolbar.Segmented {
 			let segmented = parent.segmented
 
 			// Label
-			segmented.setLabel(self._title, forSegment: index)
+			if let title = self._title {
+				segmented.setLabel(title, forSegment: index)
+			}
 
 			// Image
 			segmented.setImage(self._image, forSegment: index)
 			segmented.setImageScaling(self._imageScaling, forSegment: index)
 
+			segmented.alignment = .center
+
 			// Tooltip
-			if #available(OSX 10.13, *) {
+			if #available(macOS 10.13, *) {
 				if let t = self._tooltip {
 					segmented.setToolTip(t, forSegment: index)
 				}
@@ -374,9 +401,14 @@ public extension DSFToolbar.Segmented {
 			// If we have the preCreateValue, it means that the binding was
 			// created, but its initial value will not have been passed through
 			// to the control. If so, push the value through
-			if let p = self.preCreateValue {
+			if let p = self.initialEnabledValue {
 				segmented.setEnabled(p, forSegment: index)
-				self.preCreateValue = nil
+				self.initialEnabledValue = nil
+			}
+
+			if let p = self.initialImageValue {
+				segmented.setImage(p, forSegment: index)
+				self.initialImageValue = nil
 			}
 		}
 

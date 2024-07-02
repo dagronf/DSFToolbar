@@ -85,7 +85,7 @@ class PopupMenuViewcontroller: NSViewController {
 			popoverContentController: self.popovercontent
 		)
 		.label("Color")
-		.image(ProjectAssets.ImageSet.toolbar_cog.template)
+		.image(ProjectAssets.Image.toolbar_cog.template)
 		.legacySizes(minSize: NSSize(width: 80, height: 30))
 		.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.popoverViewEnabled))
 		//.bindIsEnabled(to: self, withKeyPath: \PopupMenuViewcontroller.popoverViewEnabled)
@@ -106,7 +106,7 @@ class PopupMenuViewcontroller: NSViewController {
 		) {
 			DSFToolbar.PopupButton(NSToolbarItem.Identifier("PopupButton"), menu: self.popupMenu)
 				.label("Popup")
-				.image(ProjectAssets.ImageSet.toolbar_cog.template)
+				.image(ProjectAssets.Image.toolbar_cog.template)
 				//.bindIsEnabled(to: self, withKeyPath: \PopupMenuViewcontroller.popupMenuEnabled)
 				.bindIsEnabled(try! KeyPathBinder(self, keyPath: \.popupMenuEnabled))
 

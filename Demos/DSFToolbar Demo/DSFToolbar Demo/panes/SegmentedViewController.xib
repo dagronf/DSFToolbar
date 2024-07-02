@@ -18,10 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="488" height="272"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUR-EE-ybA">
-                    <rect key="frame" x="20" y="171" width="448" height="81"/>
+                    <rect key="frame" x="20" y="134" width="448" height="118"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-7x-gyK">
-                            <rect key="frame" x="-2" y="64" width="194" height="18"/>
+                            <rect key="frame" x="-2" y="101" width="194" height="18"/>
                             <buttonCell key="cell" type="check" title="First Bold Segment Enabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5sQ-Wy-5kg">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -31,7 +31,7 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FlG-j8-1NK">
-                            <rect key="frame" x="-7" y="30" width="72" height="32"/>
+                            <rect key="frame" x="-7" y="67" width="72" height="32"/>
                             <buttonCell key="cell" type="push" title="Set all" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Buy-aE-qxK">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -41,10 +41,10 @@
                             </connections>
                         </button>
                         <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4w0-qo-u3L">
-                            <rect key="frame" x="0.0" y="26" width="448" height="5"/>
+                            <rect key="frame" x="0.0" y="63" width="448" height="5"/>
                         </box>
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2W3-Nb-Ryw">
-                            <rect key="frame" x="0.0" y="0.0" width="394" height="20"/>
+                            <rect key="frame" x="0.0" y="37" width="394" height="20"/>
                             <subviews>
                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bhf-Kx-0Q0">
                                     <rect key="frame" x="-2" y="2" width="120" height="16"/>
@@ -79,14 +79,31 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
+                        <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Mci-Kl-hWG">
+                            <rect key="frame" x="0.0" y="26" width="448" height="5"/>
+                        </box>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3oC-Sp-bwk">
+                            <rect key="frame" x="-7" y="-7" width="177" height="32"/>
+                            <buttonCell key="cell" type="push" title="Rotate segment images" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLk-Io-XJm">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotate:" target="-2" id="jRb-zO-NEb"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>

@@ -334,6 +334,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2337AF0D2522A1430098AB2D /* Build configuration list for PBXNativeTarget "DSFToolbar Demo" */;
 			buildPhases = (
+				23353A0D2C338A9700DAC364 /* Run Squeaker */,
 				2337AEFB2522A1420098AB2D /* Sources */,
 				2337AEFC2522A1420098AB2D /* Frameworks */,
 				2337AEFD2522A1420098AB2D /* Resources */,
@@ -482,6 +483,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23353A0D2C338A9700DAC364 /* Run Squeaker */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Squeaker";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# /usr/bin/swift /Users/dford/Projects/Projects/Squeaker/Squeaker/main.swift \"${PROJECT_DIR}/DSFToolbar Demo\" \"${PROJECT_DIR}/DSFToolbar Demo/ProjectAssets.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2337AEFB2522A1420098AB2D /* Sources */ = {
