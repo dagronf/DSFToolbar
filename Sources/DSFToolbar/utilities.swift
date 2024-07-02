@@ -51,3 +51,7 @@ internal extension Sequence where Element: Equatable {
 		}
 	}
 }
+
+@inlinable @inline(__always) func using<T>(_ t: T, _ block: (T) -> Void) {
+	block(t)
+}

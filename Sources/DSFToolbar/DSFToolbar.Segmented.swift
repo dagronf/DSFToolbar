@@ -45,7 +45,9 @@ public extension DSFToolbar {
 	class Segmented: Core {
 		/// The types of segmented control
 		public enum SegmentedType {
+			/// Individual segment elements
 			case Separated
+			/// Grouped segments
 			case Grouped
 		}
 
@@ -107,7 +109,7 @@ public extension DSFToolbar {
 
 			super.init(identifier)
 
-			let s = NSSegmentedControl(frame: .zero)
+			let s = self.segmented
 			s.translatesAutoresizingMaskIntoConstraints = false
 			s.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 			s.trackingMode = switching
@@ -131,7 +133,6 @@ public extension DSFToolbar {
 			s.action = #selector(self.itemPressed(_:))
 
 			s.segmentCount = segments.count
-			self.segmented = s
 
 			// Initialize each segment
 			segments.enumerated().forEach { seg in
@@ -148,10 +149,13 @@ public extension DSFToolbar {
 
 		/// Called when the toolbar is being closed
 		override public func close() {
+			Logging.memory("DSFToolbar.Segmented [%@] close...", args: self.identifier.rawValue)
+
 			self._actionBlock = nil
 
 			// detach selection binding
-			self._selectionBinding = nil
+			self._selectionBinding?.deregister(self)
+			self._segmentEnabledBinding?.deregister(self)
 
 			self.segmentedItem?.view = nil
 			self.segmentedItem = nil
@@ -159,32 +163,29 @@ public extension DSFToolbar {
 			self.segments.forEach { $0.close() }
 			self.segments = []
 
-			self.segmented?.target = nil
-			self.segmented?.action = nil
-			self.segmented = nil
+			self.segmented.target = nil
+			self.segmented.action = nil
 
 			super.close()
 		}
 
 		deinit {
-			self._actionBlock = nil
-			self._selectionBinding?.deregister(self)
-			self._segmentEnabledBinding?.deregister(self)
 			Logging.memory("DSFToolbar.Segmented [%@] deinit", args: self.identifier.rawValue)
 		}
 
 		// private
 
-		private var segmented: NSSegmentedControl?
+		override var toolbarItem: NSToolbarItem? { self.segmentedItem }
+
+		private let segmented = NSSegmentedControl(frame: .zero)
 		private var segmentedItem: NSToolbarItem?
 
-		override var toolbarItem: NSToolbarItem? {
-			return self.segmentedItem
-		}
+		private var segments: [Segment]
 
-		var segments: [Segment]
-
+		// Action
 		private var _actionBlock: ((IndexSet) -> Void)?
+
+		// Binding
 		private var _selectionBinding: ValueBinder<IndexSet>?
 		private var _segmentEnabledBinding: ValueBinder<IndexSet>?
 	}
@@ -201,10 +202,9 @@ extension DSFToolbar.Segmented {
 		return self
 	}
 
-	@objc private func itemPressed(_: Any) {
-		guard let s = self.segmented else { return }
+	@objc private func itemPressed(_ sender: Any) {
 		let selected: [Int] = self.segments.enumerated().compactMap { segment in
-			if s.isSelected(forSegment: segment.offset) {
+			if self.segmented.isSelected(forSegment: segment.offset) {
 				return segment.offset
 			}
 			return nil
@@ -236,9 +236,8 @@ extension DSFToolbar.Segmented {
 	}
 
 	private func setSelection(selectedItems: IndexSet) {
-		guard let s = self.segmented else { fatalError() }
 		self.segments.enumerated().forEach { segment in
-			s.setSelected(
+			self.segmented.setSelected(
 				selectedItems.contains(segment.offset),
 				forSegment: segment.offset
 			)
@@ -261,10 +260,9 @@ extension DSFToolbar.Segmented {
 	}
 
 	private func setEnabled(_ which: IndexSet) {
-		guard let s = self.segmented else { return }
 		self.segments.enumerated().forEach { item in
 			let newValue = which.contains(item.offset)
-			s.setEnabled(newValue, forSegment: item.offset)
+			self.segmented.setEnabled(newValue, forSegment: item.offset)
 		}
 	}
 }
@@ -325,7 +323,7 @@ public extension DSFToolbar.Segmented {
 		}
 
 		private func updateIsEnabled(_ newValue: Bool) {
-			self.parent?.segmented?.setEnabled(newValue, forSegment: self.index)
+			self.parent?.segmented.setEnabled(newValue, forSegment: self.index)
 		}
 
 		public init(title: String = "") {
@@ -342,9 +340,7 @@ public extension DSFToolbar.Segmented {
 			self.parent = parent
 			self.index = index
 
-			guard let segmented = parent.segmented else {
-				fatalError()
-			}
+			let segmented = parent.segmented
 
 			// Label
 			segmented.setLabel(self._title, forSegment: index)
@@ -377,13 +373,8 @@ extension DSFToolbar.Segmented {
 	// Legacy for older systems
 	override func changeToUseLegacySizing() {
 		// If we're using legacy sizing, we have to remove the constraints first
-
-		guard let b = self.segmented else {
-			fatalError()
-		}
-
-		b.translatesAutoresizingMaskIntoConstraints = true
-		b.removeConstraints(b.constraints)
+		self.segmented.translatesAutoresizingMaskIntoConstraints = true
+		self.segmented.removeConstraints(self.segmented.constraints)
 	}
 }
 

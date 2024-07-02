@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,7 +22,7 @@
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-7x-gyK">
                             <rect key="frame" x="-2" y="64" width="194" height="18"/>
-                            <buttonCell key="cell" type="check" title="First Bold Segment Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5sQ-Wy-5kg">
+                            <buttonCell key="cell" type="check" title="First Bold Segment Enabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5sQ-Wy-5kg">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -44,7 +44,7 @@
                             <rect key="frame" x="0.0" y="26" width="448" height="5"/>
                         </box>
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2W3-Nb-Ryw">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="394" height="20"/>
                             <subviews>
                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bhf-Kx-0Q0">
                                     <rect key="frame" x="-2" y="2" width="120" height="16"/>
@@ -55,7 +55,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kuy-M8-FKg">
-                                    <rect key="frame" x="121" y="-2" width="264" height="24"/>
+                                    <rect key="frame" x="121" y="-2" width="276" height="24"/>
                                     <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectAny" id="bpW-Of-xUh">
                                         <font key="font" metaFont="system"/>
                                         <segments>

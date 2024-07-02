@@ -52,7 +52,6 @@ class SegmentedViewController: NSViewController {
 		}
 		self.justificationEnabledBinding.wrappedValue = enabled
 	}
-	
 
 	func build() {
 		self.toolbarContainer = DSFToolbar(

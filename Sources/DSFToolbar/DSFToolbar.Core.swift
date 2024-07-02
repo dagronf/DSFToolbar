@@ -53,17 +53,22 @@ public extension DSFToolbar {
 		}
 
 		public func close() {
+			self._labelBinder?.deregister(self)
 			self._labelBinder = nil
-			self._enabledBinder = nil
+			self._isEnabledBinder?.deregister(self)
+			self._isEnabledBinder = nil
+			self._isHiddenBinder?.deregister(self)
+			self._isHiddenBinder = nil
 		}
 
 		// Is the item selectable?
 		private(set) var isSelectable = false
+
 		private var _labelBinder: ValueBinder<String>?
+		private var _isEnabledBinder: ValueBinder<Bool>?
+		private var _isHiddenBinder: ValueBinder<Bool>?
 
-		internal var hasEnabledBinding: Bool { self._enabledBinder != nil }
-		private var _enabledBinder: ValueBinder<Bool>?
-
+		internal var hasEnabledBinding: Bool { self._isEnabledBinder != nil }
 		internal var isDefaultItem = true
 	}
 }
@@ -192,13 +197,26 @@ extension DSFToolbar.Core {
 	/// - Returns: self
 	@discardableResult
 	public func bindIsEnabled(_ isEnabledBinder: ValueBinder<Bool>) -> Self {
-		self._enabledBinder = isEnabledBinder
+		self._isEnabledBinder = isEnabledBinder
 		isEnabledBinder.register(self) { [weak self] newEnabledState in
 			self?.toolbarItem?.isEnabled = newEnabledState
 			self?.isEnabledDidChange(to: newEnabledState)
 		}
 		return self
 	}
+
+//	/// Bind the hidden status of a toolbar item
+//	/// - Parameters:
+//	///   - binder: The binding object to connect
+//	/// - Returns: self
+//	@available(macOS 15, *)
+//	@discardableResult public func bindIsHidden(_ isHiddenBinder: ValueBinder<Bool>) -> Self {
+//		self._isHiddenBinder = isHiddenBinder
+//			isHiddenBinder.register(self) { [weak self] newState in
+//			self?.toolbarItem?.isHidden = newState
+//		}
+//		return self
+//	}
 }
 
 #if os(macOS)
