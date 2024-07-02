@@ -62,9 +62,11 @@ public extension DSFToolbar {
 		// Private
 
 		override public func close() {
-			self._searchTextBinding = nil
-			self._searchField = nil
+			Logging.memory("DSFToolbar.Search closing")
 			self._delegate = nil
+
+			self._searchTextBinding?.deregister(self)
+			self._searchTextBinding = nil
 
 			if #available(macOS 11, *) {
 				// No need to do anything
@@ -72,16 +74,17 @@ public extension DSFToolbar {
 			else {
 				self.toolbarItem?.view = nil
 			}
+			self._searchField.removeFromSuperview()
 			super.close()
 		}
 
 		override func isEnabledDidChange(to state: Bool) {
-			self._searchField?.isEnabled = state
+			self._searchField.isEnabled = state
 		}
 
 		private let maxWidth: CGFloat
 		private weak var _delegate: NSSearchFieldDelegate?
-		private var _searchField: NSSearchField?
+		private var _searchField = NSSearchField()
 
 		private var _searchChange: ((NSSearchField, String) -> Void)?
 		private var _searchTextBinding: ValueBinder<String>?
@@ -93,7 +96,7 @@ public extension DSFToolbar {
 public extension DSFToolbar.Search {
 	/// Set the placeholder text for the search field
 	func placeholderText(_ text: String) -> Self {
-		self._searchField?.placeholderString = text
+		self._searchField.placeholderString = text
 		return self
 	}
 
@@ -103,7 +106,7 @@ public extension DSFToolbar.Search {
 	@discardableResult
 	func delegate(_ delegate: NSSearchFieldDelegate) -> Self {
 		self._delegate = delegate
-		self._searchField?.delegate = delegate
+		self._searchField.delegate = delegate
 		return self
 	}
 }
@@ -118,7 +121,7 @@ public extension DSFToolbar.Search {
 	func onSearchTextChange(_ action: @escaping (NSSearchField, String) -> Void) -> Self {
 		self._searchChange = action
 		self._delegate = self
-		self._searchField?.delegate = self
+		self._searchField.delegate = self
 		return self
 	}
 }
@@ -132,10 +135,10 @@ public extension DSFToolbar.Search {
 	@discardableResult
 	func bindSearchText(_ searchBinder: ValueBinder<String>) -> Self {
 		_searchTextBinding = searchBinder
-		self._searchField?.delegate = self
+		self._searchField.delegate = self
 
 		searchBinder.register(self) { [weak self] newValue in
-			self?._searchField?.stringValue = newValue
+			self?._searchField.stringValue = newValue
 		}
 		return self
 	}
@@ -167,35 +170,23 @@ extension DSFToolbar.Search {
 			return si
 		}
 		else {
-			var ms: NSSize?
-
-			let si = NSSearchField()
-
-			if #available(macOS 10.13, *) {
-				si.translatesAutoresizingMaskIntoConstraints = false
-				si.addConstraint(
+			using(self._searchField) {
+				$0.translatesAutoresizingMaskIntoConstraints = false
+				$0.addConstraint(
 					NSLayoutConstraint(
-						item: si,
+						item: $0,
 						attribute: .width,
 						relatedBy: .lessThanOrEqual,
 						toItem: nil, attribute: .notAnAttribute,
 						multiplier: 1, constant: self.maxWidth
 					)
 				)
-			}
-			else {
-				ms = NSSize(width: self.maxWidth, height: 20)
+
+				$0.delegate = self._delegate
 			}
 
-			si.delegate = self._delegate
-			self._searchField = si
 			let a = NSToolbarItem(itemIdentifier: self.identifier)
-			a.view = si
-
-			if let mss = ms {
-				a.minSize = mss
-			}
-
+			a.view = self._searchField
 			return a
 		}
 	}

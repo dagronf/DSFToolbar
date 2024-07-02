@@ -113,14 +113,7 @@ public extension DSFToolbar {
 			s.translatesAutoresizingMaskIntoConstraints = false
 			s.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 			s.trackingMode = switching
-
-			if #available(OSX 10.13, *) {
-				s.segmentDistribution = .fillEqually
-			}
-			else {
-				// Fallback on earlier versions
-			}
-
+			s.segmentDistribution = .fillEqually
 			s.segmentStyle = {
 				switch type {
 				case .grouped: return .capsule
@@ -388,13 +381,8 @@ public extension DSFToolbar.Segmented {
 			segmented.alignment = .center
 
 			// Tooltip
-			if #available(macOS 10.13, *) {
-				if let t = self._tooltip {
-					segmented.setToolTip(t, forSegment: index)
-				}
-				else {
-					segmented.setToolTip(_title, forSegment: index)
-				}
+			if let t = self._tooltip {
+				segmented.setToolTip(t, forSegment: index)
 			}
 
 			// The isEnabled binding _may_ have been set up before we actually exist
