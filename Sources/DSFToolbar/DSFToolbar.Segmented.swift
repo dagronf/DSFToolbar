@@ -272,10 +272,13 @@ extension DSFToolbar.Segmented {
 public extension DSFToolbar.Segmented {
 	/// Definition of a segment within a segmented control
 	class Segment: NSObject {
-		var index: Int = -1
-		weak var parent: DSFToolbar.Segmented?
+		private var index: Int = -1
+		private weak var parent: DSFToolbar.Segmented?
 
-		var _title = ""
+		// A work-around for enabled bindings not passing the initial value through.
+		private var preCreateValue: Bool?
+
+		private var _title = ""
 
 		/// Set the title for the segment
 		public func title(_ string: String) -> Segment {
@@ -323,9 +326,17 @@ public extension DSFToolbar.Segmented {
 		}
 
 		private func updateIsEnabled(_ newValue: Bool) {
-			self.parent?.segmented.setEnabled(newValue, forSegment: self.index)
+			// This might be called before the parent is set.
+			if let parent = self.parent {
+				parent.segmented.setEnabled(newValue, forSegment: self.index)
+			}
+			else {
+				self.preCreateValue = newValue
+			}
 		}
 
+		/// Create a segment
+		/// - Parameter title: The segment title
 		public init(title: String = "") {
 			self._title = title
 			super.init()
@@ -357,6 +368,15 @@ public extension DSFToolbar.Segmented {
 				else {
 					segmented.setToolTip(_title, forSegment: index)
 				}
+			}
+
+			// The isEnabled binding _may_ have been set up before we actually exist
+			// If we have the preCreateValue, it means that the binding was
+			// created, but its initial value will not have been passed through
+			// to the control. If so, push the value through
+			if let p = self.preCreateValue {
+				segmented.setEnabled(p, forSegment: index)
+				self.preCreateValue = nil
 			}
 		}
 
