@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,8 +24,8 @@
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfr-ur-MfJ">
                             <rect key="frame" x="0.0" y="22" width="150" height="18"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5zN-By-W9q">
-                                    <rect key="frame" x="-2" y="1" width="16" height="16"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="999" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="5zN-By-W9q">
+                                    <rect key="frame" x="-2" y="1" width="17" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="L" id="Pqa-fe-bQN">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -33,7 +33,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-dh-vIY">
-                                    <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <rect key="frame" x="21" y="-1" width="129" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="2p5-hM-wiZ"/>
                                     </constraints>
@@ -59,8 +59,8 @@
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ig-ak-CEH">
                             <rect key="frame" x="0.0" y="0.0" width="150" height="18"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oNt-hI-TIZ">
-                                    <rect key="frame" x="-2" y="1" width="16" height="16"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="oNt-hI-TIZ">
+                                    <rect key="frame" x="-2" y="1" width="17" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="R" id="RBa-yW-JgY">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -68,7 +68,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <levelIndicator wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7ZD-ke-4vX">
-                                    <rect key="frame" x="20" y="-1" width="130" height="18"/>
+                                    <rect key="frame" x="21" y="-1" width="129" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="5Pa-8d-J0D"/>
                                     </constraints>
